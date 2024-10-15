@@ -16,18 +16,18 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DOTjlLkP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.pnQ-aq7J.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.Dre08-OG.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DkgqmrYX.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index.KEXCFnl8.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.CP36r_sj.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/4.C68qX5D8.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/navbar.Dq_HBQv8.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/15.DLSF-Jcd.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.YlY729-z.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Ca4LRjFr.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.CufrTsdM.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.C52-EFNb.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.CufBhhP2.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.B9LMutF7.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/4.DWzG_wwY.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/navbar.boXza36d.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/16.2gqpsjVB.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/spread.CgU5AtxT.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/blog.ZySM1lpf.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/resources.fSw4pCni.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/blog.BwWZGTwR.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/resources.Bt5hxEn2.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">  <main class="container mt-5"><div class="columns"><div class="column"><div class="tabs is-boxed is-right"><ul><li class=""><a href="/blog" data-svelte-h="svelte-1pkmwhq"><span class="icon is-small"><i class="fas fa-fire" aria-hidden="true"></i></span> <span>Blog</span></a></li> <li class="is-active"><a href="/research" data-svelte-h="svelte-axh4gx"><span class="icon is-small"><i class="fas fa-atom" aria-hidden="true"></i></span> <span>Research</span></a></li></ul></div></div> <div class="column is-narrow"><a href="."><b style="font-weight: 800" class="title is-3">tdooms</b></a></div> <div class="column"><div class="tabs is-boxed is-left"><ul><li class=""><a href="/projects" data-svelte-h="svelte-lnjikn"><span class="icon is-small"><i class="fas fa-code" aria-hidden="true"></i></span> <span>Projects</span></a></li> <li class=""><a href="/resume" data-svelte-h="svelte-d2d5v"><span class="icon is-small"><i class="far fa-file-alt" aria-hidden="true"></i></span> <span>Resume</span></a></li></ul></div></div></div> <div class="content has-text-justified" style="margin: 0 auto;max-width: 880px;"> <div class="columns mb-0"><div class="column has-text-left"><h2 class="title is-2 mb-0">Tokenized SAEs</h2></div> <div class="column is-narrow has-text-right"><h6 class="title is-6 mt-5">18 Jul 2024</h6></div></div> <p data-svelte-h="svelte-8oxhqk"><b>Thomas Dooms</b>, Daniel Wilhelm</p> <div class="mt-6" data-svelte-h="svelte-wdfy0z"></div> <div class="columns is-centered"><div class="column is-2 px-3"><a class="box has-text-centered" href="https://openreview.net/attachment?id=5Eas7HCe38&amp;name=pdf" target="_blank"><span class="icon is-large" data-svelte-h="svelte-1016q84"><i class="fa-regular fa-xl fa-file"></i></span> <p data-svelte-h="svelte-v0we3a">Paper</p></a></div> <div class="column is-2"><a class="box has-text-centered" href="https://github.com/tdooms/smol-sae" target="_blank"><span class="icon is-large" data-svelte-h="svelte-1j6hihf"><i class="fa-brands fa-xl fa-github"></i></span> <p data-svelte-h="svelte-v8f87x">Code</p></a></div> </div> <h3 data-svelte-h="svelte-1q8ftns">Background</h3> <p data-svelte-h="svelte-8pic1r">Sparse auto-encoders have become the main focus of mechinterp research; they provide a means to extract interpretable bases from intermediate stages of the model.
@@ -43,7 +43,7 @@ We again show the speedup.</p> <figure data-svelte-h="svelte-1d52r7y"><img src="
 			
 			<script>
 				{
-					__sveltekit_j38joz = {
+					__sveltekit_1hieuc5 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -52,11 +52,11 @@ We again show the speedup.</p> <figure data-svelte-h="svelte-1d52r7y"><img src="
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DOTjlLkP.js"),
-						import("../_app/immutable/entry/app.DkgqmrYX.js")
+						import("../_app/immutable/entry/start.YlY729-z.js"),
+						import("../_app/immutable/entry/app.C52-EFNb.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
-							node_ids: [0, 4, 15],
+							node_ids: [0, 4, 16],
 							data,
 							form: null,
 							error: null

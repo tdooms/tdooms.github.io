@@ -21556,4 +21556,8 @@ has-background-danger.is-hoverable:active {
   pointer-events: all !important;
 }
 
+:root {
+  --primary-color: $primary;
+}
+
 /*# sourceMappingURL=styles.css.map */

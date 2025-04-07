@@ -1,5 +1,4 @@
 .svelte-kit
-build
 node_modules
 static/styles.css
 package-lock.json

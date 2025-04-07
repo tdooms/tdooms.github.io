@@ -2,10 +2,6 @@
     export let title: string;
     export let date: string;
     export let published: string;
-
-    export let image: string;
-    export let alt: string;
-
     export let description: string;
 
     export let link: string;

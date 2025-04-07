@@ -9,7 +9,7 @@ kind: research
   import Cite from "$lib/research/cite.svelte"
 </script>
 
-<p> Lennart Finke, Juan Diego Rodriguez, <b>Thomas Dooms</b>, Mat Allen, Thomas Marshall, Noa Nabeshima, Dan Braun  </p>
+<p> Lennart Finke, <b>Thomas Dooms</b>, Mat Allen, Juan Diego Rodriguez, Noa Nabeshima, Dan Braun   </p>
 
 <div class="mt-6"> </div>
 
@@ -23,7 +23,7 @@ This stems for a lack of structure in most datasets, containing random scraps of
 Hence, there is increasing need for structured datasets that can help guide interpretability research toward concrete goals.
 
 One milestone toward this is [TinyStories](https://arxiv.org/abs/2305.07759), a dataset containing millions of children's stories.
-Tiny language models (~10 million parameter) trained on this dataset can generate coherent and creative stories.
+Tiny language models (~10 million parameters) trained on this dataset can generate coherent and creative stories.
 The combination of tiny models and constrained problem space forms a perfect testbed for understanding these models.
 
 Unfortunately, this dataset suffers from a few issues:

@@ -37,5 +37,5 @@
 
 
 {#each work as job}
-    <Media date={work.date} title={work.title} icon={work.icon}> <p class="mt-2"> {job.text} </p> </Media>
+    <Media {...job}> <p class="mt-2"> {job.text} </p> </Media>
 {/each}

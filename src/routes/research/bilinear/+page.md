@@ -1,7 +1,6 @@
 ---
-title: Bilinear Decomposition
-date: 15 Oct 2024
-kind: research
+title: Bilinear MLPs enable weight-based interpretability
+back: research
 ---
 
 <script>

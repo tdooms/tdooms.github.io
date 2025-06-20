@@ -1,5 +1,5 @@
 ---
-title: Bilinear Decomposition
+title: "Weight-based Decomposition"
 date: 18 Jul 2024
 kind: research
 ---
@@ -19,7 +19,7 @@ kind: research
     models="https://huggingface.co/collections/tdooms/bilinear-66991d82406db9529a7170d2"
 />
 
-> This page has been superseded by a newer [version](/research/bilinear), which discusses our updated [paper](https://arxiv.org/pdf/2410.08417).
+> This paper has been superseded by a newer [version](/research/bilinear).
 
 ### Background
 

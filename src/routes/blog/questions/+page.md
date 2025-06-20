@@ -1,5 +1,5 @@
 ---
-title: Beginner questions about deep learning
+title: Reflecting on deep learning questions
 date: 11/01/2024
 ---
 

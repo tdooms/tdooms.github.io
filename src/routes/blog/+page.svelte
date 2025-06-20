@@ -3,13 +3,19 @@
 
     const blogs = [
         {
-            title: "An analogy of neural networks and the human body",
+            title: "A gentle introduction to tensor networks",
+            date: "20 Jun 2025",
+            image: "blogs/tensornetworks.png",
+            location: "blog/tensors"
+        },
+        {
+            title: "Interpretability and the human body",
             date: "17 Jan 2024",
             image: "blogs/medicine.png",
             location: "blog/medicine"
         },
         {
-            title: "Reflecting on beginner questions in machine learning",
+            title: "Reflecting on deep learning questions",
             date: "11 Jan 2024",
             image: "blogs/questions.png",
             location: "blog/questions"

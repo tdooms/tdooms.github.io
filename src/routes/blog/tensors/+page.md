@@ -81,7 +81,7 @@ In short, for each connection/edge/wire, we view both sides as two huge matrices
 > Even though this algorithm assumes a tree tensor network (such that both sides are disconnected), you can still perform this to get meaningful results in arbitrary networks.
 
 I've only found one paper that is [somewhat accessible](https://arxiv.org/pdf/1801.05390) on the topic.
-Then there are two papers, describing [theory](https://arxiv.org/pdf/1705.00880) and [algorithms](https://arxiv.org/pdf/1811.04455) which are insightful but basically not impossible to understand by mere mortals.
+Then there are two papers, describing [theory](https://arxiv.org/pdf/1705.00880) and [algorithms](https://arxiv.org/pdf/1811.04455) which are insightful but basically impossible to understand by mere mortals.
 I tried writing [a paper](https://arxiv.org/pdf/2504.02667) to distill these ideas, but it's still a bit hard to grasp probably.
 
 ## Generalising 'structure' with tensor networks

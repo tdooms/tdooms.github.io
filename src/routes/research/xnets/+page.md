@@ -1,7 +1,6 @@
 ---
-title: Introducing X-nets
-date: 12 Mar 2024
-kind: research
+title: Compositionality unlocks deep interpretable models
+back: research
 ---
 
 <script>

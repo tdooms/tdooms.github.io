@@ -2,6 +2,7 @@
     import Navbar from "$lib/navbar.svelte";
 </script>
 
+
 <Navbar />
 
 <div class="columns">
@@ -11,11 +12,14 @@
                 <img class="is-rounded" src="profile.jpg" alt="me :)" />
             </figure>
             <h4 class="subtitle is-4"> <b> Thomas Dooms </b> </h4>
-            <!-- <h6 class="subtitle is-6"> Antwerp, Belgium </h6> -->
 
             <h6 class="subtitle is-6"> Interpretability Researcher </h6>
 
             <hr />
+            <div class="block">
+                <span class="icon"><i class="fas fa-calendar"></i> </span>
+                <span> <a href="https://cal.com/tdooms"> 1-on-1 </span>
+            </div>
             <div class="block">
                 <span class="icon"><i class="fab fa-x-twitter"></i> </span>
                 <span> <a href="https://x.com/thomasdooms"> Twitter </span>
@@ -42,20 +46,21 @@
     <div class="column">
         <div class="box">
             <div class="content">
-                <p> Hi, I'm Thomas! I'm a second year PhD student working on mechanistic interpretability. </p>
-
-                <p>
-                    My academic interest lies in understanding neural networks from their weights. <br>
-                    I believe this to be the most promising avenue to understanding what a model has learned. <br>
-                    Tensor decompositions on the weights help us understand what is important to the model.
+                <p> Hi, I'm Thomas! I'm a PhD student working on <a href="https://compinterp.github.io">compositional interpretability</a>.
+                    I'm interested in understanding how neural networks encode complex behaviours and knowledge.
                 </p>
 
                 <p>
-                    I am guided by curiosity, strive for simplicity, and try to be effective.
+                    Modern deep networks are astonishingly intricate and difficult to disentangle.
+                    I argue that we should embrace this complexity rather than shoehorn them into simplistic feature sets, flattening the very structures we hope to understand.
                 </p>
-
+                <p>
+                    My research treats a model's weights as a compositional system whose parts interact and recombine, much like phrases in a language.
+                    By developing flexible, formally grounded tools for compositional analysis, I aim to reveal how rich mechanisms and representations arise and how we can reason about them.
+                </p>
                 <p>
                     Outside of work, I love to go on long bike rides, game with friends, go skiing and wear shorts.
+                    I used to play a lot of Diablo 3, achieving <span title="Suck it Elon">rank 1</span> in grift leaderboards at some point.
                 </p>
             </div>
         </div>

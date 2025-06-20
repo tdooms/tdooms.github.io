@@ -1,5 +1,5 @@
 ---
-title: Neural networks and the human body
+title: Interpretability and the human body
 date: 23/01/2024
 ---
 

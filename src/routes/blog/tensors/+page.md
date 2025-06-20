@@ -1,5 +1,5 @@
 ---
-title: An introduction to tensor networks
+title: A gentle introduction to tensor networks
 date: 20/06/2025
 ---
 
@@ -29,6 +29,7 @@ Consequently, tensors are generally never instantiated but rather defined in a c
 Unfortunately, I don't think a proper introductory resource exists yet.
 I have a [self-written (but incomplete) source](https://compinterp.github.io/assets/book/intro/networks.html) about tensor diagrams.
 The following are (seen as) the defaults to learn about [tensor](https://tensornetwork.org/) [networks](https://www.tensors.net/tutorials).
+There is also an [interpretability specific introduction](https://arxiv.org/pdf/2402.01790v1). Unfortunately, I think that article doesn't put sufficient emphasis on structure and algorithms.
 
 > You'll see a stark contrast between papers that use proper diagrammatic notation and others that use old-school Einstein notation. I find the latter impossible to comprehend, even with extensive experience.
 
@@ -59,11 +60,11 @@ Let's generalise a bit; there are two variables to this (this has a bunch of off
 
 From this viewpoint, it could make sense to trade off the amount of factors for a higher dimension for each. For instance, what if you changed the CPD such that each factor is dimension 2. Or, put differently, a sum of small TDs. This topic has been previously studied and lies at a fascinating intersection of [compressed sensing and tensor networks](https://tensorlab.net/doc/ll1.html).
 
-The trade-off is helpful because if the underlying computation requires interactions of rank 2, it will take many CPD ($2^k$, I think) factors to represent this. So, finding these 'joint' factors is a good way to compress the computation/interactions. In a subsequent chapter, I will further generalise structure in tensor networks and describe its geometric interpretation. In short, any form of structure, either through manifolds, bottlenecks, or (communication) flow constraints, is describable by this.
+The trade-off is helpful because if the underlying computation requires interactions of rank 2, it will take many CPD ($2^k$, I think) factors to represent this. So, finding these 'joint' factors is a good way to compress the computation/interactions. The notion of structure in tensor networks its geometric interpretation is formalised in the last section. In short, any form of structure, either through manifolds, bottlenecks, or (communication) flow constraints, is describable by this.
 
 Before that, though, I want to talk about **really** high-order tensor networks. While it becomes harder to reason about, it's not uncommon to want to describe interactions between thousands of sources. Here, the TD completely fails, even for factor dimension 2. The CPD is probably still storable but requires way too many parameters.
 
-Enter [hierarchical formats](https://publications.rwth-aachen.de/record/674222/files/674222.pdf). Instead of defining a decomposition between all modes, we can introduce 'hidden modes'. You can form a tensor tree where each decomposition only combines a few modes at a time in the form of a tree. This is known as an H(hierarchical)-Tucker decomposition. It's also possible to use the CPD to describe intermediate interactions, although I have thus far failed to find a literature reference that studies this specific network class. In any case, this idea is often abstracted as "tree tensor networks", where only a single path connects each mode. These are generally really nice to work with and have a variety of algorithms that work on them.
+Enter [hierarchical formats](https://publications.rwth-aachen.de/record/674222/files/674222.pdf). Instead of defining a decomposition between all modes, we can introduce 'hidden modes'. You can form a tensor tree where each decomposition only combines a few modes at a time in the form of a tree. This is known as an H(ierarchical)-Tucker decomposition. It's also possible to use the CPD to describe intermediate interactions, although I have thus far failed to find a literature reference that studies this specific network class. In any case, this idea is often abstracted as "tree tensor networks", where only a single path connects each mode. These are generally really nice to work with and have a variety of algorithms that work on them.
 
 ![image](/blogs/carsales.jpg)
 
@@ -89,7 +90,7 @@ As said in a previous chapter, some tensor networks allow trading factor count f
 
 One can rephrase the CPD of factor size 2 as a CPD of twice the hidden dimension, but where each factor matrix is constrained by a 2-block diagonal matrix (forcing rows/columns to be joint). This can be extended to sparsity; if the factor matrices admit a sparse decomposition, then this bounds the interactions into (small) groups of arbitrary size. See [this website](https://tensorlab.net/doc/cpd.html) and [this paper](https://lirias.kuleuven.be/retrieve/646609).
 
-Tensor networks enable the definition of high-level interaction topologies, while structured matrices facilitate the definition of low-level interactions. Both are extremely meaningful in their own right and extremely useful to find any form of 'structure'.
+Tensor networks enable the definition of high-level interaction topologies, while structured matrices facilitate the definition of low-level interactions. Both are extremely meaningful in their own right and extremely useful to find any form of 'structure'. Importantly, the interpretation of low-level structure is dependent on the higher-level structure and may lose meaning when complex non-linearities are introduced.
 
 Especially sparsity is cool because, if sufficiently low ($<3$), it explains visualisable geometries. Since tensor networks can represent polynomials (interactions with oneself), suddenly, sparsity on a CPD implies low-degree polynomial manifolds like conic sections and circles!
 

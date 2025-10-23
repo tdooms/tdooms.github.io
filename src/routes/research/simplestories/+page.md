@@ -13,7 +13,10 @@ kind: research
 
 <div class="mt-6"> </div>
 
-<Resources paper="https://openreview.net/attachment?id=JO8CtTXOsH&name=pdf"/>
+<Resources
+  paper="https://openreview.net/attachment?id=JO8CtTXOsH&name=pdf",
+  models="https://huggingface.co/datasets/SimpleStories/SimpleStories"
+/>
 
 ### Motivation
 

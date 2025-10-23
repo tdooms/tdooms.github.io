@@ -1,8 +1,10 @@
 <script lang="ts">
-    export let page: string = '';
+    type PageType = 'blog' | 'research' | 'projects' | 'resume' | '';
+    
+    let page: PageType = $props();
 
-    const is_active = (name: string): string => page === name ? "is-active" : "";
-    let burger = false;
+    const is_active = (name: PageType): string => page === name ? "is-active" : "";
+    let burger = $state(false);
 </script>
 
 <div class="columns is-hidden-mobile">
@@ -52,7 +54,20 @@
 <div class="is-hidden-desktop">
     <div class="columns is-mobile">
         <div class="column is-3">
-            <a class="navbar-burger {burger ? 'is-active' : ''}" role="button" aria-label="menu" aria-expanded={burger} on:click={() => burger = !burger}>
+            <a 
+                class="navbar-burger {burger ? 'is-active' : ''}" 
+                role="button" 
+                aria-label="menu" 
+                aria-expanded={burger}
+                tabindex="0"
+                onclick={() => burger = !burger}
+                onkeydown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        burger = !burger;
+                    }
+                }}
+            >
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>

@@ -4,4 +4,4 @@
 
 <Navbar page="demos"/>
 <div class="mb-6"></div>
-<slot />
+{@render children()}

@@ -1,5 +1,6 @@
 <script>
     import { afterNavigate } from '$app/navigation';
+    const { children } = $props();
 
     afterNavigate((navigation) => {
         gtag('event', 'page_view', {
@@ -10,6 +11,6 @@
 
 <main class="container is-max-desktop">
     <div class="p-1 mt-5">
-    <slot/>
+    {@render children()}
     </div>
 </main>

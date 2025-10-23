@@ -18,15 +18,15 @@
             <hr />
             <div class="block">
                 <span class="icon"><i class="fas fa-calendar"></i> </span>
-                <span> <a href="https://cal.com/tdooms"> 1-on-1 </span>
+                <span> <a href="https://cal.com/tdooms"> 1-on-1 </a> </span>
             </div>
             <div class="block">
                 <span class="icon"><i class="fab fa-x-twitter"></i> </span>
-                <span> <a href="https://x.com/thomasdooms"> Twitter </span>
+                <span> <a href="https://x.com/thomasdooms"> Twitter </a> </span>
             </div>
             <div class="block">
                 <span class="icon"><i class="fas fa-envelope"></i> </span>
-                <span> <a href="mailto:doomsthomas@gmail.com"> Email </span>
+                <span> <a href="mailto:doomsthomas@gmail.com"> Email </a> </span>
             </div>
             <div class="block">
                 <span class="icon"><i class="fab fa-linkedin"></i> </span>

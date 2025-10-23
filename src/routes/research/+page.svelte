@@ -71,6 +71,14 @@ const posts = [
 ]
 const presentations = [
     {
+        "title": "A compositional approach to interpretability",
+        "date": "Oct 2025",
+        "published": "Flanders AI Day",
+        "description": "A deep-dive session on defining interpretability.",
+        "link": "https://docs.google.com/presentation/d/1H9X0Yb2DDh4LpGCMn3yzf3_KggxJTj2su48iuE1Z1vY/edit?usp=sharing",
+        "external": true
+    },
+    {
         "title": "Weight-based interpretability",
         "date": "Oct 2024",
         "published": "Flanders AI Day",

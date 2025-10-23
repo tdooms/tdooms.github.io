@@ -13,6 +13,12 @@ npm run dev
 
 can also use ``npm watch`` instead of ``npm setup`` to continually update the css.
 
+Here's a list of commands I've used previously that were useful.
+
+```bash
+npx npm-check-updates -u # update all dependencies to latest version 
+```
+
 ## Deployment
 
 ```bash

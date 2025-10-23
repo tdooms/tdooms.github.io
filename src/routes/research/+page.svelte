@@ -3,6 +3,20 @@
 
 const papers = [
     {
+        "title": "Finding manifolds with bilinear autoencoders",
+        "date": "Oct 2025",
+        "published": "NeurIPS'25 MI workshop",
+        "description": "Autoencoder architecture that decomposes activations into polynomial manifolds.",
+        "link": "research/bae",
+    },
+    {
+        "title": "Parameterized Synthetic Text Generation with SimpleStories",
+        "date": "Oct 2025",
+        "published": "NeurIPS'25",
+        "description": "A synthetic dataset containing diverse but simple stories.",
+        "link": "research/simplestories",
+    },
+    {
         "title": "Parameterized Synthetic Text Generation with SimpleStories",
         "date": "Mar 2025",
         "published": "ICLR'25 SynthData workshop",
@@ -28,13 +42,13 @@ const papers = [
         "date": "Jun 2024",
         "published": "ICML'24 MI workshop",
         "description": "Introducing bilinear MLPs as a new approach to weight-based interpretability.",
-        "link": "research/decomposition"
+        "link": "research/bilinear/v1"
     },
     {
         "title": "Tokenized SAEs: Disentangling SAE Reconstructions",
         "date": "Jun 2024",
         "published": "ICML'24 MI workshop",
-        "description": "We propose using a per-token bias in SAEs to separate token reconstructions from interesting, semantic features.",
+        "description": "Using a per-token bias in SAEs to separate token reconstructions from interesting features.",
         "link": "research/tokenized"
     },
     {

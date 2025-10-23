@@ -1,12 +1,14 @@
 <script lang="ts">
-    export let title: string;
-    export let date: string;
-    export let published: string;
-    export let description: string;
+    interface Props {
+        title: string;
+        date: string;
+        published: string;
+        description: string;
+        link: string;
+        external?: boolean;
+    }
 
-    export let link: string;
-    export let external: boolean = false;
-
+    let { title, date, published, description, link, external = false }: Props = $props();
 </script>
 
 <style>

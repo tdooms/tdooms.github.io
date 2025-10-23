@@ -1,7 +1,12 @@
 <script lang="ts">
-    export let icon: string;
-    export let title: string;
-    export let date: string;
+    interface Props {
+        icon: string;
+        title: string;
+        date: string;
+        children: any;
+    }
+
+    let { icon, title, date, children }: Props = $props();
 </script>
 
 <div class="box">
@@ -16,5 +21,5 @@
             <h6> {date} </h6>
         </div>
     </div>
-    <slot />
+    {@render children()}
 </div>

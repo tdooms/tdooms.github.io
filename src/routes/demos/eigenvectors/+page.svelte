@@ -1,21 +1,36 @@
 <script lang="ts">
-    let index = 1;
-    let model = "noise-strong";
+    type ModelType = `${'noise' | 'translate' | 'rotate'}-${'light' | 'medium' | 'strong'}`;
+    
+    let index = $state(1);
+    let model = $state<ModelType>("noise-strong");
 
-    $: is_index_active = (num: number): string => index == num ? "is-active" : ""
-    $: is_model_active = (category, intensity): string => model === `${category.prefix}-${intensity.value}` ? "is-active" : "";
+    const is_index_active = (num: number): string => index == num ? "is-active" : "";
+    const is_model_active = (category: Category, intensity: Intensity): string => 
+        model === `${category.prefix}-${intensity.value}` ? "is-active" : "";
 
-    $: set_index = (i) => index = i;
-    $: set_model = (category, intensity) => model = `${category.prefix}-${intensity.value}`;
+    const set_index = (i: number) => index = i;
+    const set_model = (category: Category, intensity: Intensity) => 
+        model = `${category.prefix}-${intensity.value}` as ModelType;
 
-    $: image = index > 0 ? `/demos/eigenvectors/${model}/pos${index}.svg` : `/demos/eigenvectors/${model}/neg${-index}.svg`;
+    const image = $derived(index > 0 ? `/demos/eigenvectors/${model}/pos${index}.svg` : `/demos/eigenvectors/${model}/neg${-index}.svg`);
 
-    const intensities = [
+    interface Intensity {
+        value: 'light' | 'medium' | 'strong';
+        label: string;
+    }
+
+    interface Category {
+        label: string;
+        prefix: 'noise' | 'translate' | 'rotate';
+        clickable: boolean;
+    }
+
+    const intensities: Intensity[] = [
         { value: 'light', label: 'Light' },
         { value: 'medium', label: 'Medium' },
         { value: 'strong', label: 'Strong' },
     ];
-    const categories = [
+    const categories: Category[] = [
         { label: 'Input Noise', prefix: 'noise', clickable: true },
         { label: 'Translation', prefix: 'translate', clickable: true },
         { label: 'Rotation', prefix: 'rotate', clickable: true }
@@ -24,10 +39,10 @@
 </script>
 
 <style>
-    .is-custom :global() {
-    --bulma-tabs-toggle-link-active-background-color: var(--bulma-grey-light);
-    --bulma-tabs-toggle-link-active-border-color: var(--bulma-grey-dark);
-  }
+    .is-custom {
+        --bulma-tabs-toggle-link-active-background-color: var(--bulma-grey-light);
+        --bulma-tabs-toggle-link-active-border-color: var(--bulma-grey-dark);
+    }
 </style>
 
 <div class="columns">
@@ -37,7 +52,7 @@
                 <p class="menu-label">{category.label}</p>
                 <ul class="menu-list">
                     {#each intensities as intensity}
-                    <li> <a class={is_model_active(category, intensity)} on:click={() => set_model(category, intensity)}> {intensity.label}</a> </li>
+                    <li> <a class={is_model_active(category, intensity)} onclick={() => set_model(category, intensity)}> {intensity.label}</a> </li>
                     {/each}
                 </ul>
                 {/each}
@@ -54,7 +69,7 @@
             <ul>
                 {#each [1, 2, 3, 4, 5] as i}
                 <li class={is_index_active(i)}>
-                    <a on:click={() => set_index(i)}> {i} </a>
+                    <a onclick={() => set_index(i)}> {i} </a>
                 </li>
                 {/each}
             </ul>
@@ -66,7 +81,7 @@
             <ul>
                 {#each [5, 4, 3, 2, 1] as i}
                 <li class={is_index_active(-i)}>
-                    <a on:click={() => set_index(-i)}> {i} </a>
+                    <a onclick={() => set_index(-i)}> {i} </a>
                 </li>
                 {/each}
             </ul>

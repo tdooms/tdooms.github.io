@@ -7,7 +7,6 @@ kind: research
 <script>
     import Resources from "$lib/research/resources.svelte";
     import Cite from "$lib/research/cite.svelte";
-    import Pareto from "$lib/figures/pareto.svelte"
 </script>
 
 <p> <b>Thomas Dooms*</b>, Daniel Wilhelm*</p>
@@ -46,8 +45,6 @@ There are some slight caveats to training this lookup table, which are described
 ### Results
 
 We show adding a lookup table improves the final reconstructions by a significant margin on GPT-2 layer 8.
-
-<Pareto />
 
 Beyond this, by forcing the SAE to use directions we know to be useful, it is able to learn much more quickly.
 We measure how much faster TSAEs reach the final reconstruction value of their baseline variant.

@@ -1,8 +1,12 @@
 <script lang="ts">
-    export let title: string;
-    export let date: string;
-    export let image: string;
-    export let location: string;
+    interface Props {
+        title: string;
+        date: string;
+        image: string;
+        location: string;
+    }
+
+    let { title, date, image, location }: Props = $props();
 </script>
 
 <style>

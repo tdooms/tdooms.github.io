@@ -1,14 +1,14 @@
 <script lang="ts">
-    export let title: string;
-    export let description: string;
+    interface Props {
+        title: string;
+        description: string;
+        date: string;
+        image: string;
+        alt: string;
+        link: string;
+    }
 
-    export let date: string;
-
-    export let image: string;
-    export let alt: string;
-
-    export let link: string;
-
+    let { title, description, date, image, alt, link }: Props = $props();
 </script>
 
 <a class="box" href={link}>

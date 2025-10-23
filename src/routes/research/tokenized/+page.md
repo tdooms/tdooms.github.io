@@ -5,8 +5,10 @@ kind: research
 ---
 
 <script>
-    import Resources from "$lib/research/resources.svelte";
-    import Cite from "$lib/research/cite.svelte";
+    import Resources from "$lib/resources.svelte";
+    import Cite from "$lib/cite.svelte";
+
+    import bib from "$bib/tokenized.bib?raw"
 </script>
 
 <p> <b>Thomas Dooms*</b>, Daniel Wilhelm*</p>
@@ -68,4 +70,6 @@ We again show the speedup.
 
 ### Future Work
 
-The general idea of incorporating inductive bias into SAEs seems interesting to pursue. Trivially, a more general (sparse) n-gram lookup table could be used. Furthermore, features from a preceding SAE could similarly be used into some kind of lookup table.
+The notion of incorporating inductive bias into SAEs seems interesting to pursue. Trivially, a more general (sparse) n-gram lookup table could be used. Furthermore, features from a preceding SAE could similarly be used into some kind of lookup table.
+
+<Cite bib={bib} />

@@ -5,11 +5,13 @@ kind: research
 ---
 
 <script>
-  import Resources from "$lib/research/resources.svelte";
-  import Cite from "$lib/research/cite.svelte"
+  import Resources from "$lib/resources.svelte";
+  import Cite from "$lib/cite.svelte"
+
+  import bib from "$bib/simplestories.bib?raw"
 </script>
 
-<p> Lennart Finke, <b>Thomas Dooms</b>, Mat Allen, Juan Diego Rodriguez, Noa Nabeshima, Dan Braun   </p>
+<p> Lennart Finke, Chandan Sreedhara, <b>Thomas Dooms</b>, Mat Allen, Emerald Zhang, Juan Diego Rodriguez, Noa Nabeshima, Thomas Marshall, Dan Braun </p>
 
 <div class="mt-6"> </div>
 
@@ -42,11 +44,4 @@ Furthermore, there are ample opportunities for improvement:
 
 Keeping this in mind, we created SimpleStories.
 
-<Cite text="@inproceedings&#123;
-    finke2025tiny,
-    title=&#123;[Tiny] Parameterized Synthetic Text Generation with SimpleStories&#125;,
-    author=&#123;Lennart Finke and Juan Diego Rodriguez and Thomas Dooms and Mat Allen and Thomas Marshall and Noa Nabeshima and Dan Braun&#125;,
-    booktitle=&#123;Will Synthetic Data Finally Solve the Data Access Problem?&#125;,
-    year=&#123;2025&#125;,
-    url=&#123;https://openreview.net/forum?id=JO8CtTXOsH&#125;
-&#125;" />
+<Cite bib={bib} />

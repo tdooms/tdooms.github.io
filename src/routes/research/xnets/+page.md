@@ -1,11 +1,13 @@
 ---
-title: Compositionality unlocks deep interpretable models
+title: Deep interpretable models
 back: research
 ---
 
 <script>
-  import Resources from "$lib/research/resources.svelte";
-  import Cite from "$lib/research/cite.svelte"
+  import Resources from "$lib/resources.svelte";
+  import Cite from "$lib/cite.svelte"
+
+  import bib from "$bib/tokenized.bib?raw"
 </script>
 
 <p> <b>Thomas Dooms*</b>, Ward Gauderis*, Geraint Wiggins, Jose M. Oramas </p>
@@ -48,12 +50,4 @@ Tracing out paths through this tree shows how the model forms specific predictio
     <figcaption>Visualisations of the weights after a global decomposition.</figcaption>
 </figure>
 
-<Cite text="@inproceedings&#123;
-    dooms2025compositionality,
-    title=&#123;Compositionality Unlocks Deep Interpretable Models&#125;,
-    author=&#123;Thomas Dooms and Ward Gauderis and Geraint Wiggins and Jose Oramas&#125;,
-    booktitle=&#123;Submitted to AAAI'25 workshop on CoLoRAI - Connecting Low-Rank Representations in AI&#125;,
-    year=&#123;2025&#125;,
-    url=&#123;https://openreview.net/forum?id=bXAt5iZ69l&#125;,
-    note=&#123;under review&#125;
-&#125;" />
+<Cite bib={bib} />

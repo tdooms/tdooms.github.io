@@ -1,9 +1,13 @@
 <script lang="ts">
-    export let paper: string;
-    export let code: string;
-    export let models: string;
-    export let demo: string;
-    export let video: string;
+    interface Props {
+        paper: string;
+        code: string;
+        models: string;
+        demo: string;
+        video: string;
+    }
+
+    let { paper, code, models, demo, video }: Props = $props();
 </script>
 
 <div class="columns is-centered">

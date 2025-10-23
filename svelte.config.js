@@ -21,7 +21,12 @@ const config = {
     ],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			$data: path.resolve('./src/data'),
+			$lib: path.resolve('./src/lib'),
+			$bib: path.resolve('./src/bib'),
+		}
 	}
 };
 

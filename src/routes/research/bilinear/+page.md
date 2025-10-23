@@ -4,8 +4,10 @@ back: research
 ---
 
 <script>
-  import Resources from "$lib/research/resources.svelte";
-  import Cite from "$lib/research/cite.svelte"
+  import Resources from "$lib/resources.svelte";
+  import Cite from "$lib/cite.svelte"
+
+  import bib from "$bib/bilinear.bib?raw"
 </script>
 
 <p> Michael T. Pearce*, <b>Thomas Dooms*</b>, Alice Rigg, Jose M. Oramas, Lee Sharkey </p>
@@ -111,12 +113,4 @@ It then flips this sentiment in the output direction.
 Due to the generality and novelty of this technique, we haven't yet explored many possibilities for interpretability. 
 The current plan is to focus on continuing the work on language models and seeing which kinds of mechanisms we're able to detect.
 
-<Cite text="@misc&#123;pearce2024bilinearmlpsenableweightbased,
-      title=&#123;Bilinear MLPs enable weight-based mechanistic interpretability&#125;, 
-      author=&#123;Michael T. Pearce and Thomas Dooms and Alice Rigg and Jose M. Oramas and Lee Sharkey&#125;,
-      year=&#123;2024&#125;,
-      eprint=&#123;2410.08417&#125;,
-      archivePrefix=&#123;arXiv&#125;,
-      primaryClass=&#123;cs.LG&#125;,
-      url=&#123;https://arxiv.org/abs/2410.08417&#125;,
-&#125;" />
+<Cite bib={bib} />

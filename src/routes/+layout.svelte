@@ -9,8 +9,8 @@
     });
 </script>
 
-<main class="container is-max-desktop">
-    <div class="p-1 mt-5">
+<main class="container is-max-desktop px-2">
+    <div class="mt-5">
     {@render children()}
     </div>
 </main>

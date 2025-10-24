@@ -10,7 +10,7 @@
     let { paper, code, models, demo, video }: Props = $props();
 </script>
 
-<div class="columns is-centered is-mobile">
+<div class="columns is-multiline is-centered is-mobile">
 
     {#if paper}
     <div class="column is-narrow">

@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as A,s as e,a as U,c as a,b as W,r as s,n as p}from"../chunks/ja8BvbFi.js";import{h as t}from"../chunks/DvVqi2u5.js";import{l as $,s as R}from"../chunks/Bxtr-sAJ.js";import{T as B}from"../chunks/66vRG99a.js";import{R as P,C as q}from"../chunks/DIf3nK1s.js";const D=`@misc{pearce2025bilinearmlpsenableweightbased,\r
+import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as A,s as e,a as U,c as a,b as W,r as s,n as p}from"../chunks/ja8BvbFi.js";import{h as t}from"../chunks/DvVqi2u5.js";import{l as $,s as R}from"../chunks/Bxtr-sAJ.js";import{T as B}from"../chunks/BUXIotEq.js";import{R as P,C as q}from"../chunks/BCMBIE2i.js";const D=`@misc{pearce2025bilinearmlpsenableweightbased,\r
       title={Bilinear MLPs enable weight-based mechanistic interpretability}, \r
       author={Michael T. Pearce and Thomas Dooms and Alice Rigg and Jose M. Oramas and Lee Sharkey},\r
       year={2025},\r

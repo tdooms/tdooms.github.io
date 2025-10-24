@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as d,s as t,a as p,b as m}from"../chunks/ja8BvbFi.js";import{l as c,s as h}from"../chunks/Bxtr-sAJ.js";import{T as u}from"../chunks/66vRG99a.js";import{R as g,C as f}from"../chunks/DIf3nK1s.js";const b=`@misc{finke2025parameterizedsynthetictextgeneration,\r
+import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as d,s as t,a as p,b as m}from"../chunks/ja8BvbFi.js";import{l as c,s as h}from"../chunks/Bxtr-sAJ.js";import{T as u}from"../chunks/BUXIotEq.js";import{R as g,C as f}from"../chunks/BCMBIE2i.js";const b=`@misc{finke2025parameterizedsynthetictextgeneration,\r
       title={Parameterized Synthetic Text Generation with SimpleStories}, \r
       author={Lennart Finke and Chandan Sreedhara and Thomas Dooms and Mat Allen and Emerald Zhang and Juan Diego Rodriguez and Noa Nabeshima and Thomas Marshall and Dan Braun},\r
       year={2025},\r

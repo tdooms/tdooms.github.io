@@ -20,6 +20,11 @@ $beige-lighter: #eff0eb;
   --primary-color: $primary;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 span[title] {
   position: relative;
   cursor: help;

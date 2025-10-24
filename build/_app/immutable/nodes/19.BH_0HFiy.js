@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as p,a as m,s as c,b as l}from"../chunks/ja8BvbFi.js";import{l as d,s as h}from"../chunks/Bxtr-sAJ.js";import{T as f}from"../chunks/66vRG99a.js";import{R as g,C as $}from"../chunks/DIf3nK1s.js";const _=`@misc{dooms2023trifectasimpletechniquestraining,\r
+import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as p,a as m,s as c,b as l}from"../chunks/ja8BvbFi.js";import{l as d,s as h}from"../chunks/Bxtr-sAJ.js";import{T as f}from"../chunks/BUXIotEq.js";import{R as g,C as $}from"../chunks/BCMBIE2i.js";const _=`@misc{dooms2023trifectasimpletechniquestraining,\r
       title={The Trifecta: Three simple techniques for training deeper Forward-Forward networks}, \r
       author={Thomas Dooms and Ing Jyh Tsang and Jose Oramas},\r
       year={2023},\r

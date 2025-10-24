@@ -10,12 +10,12 @@
     let { paper, code, models, demo, video }: Props = $props();
 </script>
 
-<div class="columns is-centered">
+<div class="columns is-centered is-mobile">
 
     {#if paper}
-    <div class="column is-2 px-3">
+    <div class="column is-narrow">
         <a class="box has-text-centered" href={paper} target="_blank">
-            <span class="icon is-large">
+            <span class="icon is-large mx-2">
                 <i class="fa-regular fa-xl fa-file"></i>
             </span>
             <p> Paper </p>
@@ -24,9 +24,9 @@
     {/if}
 
     {#if code}
-    <div class="column is-2">
+    <div class="column is-narrow">
         <a class="box has-text-centered" href={code} target="_blank">
-            <span class="icon is-large">
+            <span class="icon is-large mx-2">
                 <i class="fa-solid fa-xl fa-code"></i>
             </span>
             <p> Code </p>
@@ -35,9 +35,9 @@
     {/if}
 
     {#if models}
-    <div class="column is-2">
+    <div class="column is-narrow">
         <a class="box has-text-centered" href={models} target="_blank">
-            <span class="icon is-large">
+            <span class="icon is-large mx-2">
                 <i class="fa-solid fa-xl fa-database"></i>
             </span>
             <p> Models </p>
@@ -46,9 +46,9 @@
     {/if}
 
     {#if video}
-    <div class="column is-2">
+    <div class="column is-narrow">
         <a class="box has-text-centered" href={video} target="_blank">
-            <span class="icon is-large">
+            <span class="icon is-large mx-2">
                 <i class="fa-solid fa-xl fa-video"></i>
             </span>
             <p> Video </p>
@@ -57,9 +57,9 @@
     {/if}
 
     {#if demo}
-    <div class="column is-2 px-3">
+    <div class="column is-narrow">
         <a class="box has-text-centered" href={demo}>
-            <span class="icon is-large">
+            <span class="icon is-large mx-2">
                 <i class="fa-solid fa-xl fa-flask"></i>
             </span>
             <p> Demo </p>

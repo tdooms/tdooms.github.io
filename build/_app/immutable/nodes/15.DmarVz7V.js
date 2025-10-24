@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as b,s,a as x,c as a,b as w,r as t,n as l}from"../chunks/ja8BvbFi.js";import{h as o}from"../chunks/DvVqi2u5.js";import{l as z,s as _}from"../chunks/Bxtr-sAJ.js";import{T as k}from"../chunks/66vRG99a.js";import{R as $,C as T}from"../chunks/DIf3nK1s.js";const L=`@misc{dooms2025findingmanifoldsbilinearautoencoders,\r
+import"../chunks/DsnmJJEf.js";import"../chunks/D2zE8SRG.js";import{f as b,s,a as x,c as a,b as w,r as t,n as l}from"../chunks/ja8BvbFi.js";import{h as o}from"../chunks/DvVqi2u5.js";import{l as z,s as _}from"../chunks/Bxtr-sAJ.js";import{T as k}from"../chunks/BUXIotEq.js";import{R as $,C as T}from"../chunks/BCMBIE2i.js";const L=`@misc{dooms2025findingmanifoldsbilinearautoencoders,\r
       title={Finding Manifolds With Bilinear Autoencoders}, \r
       author={Thomas Dooms and Ward Gauderis},\r
       year={2025},\r

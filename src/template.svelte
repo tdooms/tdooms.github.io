@@ -8,7 +8,7 @@
     let { title, back, children }: Props = $props();
 </script>
 
-<div class="content has-text-justified" style="margin: 0 auto;max-width: 880px;">
+<div class="content has-text-justified mx-2" style="max-width: 880px;">
     <h3 class="title is-3 mb-2">{ title }</h3>
 
     {@render children()}

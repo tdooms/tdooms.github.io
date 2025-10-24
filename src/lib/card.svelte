@@ -4,9 +4,10 @@
         date: string;
         image: string;
         location: string;
+        square?: boolean;
     }
 
-    let { title, date, image, location }: Props = $props();
+    let { title, date, image, location, square = false }: Props = $props();
 </script>
 
 <style>
@@ -30,7 +31,7 @@
 <a href={location}>
 <div class="card">
     <div class="card-image">
-        <figure class="image is-3by2">
+        <figure class={"image " + (square ? "is-square" : "is-3by2")}>
         <img src={image} alt="Placeholder" style="object-fit: cover;">
         </figure>
     </div>

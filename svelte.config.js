@@ -13,7 +13,7 @@ const config = {
         mdsvex({
             extensions: ['.md', '.svx'],
 			layout: {
-				_: path.resolve("src/blog.svelte"),
+				_: path.resolve("src/template.svelte"),
 			},
 			rehypePlugins: [rehypeKatexSvelte],
 			remarkPlugins: [remarkMath]
@@ -25,7 +25,6 @@ const config = {
 		alias: {
 			$data: path.resolve('./src/data'),
 			$lib: path.resolve('./src/lib'),
-			$bib: path.resolve('./src/bib'),
 		}
 	}
 };

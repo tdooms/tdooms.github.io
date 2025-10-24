@@ -1,9 +1,7 @@
 <script lang="ts">
-    type PageType = 'blog' | 'research' | 'projects' | 'resume' | '';
-    
-    let page: PageType = $props();
+    let { page } = $props();
 
-    const is_active = (name: PageType): string => page === name ? "is-active" : "";
+    const is_active = (name: string): string => page === name ? "is-active" : "";
     let burger = $state(false);
 </script>
 
@@ -11,16 +9,16 @@
     <div class="column">
         <div class="tabs is-boxed is-right">
             <ul>
-                <li class={is_active("blog")}>
-                <a href="/blog">
-                    <span class="icon is-small"><i class="fas fa-fire" aria-hidden="true"></i></span>
-                    <span>Blog</span>
-                </a>
-                </li>
                 <li class={is_active("research")}>
                 <a href="/research">
                     <span class="icon is-small"><i class="fas fa-atom" aria-hidden="true"></i></span>
                     <span>Research</span>
+                </a>
+                </li>
+                <li class={is_active("demos")}>
+                <a href="/demos">
+                    <span class="icon is-small"><i class="fas fa-flask" aria-hidden="true"></i></span>
+                    <span>Demos</span>
                 </a>
                 </li>
             </ul>
@@ -34,10 +32,10 @@
     <div class="column">
         <div class="tabs is-boxed is-left">
             <ul>
-                <li class={is_active("projects")}>
-                <a href="/projects">
-                    <span class="icon is-small"><i class="fas fa-code" aria-hidden="true"></i></span>
-                    <span>Projects</span>
+                <li class={is_active("blog")}>
+                <a href="/blog">
+                    <span class="icon is-small"><i class="fas fa-fire" aria-hidden="true"></i></span>
+                    <span>Blog</span>
                 </a>
                 </li>
                 <li class={is_active("resume")}>
@@ -87,10 +85,6 @@
             <a class="navbar-item has-text-centered" href="/research">
                 <span class="icon is-small"><i class="fas fa-atom" aria-hidden="true"></i></span>
                 <span>Research</span>
-            </a>
-            <a class="navbar-item has-text-centered" href="/projects">
-                <span class="icon is-small"><i class="fas fa-code" aria-hidden="true"></i></span>
-                <span>Projects</span>
             </a>
             <a class="navbar-item has-text-centered" href="/resume">
                 <span class="icon is-small"><i class="far fa-file-alt" aria-hidden="true"></i></span>

@@ -1,0 +1,1 @@
+.card.svelte-1phfp4d .card-image:where(.svelte-1phfp4d) img:where(.svelte-1phfp4d){filter:grayscale(.75);transition:filter .3s ease-in-out}.card.svelte-1phfp4d:hover .card-image:where(.svelte-1phfp4d) img:where(.svelte-1phfp4d){filter:grayscale(0)}.card.svelte-1phfp4d{transition:transform .3s ease-in-out}.card.svelte-1phfp4d:hover{transform:scale(1.02)}

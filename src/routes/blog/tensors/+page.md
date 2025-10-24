@@ -1,6 +1,7 @@
 ---
 title: A gentle introduction to tensor networks
 date: 20/06/2025
+back: blog
 ---
 
 I have been actively nerd-sniping recruits to the cult of tensor networks.

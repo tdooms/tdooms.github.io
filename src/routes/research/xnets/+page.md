@@ -7,7 +7,7 @@ back: research
   import Resources from "$lib/resources.svelte";
   import Cite from "$lib/cite.svelte"
 
-  import bib from "$bib/tokenized.bib?raw"
+  import bib from "$data/bib/tokenized.bib?raw"
 </script>
 
 <p> <b>Thomas Dooms*</b>, Ward Gauderis*, Geraint Wiggins, Jose M. Oramas </p>

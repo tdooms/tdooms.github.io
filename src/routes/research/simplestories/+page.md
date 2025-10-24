@@ -1,14 +1,14 @@
 ---
 title: Introducing SimpleStories
 date: 12 Mar 2024
-kind: research
+back: research
 ---
 
 <script>
   import Resources from "$lib/resources.svelte";
   import Cite from "$lib/cite.svelte"
 
-  import bib from "$bib/simplestories.bib?raw"
+  import bib from "$data/bib/simplestories.bib?raw"
 </script>
 
 <p> Lennart Finke, Chandan Sreedhara, <b>Thomas Dooms</b>, Mat Allen, Emerald Zhang, Juan Diego Rodriguez, Noa Nabeshima, Thomas Marshall, Dan Braun </p>
@@ -19,8 +19,6 @@ kind: research
   paper="https://openreview.net/attachment?id=JO8CtTXOsH&name=pdf",
   models="https://huggingface.co/datasets/SimpleStories/SimpleStories"
 />
-
-### Motivation
 
 To interpret deep neural networks, one needs to answer two questions simultaneously: "what to look for and how?".
 It is both unknown what deep model's internal mechanisms are and how they are represented.

@@ -1,0 +1,14 @@
+[
+    {
+        "title": "Manifolds",
+        "date": "Oct 2025",
+        "image": "/demos/manifolds/logo.svg",
+        "location": "/demos/manifolds"
+    },
+    {
+        "title": "Eigenvectors",
+        "date": "Nov 2024",
+        "image": "/demos/eigenvectors/logo.png",
+        "location": "/demos/eigenvectors"
+    }  
+]

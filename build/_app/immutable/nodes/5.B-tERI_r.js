@@ -1,0 +1,1 @@
+import"../chunks/DsnmJJEf.js";import{f as m,a as e,b as i,s as n}from"../chunks/ja8BvbFi.js";import{s as p}from"../chunks/B2Ez5oU-.js";import{N as f}from"../chunks/CykjfC3l.js";var d=m("<!> <!>",1);function b(o,s){var r=d(),a=e(r);f(a,{page:"resume"});var t=n(a,2);p(t,()=>s.children),i(o,r)}export{b as component};

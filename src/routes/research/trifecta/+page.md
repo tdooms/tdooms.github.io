@@ -1,14 +1,14 @@
 ---
 title: The Trifecta
 date: 18 Jul 2024
-kind: research
+back: research
 ---
 
 <script>
     import Resources from "$lib/resources.svelte";
     import Cite from "$lib/cite.svelte"
 
-    import bib from "$bib/trifecta.bib?raw"
+    import bib from "$data/bib/trifecta.bib?raw"
 </script>
 
 <Resources

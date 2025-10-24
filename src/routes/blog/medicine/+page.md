@@ -1,6 +1,7 @@
 ---
 title: Interpretability and the human body
 date: 23/01/2024
+back: blog
 ---
 
 The reason for this post is to provide an intuitive explanation of mechanistic interpretability through an analogy to medicine. It is (hopefully) easy to follow without too much jargon. This way, if people ask what I am researching, I can refer them to this post. If this is you, hi again!

@@ -7,7 +7,7 @@ back: research
   import Resources from "$lib/resources.svelte";
   import Cite from "$lib/cite.svelte"
 
-  import bib from "$bib/bilinear.bib?raw"
+  import bib from "$data/bib/bilinear.bib?raw"
 </script>
 
 <p> Michael T. Pearce*, <b>Thomas Dooms*</b>, Alice Rigg, Jose M. Oramas, Lee Sharkey </p>
@@ -18,7 +18,7 @@ back: research
     paper="https://arxiv.org/pdf/2410.08417"
     code="https://github.com/tdooms/bilinear-decomposition"
     models="https://huggingface.co/collections/tdooms/bilinear-transformers-tinystories-670e352e0f552bab121d861f"
-    demo="/demos/bilinear"
+    demo="/demos/eigenvectors"
 />
 
 ### Background

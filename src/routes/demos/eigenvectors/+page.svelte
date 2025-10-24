@@ -45,6 +45,8 @@
     }
 </style>
 
+<div class="mb-6"></div>
+
 <div class="columns">
     <div class="column is-one-fifth">
         <aside class="menu">
@@ -105,10 +107,9 @@
         Positive eigenvectors show structure that correspond to important strokes or proto-digits.
         Negative eigenvectors show 'inhibitory' strokes that would aversely affect the classification.
     </p>
-
 </div>
 
-<small class="ml-1"> Any suggestions for other models/settings? <a href="mailto:doomsthomas@gmail.com">Let me know.</a></small>
+<small class="ml-1"> Any suggestions for other models/settings? <a href="mailto:doomsthomas@gmail.com">Let me know</a>.</small>
 
 </div>
 </div>

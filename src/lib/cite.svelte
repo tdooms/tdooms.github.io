@@ -4,7 +4,7 @@
     let { bib }: { bib: string } = $props();
 </script>
 
-<div class="card">
+<div class="card is-hidden-mobile">
     <header class="card-header has-background-grey-light">
         <p class="card-header-title mb-0">How to cite</p>
         <button class="card-header-icon" aria-label="more options">

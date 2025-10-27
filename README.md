@@ -26,3 +26,12 @@ npm run build
 ```
 
 Then copy the build folder to github pages (should write a script for this).
+
+## External
+
+A list of external references to this website that I should try to maintain.
+
+```txt
+Bilinear Autoencoder Paper: https://tdooms.github.io/demos/manifolds
+Bilinear autoencoder Poster: https://tdooms.github.io/research/bae
+```

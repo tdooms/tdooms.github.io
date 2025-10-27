@@ -11,7 +11,7 @@
     <div class="column is-5">
         <h5 class="title ml-2 is-5"> Education </h5>
         <Media icon="icons/ua.png" date="Nov 2023 - TBD" title="PhD in Machine Learning">
-            <p class="mt-2"> <b> Subject: </b>Weight-based interpretability</p>
+            <p class="mt-2"> <b> Subject: </b> Compositional interpretability </p>
             <p> <b> Advisor: </b> Jose M. Oramas </p>
         </Media>
 

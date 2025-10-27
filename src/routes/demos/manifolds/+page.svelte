@@ -1,13 +1,15 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
+    import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
     let Plotly: any;
 
     const SAMPLES = [
-        { name: 'Year Circle', url: '/demos/manifolds/year-circle.csv' },
-        { name: 'New Triangle', url: '/demos/manifolds/new-triangle.csv' },
-        { name: 'Negation Directions', url: '/demos/manifolds/negation-directions.csv' },
-        { name: 'Conjunction Clusters', url: '/demos/manifolds/conjunction-clusters.csv' }
+        { name: 'Year Circle', url: '/demos/manifolds/year-circle.csv', slug: 'year-circle' },
+        { name: 'New Triangle', url: '/demos/manifolds/new-triangle.csv', slug: 'new-triangle' },
+        { name: 'Negation Directions', url: '/demos/manifolds/negation-directions.csv', slug: 'negation-directions' },
+        { name: 'Conjunction Clusters', url: '/demos/manifolds/conjunction-clusters.csv', slug: 'conjunction-clusters' }
     ];
 
     let selected = $state(0);
@@ -16,7 +18,13 @@
 
     async function set_selected(index: number) {
         selected = index;
+        loading = true;
+        
+        // Update URL without reloading
+        goto(`/demos/manifolds?${SAMPLES[index].slug}`, { replaceState: true, noScroll: true, keepFocus: true });
+        
         await draw(SAMPLES[selected].url);
+        loading = false;
     }
 
     const num = (x: unknown) => {
@@ -78,6 +86,16 @@
 
     onMount(async () => {
         Plotly = (await import('plotly.js-dist-min')).default;
+        
+        // Check URL for manifold slug (after ?)
+        const slug = $page.url.search.slice(1); // Remove the '?'
+        if (slug) {
+            const index = SAMPLES.findIndex(s => s.slug === slug);
+            if (index !== -1) {
+                selected = index;
+            }
+        }
+        
         await draw(SAMPLES[selected].url);
         loading = false;
     });
@@ -107,7 +125,7 @@
     <strong>Position:</strong> Linear projection of activations into 3D subspace*.<br>
     <strong>Color:</strong> Activation strength of the studied bilinear form.<br>
     <strong>Label:</strong> Shows the current token and the predicted token by the model.<br>
-    <small>*There may be 'illusory' gaps near the origin due to thresholding of low activations.</small>
+    <small>*There may be illusory gaps near the origin due to thresholding of low activations.</small>
 </div>
 
 <style>

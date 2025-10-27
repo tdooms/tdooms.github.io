@@ -1,14 +1,14 @@
 [
     {
         "title": "Manifolds",
-        "date": "Oct 2025",
+        "sub": "Linear projections of latent activations.",
         "image": "/demos/manifolds/logo.svg",
-        "location": "/demos/manifolds"
+        "url": "/demos/manifolds"
     },
     {
         "title": "Eigenvectors",
-        "date": "Nov 2024",
+        "sub": "Model weight decomposition into eigenvectors.",
         "image": "/demos/eigenvectors/logo.png",
-        "location": "/demos/eigenvectors"
+        "url": "/demos/eigenvectors"
     }  
 ]

@@ -1,13 +1,13 @@
 <script lang="ts">
     interface Props {
         title: string;
-        date: string;
+        sub: string;
         image: string;
-        location: string;
+        url: string;
         square?: boolean;
     }
 
-    let { title, date, image, location, square = false }: Props = $props();
+    let { title, sub, image, url, square = false }: Props = $props();
 </script>
 
 <style>
@@ -28,7 +28,7 @@
     }
 </style>
 
-<a href={location}>
+<a href={url}>
 <div class="card">
     <div class="card-image">
         <figure class={"image " + (square ? "is-square" : "is-3by2")}>
@@ -37,7 +37,7 @@
     </div>
     <div class="card-content">
         <h4 class="title is-4 mb-2"> {title} </h4>
-        <div class="content"> {date} </div>
+        <div class="content"> {sub} </div>
     </div>
 </div>
 </a>

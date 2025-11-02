@@ -3,7 +3,7 @@ date = "2025-02-01"
 conference = "AAAI'25"
 labels = ["workshop"]
 description = "Scaling up weight-based interpretability to multi-layer models."
-link = "research/xnets"
+link = "/research/xnets"
 authors = ["Thomas Dooms*", "Ward Gauderis*", "Geraint A. Wiggins", "Jose Oramas"]
 
 paper = "https://openreview.net/pdf?id=bXAt5iZ69l"

@@ -3,7 +3,7 @@ date = "2024-06-01"
 conference = "ICML'24"
 labels = ["workshop"]
 description = "Using a per-token bias in SAEs to separate token reconstructions from interesting features."
-link = "research/tokenized"
+link = "/research/tokenized"
 authors = ["Thomas Dooms*", "Daniel Wilhelm*"]
 
 paper = "https://openreview.net/attachment?id=5Eas7HCe38&name=pdf"

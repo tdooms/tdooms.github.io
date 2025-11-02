@@ -3,7 +3,7 @@ date = "2024-10-01"
 conference = "ICLR'25"
 labels = ["spotlight"]
 description = "Using bilinear MLPs to reverse-engineer image and language models from their weights."
-link = "research/bilinear"
+link = "/research/bilinear"
 authors = ["Michael T. Pearce*", "Thomas Dooms*", "Alice Rigg", "Jose M. Oramas", "Lee Sharkey"]
 
 paper = "https://arxiv.org/pdf/2410.08417"

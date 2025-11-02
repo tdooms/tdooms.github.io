@@ -2,7 +2,7 @@ title = "Parameterized Synthetic Text Generation with SimpleStories"
 date = "2025-10-01"
 conference = "NeurIPS'25"
 description = "A synthetic dataset containing diverse but simple stories."
-link = "research/simplestories"
+link = "/research/simplestories"
 authors = ["Lennart Finke", "Chandan Sreedhara", "Thomas Dooms", "Mat Allen", "Emerald Zhang", "Juan Diego Rodriguez", "Noa Nabeshima", "Thomas Marshall", "Dan Braun"]
 
 paper = "https://openreview.net/attachment?id=JO8CtTXOsH&name=pdf"

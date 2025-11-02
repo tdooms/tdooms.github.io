@@ -1,0 +1,6 @@
+icon = "@/assets/icons/keysight.png"
+start = "2021-09-01"
+end = "2022-06-30"
+title = "Keysight Technologies"
+text = "Research to predict the power consumption of embedded devices."
+order = 3

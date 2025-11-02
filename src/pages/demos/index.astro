@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const demos = await getCollection('demos');
+const sorted = demos.sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout>
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		{sorted.map(demo => <Card {...demo.data} />)}
+	</div>
+</Layout>

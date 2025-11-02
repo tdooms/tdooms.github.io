@@ -1,0 +1,6 @@
+icon = "@/assets/icons/uza.png"
+start = "2021-03-01"
+end = "2021-06-30"
+title = "Antwerp University Hospital"
+text = "Data analysis of food temperature for premature babies."
+order = 4

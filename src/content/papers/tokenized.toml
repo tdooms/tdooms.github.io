@@ -1,0 +1,22 @@
+title = "Tokenized SAEs: Disentangling SAE Reconstructions"
+date = "2024-06-01"
+conference = "ICML'24"
+labels = ["workshop"]
+description = "Using a per-token bias in SAEs to separate token reconstructions from interesting features."
+link = "research/tokenized"
+authors = ["Thomas Dooms*", "Daniel Wilhelm*"]
+
+paper = "https://openreview.net/attachment?id=5Eas7HCe38&name=pdf"
+code = "https://github.com/tdooms/smol-sae"
+
+bibtex = """
+@misc{dooms2025tokenizedsaesdisentanglingsae,
+      title={Tokenized SAEs: Disentangling SAE Reconstructions}, 
+      author={Thomas Dooms and Daniel Wilhelm},
+      year={2025},
+      eprint={2502.17332},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2502.17332}, 
+}
+"""

@@ -1,0 +1,6 @@
+start = "2019-09-01"
+end = "2021-06-30"
+title = "Honours Programme"
+icon = "@/assets/icons/ua.png"
+grade = "Summa cum laude (85%)"
+order = 2

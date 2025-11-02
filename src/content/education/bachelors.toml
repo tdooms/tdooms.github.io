@@ -1,0 +1,6 @@
+start = "2018-09-01"
+end = "2021-06-30"
+title = "Bachelor in CS"
+icon = "@/assets/icons/ua.png"
+grade = "Magna cum laude (83%)"
+order = 3

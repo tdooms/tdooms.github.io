@@ -1,0 +1,21 @@
+title = "Parameterized Synthetic Text Generation with SimpleStories"
+date = "2025-10-01"
+conference = "NeurIPS'25"
+description = "A synthetic dataset containing diverse but simple stories."
+link = "research/simplestories"
+authors = ["Lennart Finke", "Chandan Sreedhara", "Thomas Dooms", "Mat Allen", "Emerald Zhang", "Juan Diego Rodriguez", "Noa Nabeshima", "Thomas Marshall", "Dan Braun"]
+
+paper = "https://openreview.net/attachment?id=JO8CtTXOsH&name=pdf"
+models = "https://huggingface.co/datasets/SimpleStories/SimpleStories"
+
+bibtex = """
+@misc{finke2025parameterizedsynthetictextgeneration,
+      title={Parameterized Synthetic Text Generation with SimpleStories}, 
+      author={Lennart Finke and Chandan Sreedhara and Thomas Dooms and Mat Allen and Emerald Zhang and Juan Diego Rodriguez and Noa Nabeshima and Thomas Marshall and Dan Braun},
+      year={2025},
+      eprint={2504.09184},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2504.09184}, 
+}
+"""

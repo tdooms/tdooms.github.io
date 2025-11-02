@@ -1,0 +1,22 @@
+title = "Compositionality Unlocks Deep Interpretable Models"
+date = "2025-02-01"
+conference = "AAAI'25"
+labels = ["workshop"]
+description = "Scaling up weight-based interpretability to multi-layer models."
+link = "research/xnets"
+authors = ["Thomas Dooms*", "Ward Gauderis*", "Geraint A. Wiggins", "Jose Oramas"]
+
+paper = "https://openreview.net/pdf?id=bXAt5iZ69l"
+video = "https://www.youtube.com/watch?v=yUGZVPJlvzY"
+
+bibtex = """
+@misc{dooms2025compositionalityunlocksdeepinterpretable,
+      title={Compositionality Unlocks Deep Interpretable Models}, 
+      author={Thomas Dooms and Ward Gauderis and Geraint A. Wiggins and Jose Oramas},
+      year={2025},
+      eprint={2504.02667},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2504.02667}, 
+}
+"""

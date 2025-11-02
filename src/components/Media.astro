@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+	icon: ImageMetadata;
+	title: string;
+	start: string;
+	end?: string;
+	text?: string;
+	grade?: string;
+	subject?: string;
+	advisor?: string;
+}
+
+const { icon, title, start, end, text, grade, subject, advisor } = Astro.props;
+
+// Format date helper
+const formatDate = (dateStr: string) => {
+	const date = new Date(dateStr);
+	const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	const month = monthNames[date.getMonth()];
+	const year = date.getFullYear();
+	return `${month} ${year}`;
+};
+
+const dateRange = end ? `${formatDate(start)} - ${formatDate(end)}` : `${formatDate(start)} - TBD`;
+---
+
+<div class="card bg-white shadow-md p-6 mb-4">
+	<div class="flex gap-4 mb-4">
+		<div class="flex-shrink-0">
+			<figure class="w-12 h-12">
+				<Image src={icon} alt="icon" width={96} height={96} class="w-full h-full object-contain" />
+			</figure>
+		</div>
+		<div class="flex-grow">
+			<h5 class="text-xl font-bold text-gray-900 mb-0">{title}</h5>
+			<h6 class="text-sm text-gray-600">{dateRange}</h6>
+		</div>
+	</div>
+	{text && <p class="mt-2">{text}</p>}
+	{subject && <p class="mt-2"><b>Subject:</b> {subject}</p>}
+	{advisor && <p class={subject ? "" : "mt-2"}><b>Advisor:</b> {advisor}</p>}
+	{grade && <p class={subject || advisor ? "" : "mt-2"}><b>Grade:</b> {grade}</p>}
+	<slot />
+</div>

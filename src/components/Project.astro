@@ -1,0 +1,29 @@
+---
+interface Props {
+	name: string;
+	date: string;
+	description: string;
+	link: string;
+}
+
+const { name, date, description, link } = Astro.props;
+---
+
+<a 
+	href={link} 
+	target="_blank"
+	class="card bg-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 p-6 block"
+>
+	<div class="flex gap-4 mb-4">
+		<div class="flex-shrink-0">
+			<span class="text-5xl">
+				<i class="fa-brands fa-github"></i>
+			</span>
+		</div>
+		<div class="flex-grow">
+			<h4 class="text-xl font-bold text-gray-900 mb-0">{name}</h4>
+			<h6 class="text-sm text-gray-600">{date}</h6>
+		</div>
+	</div>
+	<p class="text-gray-700">{description}</p>
+</a>

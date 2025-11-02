@@ -1,0 +1,39 @@
+---
+import "../assets/app.css";
+import Navbar from '../components/Navbar.svelte';
+---
+
+<!doctype html>
+<html lang="en" data-theme="emerald">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    	<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+
+		<meta name="generator" content={Astro.generator} />
+		<title>tdooms</title>
+	</head>
+	<body>
+		<main class="max-w-[1000px] mx-auto px-4 pt-3">
+			<Navbar client:load />
+			<div class="my-8"></div>
+			<slot />
+			<div class="pb-2"></div>
+		</main>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>

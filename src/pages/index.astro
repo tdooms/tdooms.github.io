@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import profileImg from '../assets/profile.jpg';
+---
+
+<Layout>
+	<div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6">
+		<!-- Sidebar -->
+		<div>
+			<div class="card bg-white shadow-md p-6 text-center">
+				<figure class="w-32 h-32 mx-auto mb-4">
+					<Image src={profileImg} alt="me :)" class="rounded-full" width={256} height={256} />
+				</figure>
+				<h4 class="text-xl font-bold text-gray-900 mb-2">Thomas Dooms</h4>
+				<h6 class="text-base text-gray-600 mb-4">Interpretability Researcher</h6>
+
+				<div class="divider mt-0 mb-2"></div>
+
+				<div class="space-y-3 text-center">
+					<div class="flex items-center justify-center gap-3">
+						<i class="fa-solid fa-calendar w-5 text-gray-600"></i>
+						<a href="https://cal.com/tdooms" class="link link-primary link-hover">1-on-1</a>
+					</div>
+					<div class="flex items-center justify-center gap-3">
+						<i class="fa-brands fa-x-twitter w-5 text-gray-600"></i>
+						<a href="https://x.com/thomasdooms" class="link link-primary link-hover">Twitter</a>
+					</div>
+					<div class="flex items-center justify-center gap-3">
+						<i class="fa-solid fa-envelope w-5 text-gray-600"></i>
+						<a href="mailto:doomsthomas@gmail.com" class="link link-primary link-hover">Email</a>
+					</div>
+					<div class="flex items-center justify-center gap-3">
+						<i class="fa-brands fa-linkedin w-5 text-gray-600"></i>
+						<a href="https://www.linkedin.com/in/thomas-dooms-5518a4169/" class="link link-primary link-hover">LinkedIn</a>
+					</div>
+					<div class="flex items-center justify-center gap-3">
+						<i class="fa-brands fa-github w-5 text-gray-600"></i>
+						<a href="https://github.com/tdooms" class="link link-primary link-hover">GitHub</a>
+					</div>
+					<div class="flex items-center justify-center gap-3">
+						<i class="fa-brands fa-google-scholar w-5 text-gray-600"></i>
+						<a href="https://scholar.google.com/citations?user=PPakd2AAAAAJ&hl=en" class="link link-primary link-hover">Scholar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Content -->
+		<div>
+			<div class="card bg-white shadow-md p-6">
+				<div class="prose max-w-none">
+					<p>
+						Hi, I'm Thomas! I'm a PhD student working on
+						<a href="https://compinterp.github.io">compositional interpretability</a>.
+						I'm interested in understanding how neural networks encode complex behaviours and knowledge.
+					</p>
+
+					<p>
+						Modern deep networks are astonishingly intricate and difficult to disentangle.
+						I argue that we should embrace this complexity rather than shoehorn them into simplistic feature sets, flattening the very structures we hope to understand.
+					</p>
+
+					<p>
+						My research treats a model's weights as a compositional system whose parts interact and recombine, much like phrases in a language.
+						By developing flexible, formally grounded tools for compositional analysis, I aim to reveal how rich mechanisms and representations arise and how we can reason about them.
+					</p>
+
+					<p>
+						Outside of work, I love to go on long bike rides, game with friends, go skiing and wear shorts.
+						I used to play a lot of Diablo 3, achieving <span class="tooltip" data-tip="Suck it Elon">rank 1</span> in grift leaderboards at some point.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+	title: string;
+	date: string;
+	image: ImageMetadata;
+	link: string;
+}
+
+const { title, date, image, link } = Astro.props;
+
+// Format date nicely
+const formattedDate = new Date(date).toLocaleDateString('en-GB', { 
+	day: 'numeric', 
+	month: 'short', 
+	year: 'numeric' 
+});
+---
+
+<a href={link} class="block">
+	<div class="card bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+		<figure class="overflow-hidden">
+			<Image 
+				src={image} 
+				alt={title}
+				class="w-full h-48 object-cover grayscale-[0.75] hover:grayscale-0 transition-all duration-300"
+			/>
+		</figure>
+		<div class="card-body p-6">
+			<h4 class="card-title text-xl text-gray-900">{title}</h4>
+			<div class="text-gray-600 text-sm">{formattedDate}</div>
+		</div>
+	</div>
+</a>

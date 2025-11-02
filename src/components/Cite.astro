@@ -1,0 +1,21 @@
+---
+interface Props {
+	bib: string;
+}
+
+const { bib } = Astro.props;
+---
+
+<div class="card bg-gray-100 shadow-md hidden md:block">
+	<div class="flex items-center justify-between px-4 py-2 bg-gray-200">
+		<h3 class="font-semibold text-gray-900">How to cite</h3>
+		<button 
+			class="btn btn-ghost btn-sm"
+			onclick={`navigator.clipboard.writeText(\`${bib.replace(/`/g, '\\`')}\`)`}
+			aria-label="Copy citation"
+		>
+			<i class="fa-solid fa-copy text-base"></i>
+		</button>
+	</div>
+	<pre class="p-4 text-xs overflow-x-auto whitespace-pre-wrap break-words">{bib}</pre>
+</div>

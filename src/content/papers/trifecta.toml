@@ -1,0 +1,20 @@
+title = "The Trifecta: Three techniques for deeper Forward-Forward networks"
+date = "2023-11-01"
+conference = "TMLR"
+description = "Three techniques to significantly improve the Forward-Forward algorithm. We achieve 84% on CIFAR-10."
+link = "research/trifecta"
+authors = ["Thomas Dooms", "Ing Jyh Tsang", "Jose Oramas"]
+
+paper = "https://arxiv.org/abs/2311.18130"
+
+bibtex = """
+@misc{dooms2023trifectasimpletechniquestraining,
+      title={The Trifecta: Three simple techniques for training deeper Forward-Forward networks}, 
+      author={Thomas Dooms and Ing Jyh Tsang and Jose Oramas},
+      year={2023},
+      eprint={2311.18130},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2311.18130}, 
+}
+"""

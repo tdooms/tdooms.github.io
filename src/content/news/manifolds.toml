@@ -1,0 +1,5 @@
+title = "New interactive visualization for manifolds"
+date = "2025-11-01"
+description = "A glimpse into the geometry of large language model activations."
+icon = "fa-solid fa-flask"
+link = "/demos/manifolds"

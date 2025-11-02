@@ -104,6 +104,18 @@ const awards = defineCollection({
 	}),
 });
 
+const news = defineCollection({
+	type: 'data',
+	schema: z.object({
+		title: z.string(),
+		date: z.string(),
+		description: z.string(),
+		icon: z.string().optional(), // Font Awesome icon class
+		link: z.string().optional(),
+		external: z.boolean().optional(),
+	}),
+});
+
 export const collections = {
 	papers,
 	presentations,
@@ -113,4 +125,5 @@ export const collections = {
 	work,
 	languages,
 	awards,
+	news,
 };

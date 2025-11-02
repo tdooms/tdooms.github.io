@@ -2,6 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import profileImg from '../assets/profile.jpg';
+import News from '../components/News.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const newsItems = await getCollection('news');
+
+// Sort by date (most recent first)
+const sortedNews = newsItems.sort((a: CollectionEntry<'news'>, b: CollectionEntry<'news'>) => {
+	return b.data.date.localeCompare(a.data.date);
+}).slice(0, 3);
 ---
 
 <Layout>
@@ -47,7 +56,8 @@ import profileImg from '../assets/profile.jpg';
 		</div>
 
 		<!-- Main Content -->
-		<div>
+		<div class="space-y-6">
+			<!-- About Section -->
 			<div class="card bg-white shadow-md p-6">
 				<div class="prose max-w-none">
 					<p>
@@ -71,6 +81,11 @@ import profileImg from '../assets/profile.jpg';
 						I used to play a lot of Diablo 3, achieving <span class="tooltip" data-tip="Suck it Elon">rank 1</span> in grift leaderboards at some point.
 					</p>
 				</div>
+			</div>
+
+			<!-- News Section -->
+			<div class="space-y-3">
+				{sortedNews.map((item) => <News {...item.data} />)}
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Blog from '../../components/Blog.astro';
+import { getCollection } from 'astro:content';
+
+const blogs = await getCollection('blogs');
+const sorted = blogs.sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<Layout>
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		{sorted.map(blog => <Blog {...blog.data} />)}
+	</div>
+</Layout>

@@ -1,0 +1,33 @@
+---
+import Manifolds from '../../components/Manifolds.svelte';
+import Layout from '../../layouts/Layout.astro';
+
+const samples = [
+	{ name: 'Year Circle', url: '/src/assets/manifolds/year-circle.feather', slug: 'year-circle' },
+	{ name: 'New Triangle', url: '/src/assets/manifolds/new-triangle.feather', slug: 'new-triangle' },
+	{ name: 'Negation Directions', url: '/src/assets/manifolds/negation-directions.feather', slug: 'negation-directions' },
+	{ name: 'Conjunction Clusters', url: '/src/assets/manifolds/conjunction-clusters.feather', slug: 'conjunction-clusters' }
+];
+---
+
+<Layout>
+	<Manifolds client:load samples={samples} />
+
+	<!-- Info Alert -->
+	<div role="alert" class="alert bg-gray-100 mt-6 mb-2">
+		<div class="space-y-2">
+			<p>
+				<strong>Position:</strong> Linear projection of activations into 3D subspace*.
+			</p>
+			<p>
+				<strong>Color:</strong> Activation strength of the studied bilinear form.
+			</p>
+			<p>
+				<strong>Label:</strong> Shows the current token and the predicted token by the model.
+			</p>
+			<p class="text-sm">
+				*There may be illusory gaps near the origin due to thresholding of low activations.
+			</p>
+		</div>
+	</div>
+</Layout>

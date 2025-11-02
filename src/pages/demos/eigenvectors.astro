@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Eigenvectors from '../../components/Eigenvectors.svelte';
+---
+
+<Layout>
+	<Eigenvectors client:load />
+
+	<!-- Info Alert -->
+	<div role="alert" class="alert bg-gray-100 mt-6 mb-2">
+		<div class="space-y-3">
+			<p>
+				Eigenvectors have a different interpretation than heatmaps. The contribution toward the output is strictly defined by whether it has positive or negative eigenvalue.
+				Strokes of the same color positively interfere while strokes of opposite color negatively interfere.
+				Hence, many strokes can be seen as localized edge-detectors.
+			</p>
+			<p>
+				Positive eigenvectors show structure that correspond to important strokes or proto-digits.
+				Negative eigenvectors show 'inhibitory' strokes that would adversely affect the classification.
+			</p>
+		</div>
+	</div>
+
+	<small class="ml-1">
+		Any suggestions for other models/settings? 
+		<a href="mailto:doomsthomas@gmail.com" class="link link-primary link-hover">Let me know</a>.
+	</small>
+</Layout>

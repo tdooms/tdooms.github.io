@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+	title: string;
+	sub: string;
+	image: ImageMetadata;
+	url: string;
+	square?: boolean;
+}
+
+const { title, sub, image, url, square = false } = Astro.props;
+---
+
+<a href={url} class="block">
+	<div class="card bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+		<figure class="overflow-hidden">
+			<Image 
+				src={image} 
+				alt={title}
+				class={`w-full object-cover grayscale-[0.75] hover:grayscale-0 transition-all duration-300 ${square ? 'aspect-square' : 'aspect-[3/2]'}`}
+			/>
+		</figure>
+		<div class="card-body p-6">
+			<h4 class="card-title text-xl text-gray-900">{title}</h4>
+			<div class="text-gray-600 text-sm">{sub}</div>
+		</div>
+	</div>
+</a>

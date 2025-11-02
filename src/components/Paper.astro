@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+	title: string;
+	description: string;
+	date: string;
+	image: ImageMetadata;
+	alt: string;
+	link: string;
+}
+
+const { title, description, date, image, alt, link } = Astro.props;
+---
+
+<a href={link} class="card bg-white shadow-md hover:shadow-lg transition-shadow p-6 block">
+	<div class="flex items-center gap-4">
+		<div class="flex-shrink-0">
+			<figure class="w-16 h-16">
+				<Image 
+					src={image} 
+					alt={alt}
+					width={64}
+					height={64}
+					class="rounded-full object-cover"
+				/>
+			</figure>
+		</div>
+		<div class="flex-grow">
+			<h4 class="text-xl font-bold text-gray-900 inline">{title}</h4>
+			<small class="text-gray-600 inline ml-2">({date})</small>
+			<p class="text-gray-700 mt-2">{description}</p>
+		</div>
+	</div>
+</a>

@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Box from '../../components/Box.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const papers = await getCollection('papers');
+const presentations = await getCollection('presentations');
+
+// Sort by date (most recent first)
+const sortedPapers = papers.sort((a: CollectionEntry<'papers'>, b: CollectionEntry<'papers'>) => {
+	return b.data.date.localeCompare(a.data.date);
+});
+
+const sortedPresentations = presentations.sort((a: CollectionEntry<'presentations'>, b: CollectionEntry<'presentations'>) => {
+	return b.data.date.localeCompare(a.data.date);
+});
+---
+
+<Layout>
+	<div class="space-y-8">
+		<section>
+			<h2 class="text-3xl font-bold text-gray-900 mb-6">Papers</h2>
+			<div class="space-y-4">
+				{sortedPapers.map((paper: CollectionEntry<'papers'>) => <Box {...paper.data} />)}
+			</div>
+		</section>
+
+		<section>
+			<h2 class="text-3xl font-bold text-gray-900 mb-6">Presentations</h2>
+			<div class="space-y-4">
+				{sortedPresentations.map((presentation: CollectionEntry<'presentations'>) => <Box {...presentation.data} />)}
+			</div>
+		</section>
+	</div>
+</Layout>

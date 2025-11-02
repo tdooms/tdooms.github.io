@@ -1,0 +1,6 @@
+title = "Manifolds"
+sub = "Linear projections of latent activations found by bilinear autoencoders."
+url = "/demos/manifolds"
+image = "@/assets/thumbnails/manifolds.svg"
+square = true
+order = 1

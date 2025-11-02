@@ -1,0 +1,24 @@
+title = "Finding manifolds with bilinear autoencoders"
+date = "2025-10-01"
+conference = "NeurIPS'25"
+labels = ["workshop"]
+description = "Autoencoder architecture that decomposes activations into polynomial manifolds."
+link = "research/bae"
+authors = ["Thomas Dooms", "Ward Gauderis"]
+
+paper="https://arxiv.org/abs/2510.16820"
+code="https://github.com/tdooms/bae"
+models="https://huggingface.co/tdooms/qwen3-0.6b-base-scope"
+demo="/demos/manifolds"
+
+bibtex = """
+@misc{dooms2025findingmanifoldsbilinearautoencoders,
+      title={Finding Manifolds With Bilinear Autoencoders}, 
+      author={Thomas Dooms and Ward Gauderis},
+      year={2025},
+      eprint={2510.16820},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2510.16820}, 
+}
+"""

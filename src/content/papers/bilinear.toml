@@ -1,0 +1,24 @@
+title = "Bilinear MLPs enable weight-based mechanistic interpretability"
+date = "2024-10-01"
+conference = "ICLR'25"
+labels = ["spotlight"]
+description = "Using bilinear MLPs to reverse-engineer image and language models from their weights."
+link = "research/bilinear"
+authors = ["Michael T. Pearce*", "Thomas Dooms*", "Alice Rigg", "Jose M. Oramas", "Lee Sharkey"]
+
+paper = "https://arxiv.org/pdf/2410.08417"
+code = "https://github.com/tdooms/bilinear-decomposition"
+models = "https://huggingface.co/collections/tdooms/bilinear-transformers-tinystories-670e352e0f552bab121d861f"
+demo = "/demos/eigenvectors"
+
+bibtex = """
+@misc{pearce2025bilinearmlpsenableweightbased,
+      title={Bilinear MLPs enable weight-based mechanistic interpretability}, 
+      author={Michael T. Pearce and Thomas Dooms and Alice Rigg and Jose M. Oramas and Lee Sharkey},
+      year={2025},
+      eprint={2410.08417},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2410.08417}, 
+}
+"""

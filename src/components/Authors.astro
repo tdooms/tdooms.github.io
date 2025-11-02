@@ -1,0 +1,23 @@
+---
+interface Props {
+	authors: string[];
+}
+
+const { authors } = Astro.props;
+
+const formatAuthor = (author: string) => {
+	if (author === 'Thomas Dooms' || author === 'Thomas Dooms*') {
+		return `<strong>${author}</strong>`;
+	}
+	return author;
+};
+---
+
+<p>
+	{authors.map((author, index) => (
+		<Fragment>
+			<Fragment set:html={formatAuthor(author)} />
+			{index < authors.length - 1 && ', '}
+		</Fragment>
+	))}
+</p>

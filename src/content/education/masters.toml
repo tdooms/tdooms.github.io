@@ -1,0 +1,6 @@
+start = "2021-09-01"
+end = "2023-06-30"
+title = "Master in AI"
+icon = "@/assets/icons/ua.png"
+grade = "Summa cum laude (87%)"
+order = 1

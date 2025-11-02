@@ -1,0 +1,6 @@
+start = "2023-11-01"
+title = "PhD in Machine Learning"
+icon = "@/assets/icons/ua.png"
+subject = "Compositional interpretability"
+advisor = "Jose M. Oramas"
+order = 0

@@ -120,7 +120,7 @@
         </div>
 
         <div class="card bg-white shadow-md p-6">
-            <img src={`/public/eigenvectors/${model}/${index > 0 ? 'pos' : 'neg'}${Math.abs(index)}.svg`} alt={`Eigenvector ${model} index ${index}`} class="w-full" />
+            <img src={`/eigenvectors/${model}/${index > 0 ? 'pos' : 'neg'}${Math.abs(index)}.svg`} alt={`Eigenvector ${model} index ${index}`} class="w-full" />
         </div>
     </div>
 </div>

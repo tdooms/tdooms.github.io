@@ -18,6 +18,16 @@ import Navbar from '../components/Navbar.svelte';
 
 		<meta name="generator" content={Astro.generator} />
 		<title>tdooms</title>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-7H9E0Y121Q"></script>
+		<script is:inline>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-7H9E0Y121Q');
+		</script>
 	</head>
 	<body>
 		<main class="max-w-[1000px] mx-auto px-4 pt-3">

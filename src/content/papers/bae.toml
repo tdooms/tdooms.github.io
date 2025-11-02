@@ -1,7 +1,7 @@
 title = "Finding manifolds with bilinear autoencoders"
 date = "2025-10-01"
 conference = "NeurIPS'25"
-labels = ["workshop"]
+labels = ["workshop", "spotlight"]
 description = "Autoencoder architecture that decomposes activations into polynomial manifolds."
 link = "/research/bae"
 authors = ["Thomas Dooms", "Ward Gauderis"]

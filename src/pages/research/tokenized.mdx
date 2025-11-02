@@ -4,6 +4,10 @@ slug: tokenized
 layout: ../../layouts/Paper.astro
 ---
 
+import { Image } from 'astro:assets';
+import speedupGpt2 from '../../assets/research/tokenized/speedup_gpt2.svg';
+import speedupPythia from '../../assets/research/tokenized/speedup_pythia.svg';
+
 ### Background
 
 Sparse auto-encoders have become the main focus of mechinterp research; they provide a means to extract interpretable bases from intermediate stages of the model.
@@ -40,7 +44,7 @@ Beyond this, by forcing the SAE to use directions we know to be useful, it is ab
 We measure how much faster TSAEs reach the final reconstruction value of their baseline variant.
 
 <figure>
-    <img src="/research/tokenized/speedup_gpt2.svg" alt="Speedup of TSAE vs baseline" />
+    <Image src={speedupGpt2} alt="Speedup of TSAE vs baseline" />
     <figcaption>Speedup of TSAE vs baseline on GPT-2 small</figcaption>
 </figure>
 
@@ -52,7 +56,7 @@ However, our results show that Tokenized SAEs remain effective on Pythia 1.4B, e
 We again show the speedup.
 
 <figure>
-    <img src="/research/tokenized/speedup_pythia.svg" alt="Speedup of TSAE vs baseline" />
+    <Image src={speedupPythia} alt="Speedup of TSAE vs baseline" />
     <figcaption>Speedup of TSAE vs baseline on Pythia 1.4B</figcaption>
 </figure>
 

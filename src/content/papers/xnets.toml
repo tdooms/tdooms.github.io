@@ -1,8 +1,8 @@
-title = "Compositionality Unlocks Deep Interpretable Models"
+title = "Compositionality unlocks deep interpretable models"
 date = "2025-02-01"
 conference = "AAAI'25"
 labels = ["workshop"]
-description = "Scaling up weight-based interpretability to multi-layer models."
+description = "Scaling up weight-based interpretability to multi-layer models"
 link = "/research/xnets"
 authors = ["Thomas Dooms*", "Ward Gauderis*", "Geraint A. Wiggins", "Jose Oramas"]
 

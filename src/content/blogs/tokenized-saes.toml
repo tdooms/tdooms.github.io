@@ -1,6 +1,6 @@
 title = "Adding per-token biases to sparse autoencoders"
 date = "2024-08-04"
-description = "An informal write-up of the Tokenized SAEs paper."
+description = "An informal write-up of the tokenized SAEs paper"
 link = "https://www.lesswrong.com/posts/P8qLZco6Zq8LaLHe9/tokenized-saes-infusing-per-token-biases"
 image = "@/assets/thumbnails/tokenized-saes.png"
 external = true

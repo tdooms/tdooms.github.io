@@ -2,5 +2,5 @@ icon = "@/assets/icons/cuberdon.jpeg"
 start = "2022-07-01"
 end = "2023-06-30"
 title = "Cuberdon Software Solutions"
-text = "Full-stack development with Vue and ASP.NET for a customer portal."
+text = "Full-stack development with Vue and ASP.NET for a customer portal"
 order = 2

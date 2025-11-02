@@ -9,14 +9,15 @@ import rehypeKatex from 'rehype-katex';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    svelte(),
-    mdx({
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
-    }),
-  ],
-  vite: {
-    plugins: [tailwindcss()],
-  },
+    site: 'https://tdooms.github.io',
+    integrations: [
+        svelte(),
+        mdx({
+            remarkPlugins: [remarkMath],
+            rehypePlugins: [rehypeKatex],
+        }),
+    ],
+    vite: {
+        plugins: [tailwindcss()],
+    },
 });

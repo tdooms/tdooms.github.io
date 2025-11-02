@@ -7,12 +7,13 @@ interface Props {
 	image: ImageMetadata;
 	url: string;
 	square?: boolean;
+	external?: boolean;
 }
 
-const { title, sub, image, url, square = false } = Astro.props;
+const { title, sub, image, url, square = false, external = false } = Astro.props;
 ---
 
-<a href={url} class="block">
+<a href={url} target={external ? '_blank' : '_self'} class="block">
 	<div class="card bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
 		<figure class="overflow-hidden">
 			<Image 

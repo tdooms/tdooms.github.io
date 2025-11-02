@@ -3,7 +3,7 @@ date = "2025-10-01"
 conference = "NeurIPS'25"
 labels = ["workshop"]
 description = "Autoencoder architecture that decomposes activations into polynomial manifolds."
-link = "research/bae"
+link = "/research/bae"
 authors = ["Thomas Dooms", "Ward Gauderis"]
 
 paper="https://arxiv.org/abs/2510.16820"

@@ -1,7 +1,7 @@
-title = "The Trifecta: Three techniques for deeper Forward-Forward networks"
+title = "The trifecta: three techniques for deeper forward-forward networks"
 date = "2023-11-01"
 conference = "TMLR"
-description = "Three techniques to significantly improve the Forward-Forward algorithm. We achieve 84% on CIFAR-10."
+description = "Three techniques to significantly improve the forward-forward algorithm achieving 84% on CIFAR-10"
 link = "/research/trifecta"
 authors = ["Thomas Dooms", "Ing Jyh Tsang", "Jose Oramas"]
 

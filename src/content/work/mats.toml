@@ -2,5 +2,5 @@ icon = "@/assets/icons/mats.jpg"
 start = "2024-05-01"
 end = "2024-08-31"
 title = "MATS Program"
-text = "Mechanistic interpretability stream with Neel Nanda and Lee Sharkey. Wrote an ICLR paper and two ICML workshop papers."
+text = "Mechanistic interpretability stream with Neel Nanda and Lee Sharkey. Wrote an ICLR paper and two ICML workshop papers"
 order = 1

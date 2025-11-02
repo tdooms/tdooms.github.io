@@ -1,8 +1,11 @@
 ---
 title: A gentle introduction to tensor networks
 date: 2025-06-20
-back: blog
+layout: ../../layouts/Blog.astro
 ---
+
+import { Image } from 'astro:assets';
+import carsales from '../../assets/blogs/carsales.jpg';
 
 I have been actively nerd-sniping recruits to the cult of tensor networks.
 While this has been great, I keep promising greatness without backing that up. This post provides an introductory overview of the topic for the newly initiated. This post is aimed at interpretability researchers.
@@ -67,7 +70,7 @@ Before that, though, I want to talk about **really** high-order tensor networks.
 
 Enter [hierarchical formats](https://publications.rwth-aachen.de/record/674222/files/674222.pdf). Instead of defining a decomposition between all modes, we can introduce 'hidden modes'. You can form a tensor tree where each decomposition only combines a few modes at a time in the form of a tree. This is known as an H(ierarchical)-Tucker decomposition. It's also possible to use the CPD to describe intermediate interactions, although I have thus far failed to find a literature reference that studies this specific network class. In any case, this idea is often abstracted as "tree tensor networks", where only a single path connects each mode. These are generally really nice to work with and have a variety of algorithms that work on them.
 
-![image](/blogs/carsales.jpg)
+<Image src={carsales} alt="Tensor network diagram" />
 
 There exist specific decompositions (MERA/PEPS) that are not trees (they contain so-called loops) but still have many valuable properties. We do not discuss them here.
 

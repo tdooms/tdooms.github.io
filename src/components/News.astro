@@ -20,10 +20,10 @@ const WrapperTag = link ? 'a' : 'div';
 const wrapperProps = link ? { href: link, target: external ? '_blank' : '_self' } : {};
 ---
 
-<WrapperTag 
+<WrapperTag
 	class:list={[
-		"block bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-5 border border-gray-100",
-		link && "hover:shadow-md hover:border-primary/30 transition-all duration-300 hover:scale-[1.01] no-underline cursor-pointer"
+		"block bg-white shadow-md rounded-lg p-6",
+		link && "hover:shadow-lg transition-shadow duration-300 no-underline cursor-pointer"
 	]}
 	{...wrapperProps}
 >
@@ -34,7 +34,7 @@ const wrapperProps = link ? { href: link, target: external ? '_blank' : '_self' 
 				<i class:list={[icon, "text-primary text-xl"]}></i>
 			</div>
 		</div>
-		
+
 		<!-- Content -->
 		<div class="flex-1 min-w-0">
 			<div class="flex items-start justify-between gap-3 mb-1">

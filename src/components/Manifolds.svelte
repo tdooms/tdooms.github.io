@@ -8,7 +8,6 @@
     let { samples }: { samples: Sample[] } = $props();
 
     let selected = $state(0);
-    let loading = $state(false);
     let chartElement: HTMLDivElement;
     let tooltip: HTMLDivElement;
 
@@ -158,16 +157,14 @@
 
                 if (t < 1) requestAnimationFrame(animate);
             };
-            animate();
+            requestAnimationFrame(animate);
         }
     }
 
     async function setSelected(index: number) {
         selected = index;
-        loading = true;
         history.replaceState({}, '', `?${samples[index].slug}`);
         await loadData(samples[index].url);
-        loading = false;
     }
 
     let hoverScheduled = false;
@@ -237,7 +234,7 @@
 </div>
 
 <div class="card bg-white shadow-md chart-container">
-    <div bind:this={chartElement} style="opacity: {loading ? 0.5 : 1}; transition: opacity 0.3s;"></div>
+    <div bind:this={chartElement}></div>
 </div>
 
 <div bind:this={tooltip} class="tooltip"></div>

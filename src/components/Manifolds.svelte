@@ -90,47 +90,76 @@
         const scale = 2 / Math.max(...bounds.map(([min, max]) => max - min));
 
         const [minVal, maxVal] = [Math.min(...values), Math.max(...values)];
-        const positions = new Float32Array(x.length * 3);
-        const colors = new Float32Array(x.length * 3);
+        const targetPos = new Float32Array(x.length * 3);
+        const newColors = new Float32Array(x.length * 3);
         labels = [];
 
         for (let i = 0; i < x.length; i++) {
-
-            positions[i * 3] = (x[i] - center[0]) * scale;
-            positions[i * 3 + 1] = (z[i] - center[2]) * scale;
-            positions[i * 3 + 2] = (y[i] - center[1]) * scale;
+            targetPos[i * 3] = (x[i] - center[0]) * scale;
+            targetPos[i * 3 + 1] = (z[i] - center[2]) * scale;
+            targetPos[i * 3 + 2] = (y[i] - center[1]) * scale;
 
             const color = getColor((values[i] - minVal) / (maxVal - minVal));
-            colors.set([color.r, color.g, color.b], i * 3);
+            newColors.set([color.r, color.g, color.b], i * 3);
             labels.push(tokens[i] || 'Origin');
         }
 
         // Update origin position
         scene.children[0].position.set(-center[0] * scale, -center[2] * scale, -center[1] * scale);
 
-        // Replace points
-        if (points) {
-            scene.remove(points);
-            points.geometry.dispose();
-            (points.material as THREE.Material).dispose();
+        // Get or create points
+        const needsRecreate = !points || points.geometry.attributes.position.count !== x.length;
+
+        if (needsRecreate) {
+            if (points) {
+                scene.remove(points);
+                points.geometry.dispose();
+                (points.material as THREE.Material).dispose();
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(targetPos, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(newColors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 17,
+                vertexColors: true,
+                map: circleTexture,
+                alphaTest: 0.5,
+                depthTest: true,
+                depthWrite: true,
+                sizeAttenuation: false
+            });
+
+            points = new THREE.Points(geometry, material);
+            scene.add(points);
+        } else {
+            // Animate transition
+            const posAttr = points.geometry.attributes.position as THREE.BufferAttribute;
+            const colorAttr = points.geometry.attributes.color as THREE.BufferAttribute;
+            const startPos = new Float32Array(posAttr.array);
+            const startColors = new Float32Array(colorAttr.array);
+
+            const duration = 500;
+            const startTime = Date.now();
+
+            const animate = () => {
+                const elapsed = Date.now() - startTime;
+                const t = Math.min(elapsed / duration, 1);
+                const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // ease in-out quad
+
+                for (let i = 0; i < targetPos.length; i++) {
+                    posAttr.array[i] = startPos[i] + (targetPos[i] - startPos[i]) * eased;
+                    colorAttr.array[i] = startColors[i] + (newColors[i] - startColors[i]) * eased;
+                }
+
+                posAttr.needsUpdate = true;
+                colorAttr.needsUpdate = true;
+
+                if (t < 1) requestAnimationFrame(animate);
+            };
+            animate();
         }
-
-        const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-        const material = new THREE.PointsMaterial({
-            size: 17,
-            vertexColors: true,
-            map: circleTexture,
-            alphaTest: 0.5,
-            depthTest: true,
-            depthWrite: true,
-            sizeAttenuation: false
-        });
-
-        points = new THREE.Points(geometry, material);
-        scene.add(points);
     }
 
     async function setSelected(index: number) {

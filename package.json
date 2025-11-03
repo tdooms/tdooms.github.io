@@ -15,11 +15,11 @@
     "apache-arrow": "^21.1.0",
     "astro": "^5.15.3",
     "daisyui": "^5.3.10",
-    "plotly.js-dist-min": "^3.2.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "svelte": "^5.43.2",
     "tailwindcss": "^4.1.16",
+    "three": "^0.181.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {

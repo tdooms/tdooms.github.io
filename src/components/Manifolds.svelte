@@ -60,14 +60,19 @@
             new THREE.MeshBasicMaterial({ color: 0x000000 })
         ));
 
-        // Create reusable circle texture
+        // Create reusable circle texture with anti-aliasing
         const canvas = document.createElement('canvas');
-        canvas.width = canvas.height = 32;
+        canvas.width = canvas.height = 64;
         const ctx = canvas.getContext('2d')!;
-        ctx.beginPath();
-        ctx.arc(16, 16, 16, 0, Math.PI * 2);
-        ctx.fillStyle = 'white';
-        ctx.fill();
+
+        // Create radial gradient for smooth edges
+        const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        gradient.addColorStop(0.7, 'rgba(255, 255, 255, 1)');
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 64, 64);
         circleTexture = new THREE.CanvasTexture(canvas);
 
         raycaster.params.Points.threshold = 0.02;

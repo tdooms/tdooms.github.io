@@ -10,7 +10,9 @@ const newsItems = await getCollection('news');
 // Sort by date (most recent first)
 const sortedNews = newsItems.sort((a: CollectionEntry<'news'>, b: CollectionEntry<'news'>) => {
 	return b.data.date.localeCompare(a.data.date);
-}).slice(0, 3);
+});
+
+const initialCount = 3;
 ---
 
 <Layout>
@@ -82,9 +84,41 @@ const sortedNews = newsItems.sort((a: CollectionEntry<'news'>, b: CollectionEntr
 			</div>
 
 			<!-- News Section -->
-			<div class="space-y-3">
-				{sortedNews.map((item) => <News {...item.data} />)}
+			<div class="space-y-3" id="news-container">
+				{sortedNews.map((item, index) => (
+					<div class:list={["news-item", index >= initialCount && "hidden"]}>
+						<News {...item.data} />
+					</div>
+				))}
+				{sortedNews.length > initialCount && (
+					<button
+						id="load-more-btn"
+						class="w-full text-primary hover:underline cursor-pointer py-2"
+					>
+						Load more
+					</button>
+				)}
 			</div>
 		</div>
 	</div>
+
+	<script is:inline define:vars={{ initialCount, totalCount: sortedNews.length }}>
+		let visibleCount = initialCount;
+		const increment = 3;
+
+		document.getElementById('load-more-btn')?.addEventListener('click', () => {
+			const items = document.querySelectorAll('.news-item');
+			const newVisible = Math.min(visibleCount + increment, totalCount);
+
+			for (let i = visibleCount; i < newVisible; i++) {
+				items[i]?.classList.remove('hidden');
+			}
+
+			visibleCount = newVisible;
+
+			if (visibleCount >= totalCount) {
+				document.getElementById('load-more-btn')?.remove();
+			}
+		});
+	</script>
 </Layout>

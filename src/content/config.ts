@@ -68,7 +68,6 @@ const education = defineCollection({
 		grade: z.string().optional(),
 		subject: z.string().optional(),
 		advisor: z.string().optional(),
-		order: z.number(),
 	}),
 });
 
@@ -80,7 +79,6 @@ const work = defineCollection({
 		start: z.string(),
 		end: z.string().optional(),
 		text: z.string(),
-		order: z.number(),
 	}),
 });
 

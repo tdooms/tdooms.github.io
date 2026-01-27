@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Media from '../components/Media.astro';
 import { getCollection } from 'astro:content';
 
-const educationEntries = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
-const workEntries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const educationEntries = (await getCollection('education')).sort((a, b) => new Date(b.data.start).getTime() - new Date(a.data.start).getTime());
+const workEntries = (await getCollection('work')).sort((a, b) => new Date(b.data.start).getTime() - new Date(a.data.start).getTime());
 const languageEntries = (await getCollection('languages')).sort((a, b) => a.data.order - b.data.order);
 const awardEntries = (await getCollection('awards')).sort((a, b) => a.data.order - b.data.order);
 ---

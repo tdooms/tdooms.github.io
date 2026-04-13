@@ -1,29 +1,28 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const papers = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/papers' }),
 	schema: z.object({
 		title: z.string(),
 		date: z.string(),
-		conference: z.string(), // e.g., "ICML'25", "NeurIPS'25"
-		labels: z.array(z.string()).optional(), // e.g., ["workshop", "spotlight", "oral"]
+		conference: z.string(),
+		labels: z.array(z.string()).optional(),
 		description: z.string(),
 		link: z.string(),
 		external: z.boolean().optional(),
 		authors: z.array(z.string()),
-		// Optional additional links
 		code: z.string().optional(),
 		video: z.string().optional(),
 		paper: z.string().optional(),
 		models: z.string().optional(),
 		demo: z.string().optional(),
-		// BibTeX citation
 		bibtex: z.string().optional(),
 	}),
 });
 
 const presentations = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/presentations' }),
 	schema: z.object({
 		title: z.string(),
 		date: z.string(),
@@ -35,7 +34,7 @@ const presentations = defineCollection({
 });
 
 const blogs = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/blogs' }),
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		date: z.string(),
@@ -47,7 +46,7 @@ const blogs = defineCollection({
 });
 
 const demos = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/demos' }),
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		sub: z.string(),
@@ -59,7 +58,7 @@ const demos = defineCollection({
 });
 
 const education = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/education' }),
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		start: z.string(),
@@ -72,7 +71,7 @@ const education = defineCollection({
 });
 
 const work = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/work' }),
 	schema: ({ image }) => z.object({
 		icon: image(),
 		title: z.string(),
@@ -83,7 +82,7 @@ const work = defineCollection({
 });
 
 const languages = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/languages' }),
 	schema: z.object({
 		name: z.string(),
 		level: z.string(),
@@ -93,7 +92,7 @@ const languages = defineCollection({
 });
 
 const awards = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/awards' }),
 	schema: z.object({
 		title: z.string(),
 		start: z.string(),
@@ -103,12 +102,12 @@ const awards = defineCollection({
 });
 
 const news = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.toml', base: './src/content/news' }),
 	schema: z.object({
 		title: z.string(),
 		date: z.string(),
 		description: z.string(),
-		icon: z.string().optional(), // Font Awesome icon class
+		icon: z.string().optional(),
 		link: z.string().optional(),
 		external: z.boolean().optional(),
 	}),

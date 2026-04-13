@@ -1,0 +1,21 @@
+title = "Interpretable variant effect prediction from genomic foundation models"
+date = "2026-04-11"
+conference = "bioRxiv"
+description = "Predicting and explaining pathogenicity on 4.2M genomic variants."
+link = "/research/evee"
+authors = ["Michael T. Pearce", "Thomas Dooms", "Ryo Yamamoto", "Joshua Meehl", "Carl Molnar", "Mark Bissell", "Dron Hazra", "Ching Fang", "Nam Nguyen", "Michael Anderson", "Collin Osborne", "Patrick Duffy", "Bridget Toomey", "Eric Klee", "Elena Myasoedova", "Alexander Ryu", "Shant Ayanian", "Panos Korfiatis", "Matt Redlon", "Archa Jain", "Daniel Balsam", "Nicholas K. Wang"]
+
+paper = "https://www.biorxiv.org/content/10.64898/2026.04.10.717844v1.full.pdf"
+models = "https://evee.goodfire.ai/"
+
+bibtex = """
+@article{pearce2026evee,
+      title={EVEE: Interpretable variant effect prediction from genomic foundation model embeddings},
+      author={Michael T. Pearce and Thomas Dooms and Ryo Yamamoto and Joshua Meehl and Carl Molnar and Mark Bissell and Dron Hazra and Ching Fang and Nam Nguyen and Michael Anderson and Collin Osborne and Patrick Duffy and Bridget Toomey and Eric Klee and Elena Myasoedova and Alexander Ryu and Shant Ayanian and Panos Korfiatis and Matt Redlon and Archa Jain and Daniel Balsam and Nicholas K. Wang},
+      year={2026},
+      eprint={2026.04.10.717844},
+      archivePrefix={bioRxiv},
+      doi={10.64898/2026.04.10.717844},
+      url={https://www.biorxiv.org/content/10.64898/2026.04.10.717844v1},
+}
+"""

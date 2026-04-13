@@ -5,6 +5,14 @@ I try to update this regularly.
 
 ## Development
 
+Install
+
+```bash
+npm install
+```
+
+Run
+
 ```bash
 npm run dev
 ```

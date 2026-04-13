@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import path from 'path';
 
 import svelte from '@astrojs/svelte';
 import mdx from '@astrojs/mdx';
@@ -19,5 +20,10 @@ export default defineConfig({
     ],
     vite: {
         plugins: [tailwindcss()],
+        resolve: {
+            alias: {
+                '@/': path.resolve('./src') + '/',
+            },
+        },
     },
 });

@@ -5,9 +5,10 @@ interface Props {
 	models?: string;
 	demo?: string;
 	video?: string;
+	news?: string;
 }
 
-const { paper, code, models, demo, video } = Astro.props;
+const { paper, code, models, demo, video, news } = Astro.props;
 
 const resources = [
 	{ url: paper, icon: 'fa-regular fa-file', label: 'Paper' },
@@ -15,6 +16,7 @@ const resources = [
 	{ url: models, icon: 'fa-solid fa-database', label: 'Models' },
 	{ url: video, icon: 'fa-solid fa-video', label: 'Video' },
 	{ url: demo, icon: 'fa-solid fa-flask', label: 'Demo' },
+	{ url: news, icon: 'fa-solid fa-newspaper', label: 'News' },
 ].filter(r => r.url);
 ---
 

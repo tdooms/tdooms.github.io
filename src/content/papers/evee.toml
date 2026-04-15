@@ -3,10 +3,11 @@ date = "2026-04-11"
 conference = "bioRxiv"
 description = "Predicting and explaining pathogenicity on 4.2M genomic variants."
 link = "/research/evee"
-authors = ["Michael T. Pearce", "Thomas Dooms", "Ryo Yamamoto", "Joshua Meehl", "Carl Molnar", "Mark Bissell", "Dron Hazra", "Ching Fang", "Nam Nguyen", "Michael Anderson", "Collin Osborne", "Patrick Duffy", "Bridget Toomey", "Eric Klee", "Elena Myasoedova", "Alexander Ryu", "Shant Ayanian", "Panos Korfiatis", "Matt Redlon", "Archa Jain", "Daniel Balsam", "Nicholas K. Wang"]
+authors = ["Michael T. Pearce*", "Thomas Dooms*", "Ryo Yamamoto*", "Joshua Meehl", "Carl Molnar", "Mark Bissell", "Dron Hazra", "Ching Fang", "Nam Nguyen", "Michael Anderson", "Collin Osborne", "Patrick Duffy", "Bridget Toomey", "Eric Klee", "Elena Myasoedova", "Alexander Ryu", "Shant Ayanian", "Panos Korfiatis", "Matt Redlon", "Archa Jain", "Daniel Balsam", "Nicholas K. Wang"]
 
 paper = "https://www.biorxiv.org/content/10.64898/2026.04.10.717844v1.full.pdf"
-models = "https://evee.goodfire.ai/"
+demo = "https://evee.goodfire.ai/"
+news = "https://time.com/article/2026/04/14/ai-disease-genetic-mayo-clinic-goodfire/"
 
 bibtex = """
 @article{pearce2026evee,

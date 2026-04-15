@@ -1,14 +1,11 @@
 ---
-title: Bilinear Autoencoders
-slug: bae
+title: Interpretable variant effect prediction
+slug: evee
 layout: ../../layouts/Paper.astro
 ---
 
-### Background
+> **TODO:** Replace this abstract with a personalized take on the paper.
 
-The largest evolutions in machine learning have arguably happened for language.
-The most important shift has been scaling which became possible through self-supervised learning.
-I think this will likely be the main driver for machine learning across domains and that we'll see many breakthroughs enabled by this scaling. 
-Collecting data is cheap, finding structure in data isn't and self-supervised learning achieves precisely that.
+### Abstract
 
-One field that has recently eaten the self-supervised scale pill is computational biology, which we
+Predicting the clinical significance of genetic variants remains a central challenge in genomic medicine, with most observed variants classified as variants of uncertain significance. Here we show that representations from Evo 2, a 7-billion-parameter genomic foundation model, support accurate and interpretable pathogenicity prediction across variant types from a single framework. An embedding-based classifier, or "probe", trained on Evo 2 embeddings achieves state-of-the-art performance across single nucleotide variant consequence types (0.997 overall AUROC on 839k ClinVar variants) and generalizes zero-shot to indels (0.991 AUROC), outperforming bioinformatic meta-predictors, protein models, and existing foundation model approaches. Performance is robust across conservation levels and transfers to deep mutational scanning datasets for BRCA1, BRCA2, TP53, and LDLR. To make these predictions interpretable, we train supervised annotation probes to quantify predicted disruptions caused by each variant, then synthesize these disruption profiles into natural language explanations using a frontier reasoning model. We provide pre-computed predictions and on-demand explanations for all 4.2 million ClinVar variants through the Evo Variant Effect Explorer (EVEE), an interactive web resource for the community. This work establishes that representations from genomic foundation models can serve as a unified substrate for both accurate variant effect prediction and mechanistic interpretation, reframing interpretability in computational genomics from a trade-off into a complementary product of learned biological structure.

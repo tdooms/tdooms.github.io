@@ -1,5 +1,5 @@
 title = "Bilinear MLPs enable weight-based mechanistic interpretability"
-shortTitle = "Weight-based interpretability"
+shortTitle = "Bilinear MLPs"
 date = "2024-10-01"
 conference = "ICLR'25"
 labels = ["spotlight"]
@@ -10,7 +10,6 @@ authors = ["Michael T. Pearce*", "Thomas Dooms*", "Alice Rigg", "Jose M. Oramas"
 paper = "https://arxiv.org/pdf/2410.08417"
 code = "https://github.com/tdooms/bilinear-decomposition"
 models = "https://huggingface.co/collections/tdooms/bilinear-transformers-tinystories-670e352e0f552bab121d861f"
-demo = "/demos/eigenvectors"
 
 bibtex = """
 @misc{pearce2025bilinearmlpsenableweightbased,

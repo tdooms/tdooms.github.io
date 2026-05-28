@@ -23,12 +23,7 @@ if (!body) {
 const { Content } = await render(body)
 ---
 
-<Layout
-  back
-  math
-  title={paper.data.shortTitle ?? paper.data.title}
-  description={paper.data.description}
->
+<Layout back title={paper.data.shortTitle ?? paper.data.title} description={paper.data.description}>
   <h1 class="mb-2 text-4xl font-bold">{paper.data.shortTitle ?? paper.data.title}</h1>
   <Authors authors={paper.data.authors} />
   <div class="mt-6"></div>
@@ -37,8 +32,8 @@ const { Content } = await render(body)
     paper={paper.data.paper}
     code={paper.data.code}
     models={paper.data.models}
-    demo={paper.data.demo}
     video={paper.data.video}
+    slides={paper.data.slides}
     news={paper.data.news}
   />
 

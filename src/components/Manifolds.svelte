@@ -215,7 +215,8 @@
       const intersects = raycaster.intersectObject(points!)
 
       if (intersects.length > 0 && intersects[0]!.index != null) {
-        tooltip.style.cssText = `left: ${lastEvent.clientX + 10}px; top: ${lastEvent.clientY + 10}px`
+        tooltip.style.left = `${lastEvent.clientX + 10}px`
+        tooltip.style.top = `${lastEvent.clientY + 10}px`
         tooltip.textContent = labels[intersects[0]!.index!] ?? ''
         tooltip.classList.add('visible')
       } else {
@@ -265,21 +266,24 @@
   })
 </script>
 
-<div class="mb-6 flex flex-wrap justify-center gap-1">
-  {#each samples as sample, i (sample.slug)}
-    <button
-      type="button"
-      class="tab"
-      class:tab-active={selected === i}
-      aria-pressed={selected === i}
-      onclick={() => setSelected(i)}
-    >
-      {sample.name}
-    </button>
-  {/each}
+<div class="mb-6 flex justify-center">
+  <div role="tablist" class="tabs tabs-box">
+    {#each samples as sample, i (sample.slug)}
+      <button
+        type="button"
+        role="tab"
+        class="tab"
+        class:tab-active={selected === i}
+        aria-selected={selected === i}
+        onclick={() => setSelected(i)}
+      >
+        {sample.name}
+      </button>
+    {/each}
+  </div>
 </div>
 
-<div class="card chart-container bg-white shadow-md">
+<div class="card chart-container bg-base-100 shadow-md">
   <div bind:this={chartElement}></div>
 </div>
 

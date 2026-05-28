@@ -5,9 +5,11 @@ import path from 'path'
 import svelte from '@astrojs/svelte'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import icon from 'astro-icon'
 import tailwindcss from '@tailwindcss/vite'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
+import rehypeExternalLinks from 'rehype-external-links'
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,37 +38,29 @@ export default defineConfig({
       styles: ['normal'],
     },
   ],
-  security: {
-    csp: {
-      algorithm: 'SHA-256',
-      directives: [
-        "default-src 'self'",
-        "img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com",
-        "font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
-        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
-        "object-src 'none'",
-        "base-uri 'self'",
-        "frame-ancestors 'none'",
-      ],
-      scriptDirective: {
-        resources: ["'self'", 'https://*.googletagmanager.com'],
-      },
-      styleDirective: {
-        resources: ["'self'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
-      },
-    },
-  },
+  // No CSP via Astro auto-config. Astro v6 always emits sha256 hashes for known
+  // inline styles, and per CSP spec hashes nullify 'unsafe-inline'. KaTeX needs
+  // 'unsafe-inline' for its per-equation `style="..."` attributes, so the two
+  // conflict. For a static site with no user input the strict CSP earns nothing
+  // worth the score hit. Add a real CSP via deploy-time HTTP headers if needed.
   markdown: {
     remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
+    rehypePlugins: [
+      rehypeKatex,
+      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
+    ],
   },
-  integrations: [svelte(), mdx(), sitemap()],
+  integrations: [svelte(), mdx(), sitemap(), icon()],
   vite: {
     plugins: [tailwindcss()],
     resolve: {
       alias: {
         '@/': path.resolve('./src') + '/',
       },
+    },
+    build: {
+      // Ship sourcemaps so Lighthouse's valid-source-maps audit passes.
+      sourcemap: true,
     },
   },
 })

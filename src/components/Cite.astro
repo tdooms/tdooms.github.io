@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components'
+
 interface Props {
   bib: string
 }
@@ -6,11 +8,11 @@ interface Props {
 const { bib } = Astro.props
 ---
 
-<div class="card hidden bg-gray-100 shadow-md md:block">
-  <div class="flex items-center justify-between bg-gray-200 px-4 py-2">
-    <h3 class="font-semibold text-gray-900">How to cite</h3>
+<div class="card bg-base-200 hidden shadow-md md:block">
+  <div class="bg-base-300 flex items-center justify-between px-4 py-2">
+    <h2 class="text-base-content font-semibold">How to cite</h2>
     <button type="button" class="btn btn-ghost btn-sm cite-copy" aria-label="Copy citation">
-      <i class="fa-solid fa-copy text-base" aria-hidden="true"></i>
+      <Icon name="fa6-solid:copy" class="text-base" />
     </button>
   </div>
   <pre class="cite-content overflow-x-auto p-4 text-xs break-words whitespace-pre-wrap">{bib}</pre>

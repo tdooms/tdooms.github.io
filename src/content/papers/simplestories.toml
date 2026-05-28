@@ -2,6 +2,7 @@ title = "Parameterized synthetic text generation with SimpleStories"
 shortTitle = "Introducing SimpleStories"
 date = "2025-10-01"
 conference = "NeurIPS'25"
+labels = ["dataset"]
 description = "A synthetic dataset containing diverse but simple stories"
 link = "/research/simplestories"
 authors = ["Lennart Finke", "Chandan Sreedhara", "Thomas Dooms", "Mat Allen", "Emerald Zhang", "Juan Diego Rodriguez", "Noa Nabeshima", "Thomas Marshall", "Dan Braun"]

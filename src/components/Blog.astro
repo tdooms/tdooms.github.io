@@ -1,17 +1,17 @@
 ---
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 
 interface Props {
   title: string
   date: string
-  image: ImageMetadata
   link: string
+  image?: ImageMetadata
   external?: boolean
 }
 
-const { title, date, image, link, external = false } = Astro.props
+const { title, date, link, image, external = false } = Astro.props
 
-// Format date nicely
 const formattedDate = new Date(date).toLocaleDateString('en-GB', {
   day: 'numeric',
   month: 'short',
@@ -23,28 +23,31 @@ const formattedDate = new Date(date).toLocaleDateString('en-GB', {
   href={link}
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
-  class="block"
+  class="group bg-base-100 ring-base-300/60 flex h-full flex-col overflow-hidden rounded-xl shadow-sm ring-1 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
 >
-  <div
-    class="card bg-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-  >
-    <figure class="relative overflow-hidden">
-      <Image
-        src={image}
-        alt={title}
-        class="h-48 w-full object-cover grayscale-[0.75] transition-all duration-300 hover:grayscale-0"
-      />
+  {
+    image && (
+      <figure class="bg-base-200 relative aspect-[5/3] overflow-hidden">
+        <Image
+          src={image}
+          alt={title}
+          layout="none"
+          class="absolute inset-0 h-full w-full object-cover saturate-50 transition-[filter] duration-300 ease-out group-hover:saturate-100"
+        />
+      </figure>
+    )
+  }
+  <div class="flex flex-1 flex-col gap-2 p-4">
+    <div class="flex items-center justify-between gap-3">
+      <time class="text-base-content/70 text-xs font-semibold tracking-wider uppercase">
+        {formattedDate}
+      </time>
       {
         external && (
-          <div class="absolute right-2 bottom-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-sm backdrop-blur-sm">
-            <i class="fa-solid fa-arrow-up-right-from-square text-sm text-gray-600" />
-          </div>
+          <Icon name="fa6-solid:arrow-up-right-from-square" class="text-base-content/65 text-xs" />
         )
       }
-    </figure>
-    <div class="card-body p-6">
-      <h4 class="card-title text-xl text-gray-900">{title}</h4>
-      <div class="text-sm text-gray-600">{formattedDate}</div>
     </div>
+    <h3 class="text-base-content truncate text-base font-bold">{title}</h3>
   </div>
 </a>

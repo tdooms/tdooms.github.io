@@ -17,9 +17,9 @@ const papers = defineCollection({
       authors: z.array(z.string()),
       code: z.string().optional(),
       video: z.string().optional(),
+      slides: z.string().optional(),
       paper: z.string().optional(),
       models: z.string().optional(),
-      demo: z.string().optional(),
       news: z.string().optional(),
       bibtex: z.string().optional(),
       // Optional thumbnail shown on the compact card on the home page.
@@ -39,22 +39,10 @@ const blogs = defineCollection({
       title: z.string(),
       date: z.string(),
       description: z.string().optional(),
-      image: image(),
+      // Optional now that Blog cards are text-only; kept for forward compatibility.
+      image: image().optional(),
       // When set, the blog card links out to this URL and no local page is generated.
       external: z.url().optional(),
-    }),
-})
-
-const demos = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.toml', base: './src/content/demos' }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      sub: z.string(),
-      url: z.string(),
-      image: image(),
-      square: z.boolean().optional(),
-      order: z.number(),
     }),
 })
 
@@ -107,9 +95,9 @@ const awards = defineCollection({
 const news = defineCollection({
   loader: glob({ pattern: '**/[^_]*.toml', base: './src/content/news' }),
   schema: z.object({
+    // `title` supports **bold** markdown — rendered in brand orange to emphasize key words.
     title: z.string(),
     date: z.string(),
-    description: z.string(),
     icon: z.string().optional(),
     link: z.string().optional(),
     external: z.boolean().optional(),
@@ -120,7 +108,6 @@ export const collections = {
   papers,
   papersContent,
   blogs,
-  demos,
   education,
   work,
   languages,

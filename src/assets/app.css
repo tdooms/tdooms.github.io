@@ -1,10 +1,32 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+/* Ship both themes. Light is the default; dark is only applied when the user
+   flips the .theme-controller toggle (no auto prefers-color-scheme switch). */
 @plugin 'daisyui' {
   themes:
     light --default,
-    dark --prefersdark,
-    emerald;
+    dark;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'light';
+  default: true;
+  color-scheme: light;
+
+  /* Brand orange. orange-700 oklch passes WCAG 4.5:1 on white; orange-500
+     looked great but failed contrast on inline emphasis text. */
+  --color-primary: oklch(55.3% 0.195 38.402); /* ~orange-700, contrast ≈ 5.0:1 on white */
+  --color-primary-content: oklch(98% 0.016 73.684); /* orange-50 */
+}
+
+@plugin 'daisyui/theme' {
+  name: 'dark';
+  color-scheme: dark;
+
+  /* On dark backgrounds the brighter orange-500 is the contrast-passing choice. */
+  --color-primary: oklch(70.5% 0.213 47.604); /* orange-500 */
+  --color-primary-content: oklch(22% 0.05 47); /* near-black with a hint of orange */
 }
 
 @theme {
@@ -25,21 +47,31 @@
   content: '';
 }
 
+/* Prose figcaption defaults to gray-500 which fails 4.5:1 on white. Bump it
+   to base-content at 70% so figure captions are themed and accessible. */
+.prose :where(figcaption):not(:where([class~='not-prose'] *)) {
+  color: color-mix(in oklab, var(--color-base-content) 75%, transparent);
+}
+
+/* DaisyUI .menu-title and inactive .tab default to a low-opacity base-content
+   that fails 4.5:1. Bump the opacity floor here so the theme stays in control. */
+.menu :where(.menu-title) {
+  color: color-mix(in oklab, var(--color-base-content) 75%, transparent);
+}
+.tabs :where(.tab:not(.tab-active)) {
+  color: color-mix(in oklab, var(--color-base-content) 75%, transparent);
+}
+
 /* Per-keyword highlights for prose. Use as: <span class="hl">term</span>
-   or <span class="hl hl-orange">Org</span>. Background-only — keeps text
-   the inherited color so links and emphasis still work. */
+   or <span class="hl hl-red">Org</span>. Default is a soft orange that matches
+   the section-header dot. */
 .hl {
-  background-color: var(--color-yellow-100);
+  background-color: color-mix(in oklch, var(--color-primary) 15%, transparent);
   padding: 0 0.25rem;
   border-radius: 0.125rem;
   text-decoration: none;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-}
-.hl-orange {
-  background-color: var(--color-orange-100);
-  color: var(--color-orange-700);
-  font-weight: 500;
 }
 .hl-red {
   background-color: var(--color-red-100);

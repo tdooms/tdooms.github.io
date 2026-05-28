@@ -9,31 +9,28 @@ interface Props {
 }
 
 const { title, conference, labels = [], description, link, external = false } = Astro.props
-
-const badgeVariant = (label: string) =>
-  ['spotlight', 'oral'].includes(label.toLowerCase()) ? 'badge-secondary' : 'badge-primary'
 ---
 
 <a
-  class="block rounded-2xl bg-white p-6 no-underline shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_8px_16px_rgba(0,0,0,0.12)]"
+  class="bg-base-100 block rounded-2xl p-6 no-underline shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_8px_16px_rgba(0,0,0,0.12)]"
   href={link}
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
 >
   <div class="flex flex-col gap-3 md:flex-row md:gap-6">
     <div class="flex-1">
-      <h5 class="mb-3 text-2xl font-semibold text-gray-900">{title}</h5>
-      <p class="text-base text-gray-600">{description}</p>
+      <h5 class="text-base-content mb-3 text-2xl font-semibold">{title}</h5>
+      <p class="text-base-content/75 text-base">{description}</p>
     </div>
 
     <div
-      class="flex items-center justify-between gap-2 border-t border-gray-200 pt-2 md:flex-col md:items-end md:justify-start md:border-t-0 md:pt-0 md:text-right"
+      class="border-base-300 flex items-center justify-between gap-2 border-t pt-2 md:flex-col md:items-end md:justify-start md:border-t-0 md:pt-0 md:text-right"
     >
-      <span class="text-base font-bold text-gray-800 md:text-lg">{conference}</span>
+      <span class="text-base-content text-base font-bold md:text-lg">{conference}</span>
       <div class="flex flex-wrap gap-1.5 md:justify-end">
         {
           labels.map((label) => (
-            <span class={`badge badge-soft badge-large ${badgeVariant(label)}`}>{label}</span>
+            <span class="badge badge-soft badge-primary badge-large">{label}</span>
           ))
         }
       </div>

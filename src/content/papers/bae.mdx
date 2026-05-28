@@ -1,4 +1,6 @@
-### Technique
+import Manifolds from '../../components/Manifolds.svelte'
+
+## Technique
 
 Sparse autoencoders are the standard tool to find interpretable features within model activations in unsupervised fashion.
 Yet, due to their architecture, analysis is constrained to the precise extracted feature basis.
@@ -9,7 +11,29 @@ We achieve this by linearly reconstructing the quadratic input space ($x_0^2, x_
 These polynomial factors can be analyzed, for instance using SVD, to find further structure within the autoencoder.
 We use this toward automated extraction of subspaces that are likely to contain interesting manifolds.
 
-### Extensions
+## Explore the manifolds
+
+<Manifolds
+  client:visible
+  samples={[
+    { name: 'Year Circle', url: '/manifolds/year-circle.feather', slug: 'year-circle' },
+    { name: 'Triangle', url: '/manifolds/new-triangle.feather', slug: 'new-triangle' },
+    {
+      name: 'Negation Directions',
+      url: '/manifolds/negation-directions.feather',
+      slug: 'negation-directions',
+    },
+    {
+      name: 'Conjunction Clusters',
+      url: '/manifolds/conjunction-clusters.feather',
+      slug: 'conjunction-clusters',
+    },
+  ]}
+/>
+
+Points are activations linearly projected into a 3D subspace, coloured by activation strength of the studied bilinear form. Hover any point for the underlying token and the model's predicted next token. Switch samples to compare structural families. Illusory gaps near the origin come from thresholding low activations.
+
+## Extensions
 
 We also propose three extensions to bilinear autoencoders that impact the structure and properties of the extracted features.
 
@@ -19,6 +43,6 @@ Second, we introduce an analytic way to impose a complete importance ordering on
 
 Last, we discuss how to add a further bottleneck to extracted features, akin to toy models of superposition, which helps understand which features overlap and mix.
 
-### Future work
+## Future work
 
 This paper proposes solutions to several open problems, but much work remains to verify and extend the approach.

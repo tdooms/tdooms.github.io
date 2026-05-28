@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import Media from '../components/Media.astro'
+import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
 
 const educationEntries = (await getCollection('education')).sort(
@@ -39,13 +40,13 @@ const awardEntries = (await getCollection('awards')).sort((a, b) => a.data.order
     <div class="lg:col-span-4">
       <h5 class="mb-4 ml-2 text-xl font-bold">Languages</h5>
 
-      <div class="card h-[294px] bg-white p-6 shadow-md">
+      <div class="card bg-base-100 h-[294px] p-6 shadow-md">
         {
           languageEntries.map((language) => (
             <div>
               <div class="flex items-center justify-between py-0">
                 <strong>{language.data.name}</strong>
-                <span class="text-gray-600">{language.data.level}</span>
+                <span class="text-base-content/75">{language.data.level}</span>
               </div>
               <progress
                 class="progress progress-error mb-4 h-2"
@@ -64,16 +65,16 @@ const awardEntries = (await getCollection('awards')).sort((a, b) => a.data.order
     <div class="lg:col-span-8">
       <h5 class="mb-4 ml-2 text-xl font-bold">Awards</h5>
 
-      <div class="card bg-white p-6 shadow-md">
+      <div class="card bg-base-100 p-6 shadow-md">
         {
           awardEntries.map((award) => (
             <div class="mb-3 flex items-center gap-3">
-              <span class="text-2xl text-yellow-500">
-                <i class="fa-solid fa-award" />
+              <span class="text-primary text-2xl">
+                <Icon name="fa6-solid:award" />
               </span>
               <span>
                 {award.data.title}
-                <small class="ml-2 text-gray-600 italic">
+                <small class="text-base-content/75 ml-2 italic">
                   (
                   {award.data.end
                     ? `${new Date(award.data.start).getFullYear()} - ${new Date(award.data.end).getFullYear()}`

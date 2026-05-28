@@ -66,7 +66,7 @@
 </script>
 
 <div class="flex gap-6">
-  <ul class="menu bg-white shadow-md rounded-box w-56 shrink-0 gap-1 p-4">
+  <ul class="menu bg-base-100 shadow-md rounded-box w-56 shrink-0 gap-1 p-4">
     {#each categories as category (category.prefix)}
       <li class="menu-title">
         <span>{category.label}</span>
@@ -87,7 +87,7 @@
 
   <div class="flex-1">
     <div class="mb-6 flex flex-wrap items-center justify-center gap-6">
-      <h4 class="text-xl font-bold">Positive</h4>
+      <h3 class="text-xl font-bold">Positive</h3>
       <div class="tabs tabs-box">
         {#each [1, 2, 3, 4, 5] as i (i)}
           <button
@@ -114,10 +114,10 @@
           </button>
         {/each}
       </div>
-      <h4 class="text-xl font-bold">Negative</h4>
+      <h3 class="text-xl font-bold">Negative</h3>
     </div>
 
-    <div class="card bg-white p-6 shadow-md">
+    <div class="card bg-base-100 p-6 shadow-md">
       <img
         src={`/eigenvectors/${model}/${index > 0 ? 'pos' : 'neg'}${Math.abs(index)}.svg`}
         alt={`Eigenvector ${model} index ${index}`}

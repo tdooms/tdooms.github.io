@@ -3,7 +3,7 @@ shortTitle = "Tensor Similarity"
 date = "2026-05-14"
 conference = "arXiv"
 description = "A weight-based similarity metric invariant to weight-space symmetries"
-link = "/research/tensor-similarity"
+link = "/research/similarity"
 authors = ["ML Nissen Gonzalez", "Melwina Albuquerque", "Laurence Wroe", "Jacob Meyer Cohen", "Logan Riggs Smith", "Thomas Dooms"]
 
 paper = "https://arxiv.org/abs/2605.15183"

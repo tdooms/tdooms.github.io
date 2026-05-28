@@ -1,33 +1,45 @@
 ---
-import Manifolds from '../../components/Manifolds.svelte';
-import Layout from '../../layouts/Layout.astro';
+import Manifolds from '../../components/Manifolds.svelte'
+import Layout from '../../layouts/Layout.astro'
 
 const samples = [
-	{ name: 'Year Circle', url: '/manifolds/year-circle.feather', slug: 'year-circle' },
-	{ name: 'New Triangle', url: '/manifolds/new-triangle.feather', slug: 'new-triangle' },
-	{ name: 'Negation Directions', url: '/manifolds/negation-directions.feather', slug: 'negation-directions' },
-	{ name: 'Conjunction Clusters', url: '/manifolds/conjunction-clusters.feather', slug: 'conjunction-clusters' }
-];
+  { name: 'Year Circle', url: '/manifolds/year-circle.feather', slug: 'year-circle' },
+  { name: 'New Triangle', url: '/manifolds/new-triangle.feather', slug: 'new-triangle' },
+  {
+    name: 'Negation Directions',
+    url: '/manifolds/negation-directions.feather',
+    slug: 'negation-directions',
+  },
+  {
+    name: 'Conjunction Clusters',
+    url: '/manifolds/conjunction-clusters.feather',
+    slug: 'conjunction-clusters',
+  },
+]
 ---
 
-<Layout>
-	<Manifolds client:only samples={samples} />
+<Layout
+  back
+  title="Manifold explorer"
+  description="Interactive 3D viewer for learned feature manifolds in bilinear autoencoders."
+>
+  <Manifolds client:only="svelte" samples={samples} />
 
-	<!-- Info Alert -->
-	<div role="alert" class="alert bg-gray-100 mt-6 mb-2">
-		<div class="space-y-2">
-			<p>
-				<strong>Position:</strong> Linear projection of activations into 3D subspace*.
-			</p>
-			<p>
-				<strong>Color:</strong> Activation strength of the studied bilinear form.
-			</p>
-			<p>
-				<strong>Label:</strong> Shows the current token and the predicted token by the model.
-			</p>
-			<p class="text-sm">
-				*There may be illusory gaps near the origin due to thresholding of low activations.
-			</p>
-		</div>
-	</div>
+  <!-- Info Alert -->
+  <div role="alert" class="alert mt-6 mb-2 bg-gray-100">
+    <div class="space-y-2">
+      <p>
+        <strong>Position:</strong> Linear projection of activations into 3D subspace*.
+      </p>
+      <p>
+        <strong>Color:</strong> Activation strength of the studied bilinear form.
+      </p>
+      <p>
+        <strong>Label:</strong> Shows the current token and the model's predicted token.
+      </p>
+      <p class="text-sm">
+        *There may be illusory gaps near the origin due to thresholding of low activations.
+      </p>
+    </div>
+  </div>
 </Layout>

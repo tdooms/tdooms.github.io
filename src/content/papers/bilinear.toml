@@ -1,4 +1,5 @@
 title = "Bilinear MLPs enable weight-based mechanistic interpretability"
+shortTitle = "Weight-based interpretability"
 date = "2024-10-01"
 conference = "ICLR'25"
 labels = ["spotlight"]

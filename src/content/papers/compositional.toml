@@ -1,0 +1,22 @@
+title = "From mechanistic to compositional interpretability"
+shortTitle = "Compositional Interpretability"
+date = "2026-05-09"
+conference = "arXiv"
+description = "A category-theoretic framework for formalizing mechanistic explanations of neural networks"
+link = "/research/compositional"
+authors = ["Ward Gauderis", "Thomas Dooms", "Steven T. Holmer", "Kola Ayonrinde", "Geraint A. Wiggins"]
+
+paper = "https://arxiv.org/abs/2605.08934"
+video = "https://docs.google.com/presentation/d/1H9X0Yb2DDh4LpGCMn3yzf3_KggxJTj2su48iuE1Z1vY/edit?usp=sharing"
+
+bibtex = """
+@misc{gauderis2026compositional,
+      title={From Mechanistic to Compositional Interpretability},
+      author={Ward Gauderis and Thomas Dooms and Steven T. Holmer and Kola Ayonrinde and Geraint A. Wiggins},
+      year={2026},
+      eprint={2605.08934},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2605.08934},
+}
+"""

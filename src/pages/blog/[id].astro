@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+
+export async function getStaticPaths() {
+  const blogs = await getCollection('blogs')
+  return blogs
+    .filter((blog) => !blog.data.external)
+    .map((blog) => ({ params: { id: blog.id }, props: { blog } }))
+}
+
+const { blog } = Astro.props
+const { Content } = await render(blog)
+
+const formattedDate = new Date(blog.data.date).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+---
+
+<Layout back math title={blog.data.title} description={blog.data.description}>
+  <div class="mx-auto max-w-3xl">
+    <h1 class="mb-2 text-4xl font-bold">{blog.data.title}</h1>
+    <div class="mb-6 text-gray-600">{formattedDate}</div>
+
+    <div class="prose prose-lg max-w-none">
+      <Content />
+    </div>
+  </div>
+</Layout>

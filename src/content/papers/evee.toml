@@ -1,4 +1,5 @@
 title = "Interpretable variant effect prediction from genomic foundation models"
+shortTitle = "Interpretable variant effect prediction"
 date = "2026-04-11"
 conference = "bioRxiv"
 description = "Predicting and explaining pathogenicity on 4.2M genomic variants."

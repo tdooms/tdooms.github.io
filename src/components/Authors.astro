@@ -1,23 +1,67 @@
 ---
+import Author from './Author.astro'
+
 interface Props {
-	authors: string[];
+  authors: string[]
 }
 
-const { authors } = Astro.props;
+const { authors } = Astro.props
 
-const formatAuthor = (author: string) => {
-	if (author === 'Thomas Dooms' || author === 'Thomas Dooms*') {
-		return `<strong>${author}</strong>`;
-	}
-	return author;
-};
+const parsed = authors.map((a) => {
+  const isEqual = a.endsWith('*')
+  const name = isEqual ? a.slice(0, -1) : a
+  return { name, isEqual, isSelf: name === 'Thomas Dooms' }
+})
+
+const truncated = parsed.length > 5
+const head = truncated ? parsed.slice(0, 3) : parsed
+const middle = truncated ? parsed.slice(3, -1) : []
+const tail = truncated ? parsed.at(-1)! : null
 ---
 
-<p>
-	{authors.map((author, index) => (
-		<Fragment>
-			<Fragment set:html={formatAuthor(author)} />
-			{index < authors.length - 1 && ', '}
-		</Fragment>
-	))}
+<p class="text-gray-600">
+  {
+    head.map((author, i) => (
+      <>
+        <Author {...author} />
+        {(i < head.length - 1 || truncated) && <span class="text-gray-500">, </span>}
+      </>
+    ))
+  }
+  {
+    truncated && tail && (
+      <>
+        <details>
+          <summary class="hover:text-primary cursor-pointer text-sm text-gray-500 transition-colors">
+            +{middle.length} authors
+          </summary>
+          {middle.map((author) => (
+            <>
+              <Author {...author} />
+              <span class="text-gray-500">, </span>
+            </>
+          ))}
+        </details>
+        <Author {...tail} />
+      </>
+    )
+  }
 </p>
+
+<style>
+  /* <details>/<summary> default to display: block, which breaks the inline
+     author list. Force inline on both, including across browsers that style
+     the marker via ::-webkit-details-marker or ::marker. */
+  details {
+    display: inline;
+  }
+  summary {
+    display: inline;
+    list-style: none;
+  }
+  summary::-webkit-details-marker,
+  summary::marker {
+    display: none;
+    content: '';
+  }
+</style>

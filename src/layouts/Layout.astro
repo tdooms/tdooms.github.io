@@ -1,54 +1,125 @@
 ---
-import "../assets/app.css";
-import Navbar from '../components/Navbar.svelte';
-import { ClientRouter } from 'astro:transitions';
+import '../assets/app.css'
+import { ClientRouter } from 'astro:transitions'
+import { Font } from 'astro:assets'
+import profileImg from '../assets/profile.jpg'
+
+interface Props {
+  title?: string
+  description?: string
+  math?: boolean
+  back?: boolean
+}
+
+const { title, description, math = false, back = false } = Astro.props
+
+const SITE_NAME = 'Thomas Dooms'
+const SITE_DESCRIPTION =
+  'Thomas Dooms — PhD researcher in compositional interpretability of neural networks.'
+const TWITTER_HANDLE = '@thomasdooms'
+
+const pageTitle = title ? `${title} — ${SITE_NAME}` : SITE_NAME
+const pageDescription = description ?? SITE_DESCRIPTION
+const canonical = new URL(Astro.url.pathname, Astro.site).toString()
+const ogImage = new URL(profileImg.src, Astro.site).toString()
 ---
 
 <!doctype html>
 <html lang="en" data-theme="emerald">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    	<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    {math && <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />}
+    <Font cssVariable="--font-fira-sans" preload />
+    <Font cssVariable="--font-fira-code" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    {
+      math && (
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+          integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+          crossorigin="anonymous"
+        />
+      )
+    }
 
-		<meta name="generator" content={Astro.generator} />
-		<title>tdooms</title>
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
 
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-7H9E0Y121Q"></script>
-		<script is:inline>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImage} />
 
-		gtag('config', 'G-7H9E0Y121Q');
-		</script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={TWITTER_HANDLE} />
+    <meta name="twitter:creator" content={TWITTER_HANDLE} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
 
-		<!-- Transitions -->
-		<ClientRouter />
-	</head>
-	<body>
-		<main class="max-w-[1000px] mx-auto px-4 pt-3">
-			<Navbar client:load />
-			<div class="my-8"></div>
-			<slot />
-			<div class="pb-2"></div>
-		</main>
-	</body>
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-7H9E0Y121Q"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-7H9E0Y121Q')
+    </script>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a
+      href="#main-content"
+      class="focus:bg-primary sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
+    <main id="main-content" class="mx-auto max-w-[1100px] px-4 pt-6 pb-20">
+      {
+        back && (
+          <a
+            href="/"
+            class="hover:text-primary mb-6 inline-flex items-center gap-2 text-sm text-gray-500 transition-colors"
+          >
+            <span aria-hidden="true">←</span> Thomas Dooms
+          </a>
+        )
+      }
+      <slot />
+    </main>
+  </body>
 </html>
 
-
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Hide scrollbar but keep scroll functionality. Stops layout jumping between
+     short and long pages when navigating. */
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
 </style>

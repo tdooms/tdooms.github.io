@@ -1,47 +1,60 @@
 ---
 interface Props {
-	title: string;
-	date: string;
-	description: string;
-	icon?: string;
-	link?: string;
-	external?: boolean;
+  title: string
+  date: string
+  description: string
+  icon?: string
+  link?: string
+  external?: boolean
 }
 
-const { title, date, description, icon = 'fa-solid fa-newspaper', link, external = false } = Astro.props;
+const {
+  title,
+  date,
+  description,
+  icon = 'fa-solid fa-newspaper',
+  link,
+  external = false,
+} = Astro.props
 
 // Format date to be more readable (e.g., "Sep 2025")
 const formatDate = (dateStr: string) => {
-	const date = new Date(dateStr);
-	return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-};
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+}
 
-const WrapperTag = link ? 'a' : 'div';
-const wrapperProps = link ? { href: link, target: external ? '_blank' : '_self' } : {};
+const WrapperTag = link ? 'a' : 'div'
+const wrapperProps = link
+  ? {
+      href: link,
+      target: external ? '_blank' : undefined,
+      rel: external ? 'noopener noreferrer' : undefined,
+    }
+  : {}
 ---
 
 <WrapperTag
-	class:list={[
-		"block bg-white shadow-md rounded-lg p-6",
-		link && "hover:shadow-lg transition-shadow duration-300 no-underline cursor-pointer"
-	]}
-	{...wrapperProps}
+  class:list={[
+    'block rounded-lg bg-white p-6 shadow-md',
+    link && 'cursor-pointer no-underline transition-shadow duration-300 hover:shadow-lg',
+  ]}
+  {...wrapperProps}
 >
-	<div class="flex gap-4">
-		<!-- Icon -->
-		<div class="flex-shrink-0">
-			<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-				<i class:list={[icon, "text-primary text-xl"]}></i>
-			</div>
-		</div>
+  <div class="flex gap-4">
+    <!-- Icon -->
+    <div class="flex-shrink-0">
+      <div class="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
+        <i class:list={[icon, 'text-primary text-xl']}></i>
+      </div>
+    </div>
 
-		<!-- Content -->
-		<div class="flex-1 min-w-0">
-			<div class="flex items-start justify-between gap-3 mb-1">
-				<h3 class="text-base font-semibold text-gray-900 leading-tight">{title}</h3>
-				<time class="text-xs font-medium text-gray-500 whitespace-nowrap">{formatDate(date)}</time>
-			</div>
-			<p class="text-sm text-gray-600 leading-relaxed">{description}</p>
-		</div>
-	</div>
+    <!-- Content -->
+    <div class="min-w-0 flex-1">
+      <div class="mb-1 flex items-start justify-between gap-3">
+        <h3 class="text-base leading-tight font-semibold text-gray-900">{title}</h3>
+        <time class="text-xs font-medium whitespace-nowrap text-gray-500">{formatDate(date)}</time>
+      </div>
+      <p class="text-sm leading-relaxed text-gray-600">{description}</p>
+    </div>
+  </div>
 </WrapperTag>

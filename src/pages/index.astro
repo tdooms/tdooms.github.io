@@ -1,124 +1,211 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import profileImg from '../assets/profile.jpg';
-import News from '../components/News.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro'
+import { Image } from 'astro:assets'
+import profileImg from '../assets/profile.jpg'
+import News from '../components/News.astro'
+import PaperCompact from '../components/PaperCompact.astro'
+import Blog from '../components/Blog.astro'
+import Card from '../components/Card.astro'
+import { getCollection } from 'astro:content'
 
-const newsItems = await getCollection('news');
+const papers = (await getCollection('papers')).sort((a, b) =>
+  b.data.date.localeCompare(a.data.date),
+)
+const blogs = (await getCollection('blogs')).sort((a, b) => b.data.date.localeCompare(a.data.date))
+const demos = (await getCollection('demos')).sort((a, b) => a.data.order - b.data.order)
+const news = (await getCollection('news')).sort((a, b) => b.data.date.localeCompare(a.data.date))
 
-// Sort by date (most recent first)
-const sortedNews = newsItems.sort((a: CollectionEntry<'news'>, b: CollectionEntry<'news'>) => {
-	return b.data.date.localeCompare(a.data.date);
-});
+const initialNews = 3
 
-const initialCount = 3;
+const contactLinks = [
+  { icon: 'fa-solid fa-envelope', label: 'Email', href: 'mailto:doomsthomas@gmail.com' },
+  { icon: 'fa-brands fa-x-twitter', label: 'Twitter', href: 'https://x.com/thomasdooms' },
+  { icon: 'fa-brands fa-github', label: 'GitHub', href: 'https://github.com/tdooms' },
+  {
+    icon: 'fa-brands fa-linkedin',
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/thomas-dooms-5518a4169/',
+  },
+  {
+    icon: 'fa-brands fa-google-scholar',
+    label: 'Scholar',
+    href: 'https://scholar.google.com/citations?user=PPakd2AAAAAJ&hl=en',
+  },
+  { icon: 'fa-solid fa-calendar', label: 'Meet', href: 'https://cal.com/tdooms' },
+  { icon: 'fa-solid fa-file-lines', label: 'Resume', href: '/resume' },
+]
 ---
 
 <Layout>
-	<div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6">
-		<!-- Sidebar -->
-		<div>
-			<div class="card bg-white shadow-md p-6 text-center">
-				<figure class="w-32 h-32 mx-auto mb-4">
-					<Image src={profileImg} alt="me :)" class="rounded-full" width={256} height={256} />
-				</figure>
-				<h4 class="text-xl font-bold text-gray-900 mb-2">Thomas Dooms</h4>
-				<h6 class="text-base text-gray-600 mb-4">Interpretability Researcher</h6>
+  <!-- Hero -->
+  <section class="grid grid-cols-1 gap-10 lg:grid-cols-[260px_1fr]">
+    <!-- Profile -->
+    <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
+      <Image
+        src={profileImg}
+        alt="Thomas Dooms"
+        class="h-40 w-40 rounded-2xl object-cover shadow-md ring-1 ring-gray-200"
+        width={320}
+        height={320}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <h1 class="mt-5 text-4xl font-bold tracking-tight text-gray-900">Thomas Dooms</h1>
+      <p class="mt-2 text-sm font-semibold tracking-widest text-gray-500 uppercase">
+        PhD Researcher
+      </p>
+      <p class="text-sm text-gray-500">Interpretability</p>
 
-				<div class="divider mt-0 mb-2"></div>
+      <div
+        class="mt-5 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-gray-600 lg:justify-start"
+      >
+        {
+          contactLinks.map(({ icon, label, href }) => (
+            <a
+              href={href}
+              class="hover:text-primary inline-flex items-center gap-1.5 transition-colors"
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              <i class={icon} aria-hidden="true" />
+              <span>{label}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
 
-				<div class="space-y-3 text-center">
-					<div class="flex items-center justify-center gap-3">
-						<i class="fa-solid fa-calendar w-5 text-gray-600"></i>
-						<a href="https://cal.com/tdooms" class="link link-primary link-hover">1-on-1</a>
-					</div>
-					<div class="flex items-center justify-center gap-3">
-						<i class="fa-brands fa-x-twitter w-5 text-gray-600"></i>
-						<a href="https://x.com/thomasdooms" class="link link-primary link-hover">Twitter</a>
-					</div>
-					<div class="flex items-center justify-center gap-3">
-						<i class="fa-solid fa-envelope w-5 text-gray-600"></i>
-						<a href="mailto:doomsthomas@gmail.com" class="link link-primary link-hover">Email</a>
-					</div>
-					<div class="flex items-center justify-center gap-3">
-						<i class="fa-brands fa-linkedin w-5 text-gray-600"></i>
-						<a href="https://www.linkedin.com/in/thomas-dooms-5518a4169/" class="link link-primary link-hover">LinkedIn</a>
-					</div>
-					<div class="flex items-center justify-center gap-3">
-						<i class="fa-brands fa-github w-5 text-gray-600"></i>
-						<a href="https://github.com/tdooms" class="link link-primary link-hover">GitHub</a>
-					</div>
-					<div class="flex items-center justify-center gap-3">
-						<i class="fa-brands fa-google-scholar w-5 text-gray-600"></i>
-						<a href="https://scholar.google.com/citations?user=PPakd2AAAAAJ&hl=en" class="link link-primary link-hover">Scholar</a>
-					</div>
-				</div>
-			</div>
-		</div>
+    <!-- Bio -->
+    <div class="prose prose-gray max-w-none">
+      <p>
+        Hi, I'm Thomas! I'm a PhD student working on <a
+          href="https://compinterp.github.io"
+          class="hl">compositional interpretability</a
+        >. I'm interested in understanding how neural networks encode complex behaviours and
+        knowledge.
+      </p>
 
-		<div class="space-y-6">
-			<div class="card bg-white shadow-md p-6">
-				<div class="prose max-w-none">
-					<p>
-						Hi, I'm Thomas! I'm a PhD student working on
-						<a href="https://compinterp.github.io">compositional interpretability</a>.
-						I'm interested in understanding how neural networks encode complex behaviours and knowledge.
-					</p>
+      <p>
+        Modern deep networks are astonishingly intricate and difficult to disentangle. I argue that
+        we should embrace this <span class="hl">complexity</span> rather than shoehorn them into simplistic
+        feature sets, flattening the very structures we hope to understand.
+      </p>
 
-					<p>
-						Modern deep networks are astonishingly intricate and difficult to disentangle.
-						I argue that we should embrace this complexity rather than shoehorn them into simplistic feature sets, flattening the very structures we hope to understand.
-					</p>
+      <p>
+        My research treats a model's weights as a <span class="hl">compositional system</span> whose parts
+        interact and recombine. By developing flexible, formally grounded tools for compositional analysis,
+        I aim to reveal how rich mechanisms and representations arise and how we can reason about them.
+      </p>
 
-					<p>
-						My research treats a model's weights as a compositional system whose parts interact and recombine.
-						By developing flexible, formally grounded tools for compositional analysis, I aim to reveal how rich mechanisms and representations arise and how we can reason about them.
-					</p>
+      <p>
+        Outside of work, I love to go on long bike rides, game with friends, go skiing and wear
+        shorts. I used to play a lot of Diablo 3, achieving <span
+          class="tooltip"
+          data-tip="Suck it Elon">rank 1</span
+        > in grift leaderboards at some point.
+      </p>
+    </div>
+  </section>
 
-					<p>
-						Outside of work, I love to go on long bike rides, game with friends, go skiing and wear shorts.
-						I used to play a lot of Diablo 3, achieving <span class="tooltip" data-tip="Suck it Elon">rank 1</span> in grift leaderboards at some point.
-					</p>
-				</div>
-			</div>
+  <!-- Papers -->
+  <section class="mt-20">
+    <h2 class="mb-6 text-2xl font-bold text-gray-900">
+      Papers<span class="text-orange-500">.</span>
+    </h2>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {papers.map((paper) => <PaperCompact {...paper.data} />)}
+    </div>
+  </section>
 
-			<!-- News Section -->
-			<div class="space-y-3" id="news-container">
-				{sortedNews.map((item, index) => (
-					<div class:list={["news-item", index >= initialCount && "hidden"]}>
-						<News {...item.data} />
-					</div>
-				))}
-				{sortedNews.length > initialCount && (
-					<button
-						id="load-more-btn"
-						class="w-full text-primary hover:underline cursor-pointer py-2"
-					>
-						Load more
-					</button>
-				)}
-			</div>
-		</div>
-	</div>
+  <!-- News -->
+  <section class="mt-20">
+    <h2 class="mb-6 text-2xl font-bold text-gray-900">
+      News<span class="text-orange-500">.</span>
+    </h2>
+    <div class="space-y-3" id="news-container" data-initial={initialNews} data-total={news.length}>
+      {
+        news.map((item, index) => (
+          <div class:list={['news-item', index >= initialNews && 'hidden']}>
+            <News {...item.data} />
+          </div>
+        ))
+      }
+      {
+        news.length > initialNews && (
+          <button
+            type="button"
+            id="load-more-btn"
+            class="text-primary w-full cursor-pointer py-2 hover:underline"
+          >
+            Load more
+          </button>
+        )
+      }
+    </div>
+  </section>
 
-	<script is:inline define:vars={{ initialCount, totalCount: sortedNews.length }}>
-		let visibleCount = initialCount;
-		const increment = 3;
+  <!-- Blog -->
+  {
+    blogs.length > 0 && (
+      <section class="mt-20">
+        <h2 class="mb-6 text-2xl font-bold text-gray-900">
+          Blog<span class="text-orange-500">.</span>
+        </h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {blogs.map((blog) => (
+            <Blog
+              title={blog.data.title}
+              date={blog.data.date}
+              image={blog.data.image}
+              link={blog.data.external ?? `/blog/${blog.id}`}
+              external={!!blog.data.external}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
 
-		document.getElementById('load-more-btn')?.addEventListener('click', () => {
-			const items = document.querySelectorAll('.news-item');
-			const newVisible = Math.min(visibleCount + increment, totalCount);
+  <!-- Demos -->
+  {
+    demos.length > 0 && (
+      <section class="mt-20">
+        <h2 class="mb-6 text-2xl font-bold text-gray-900">
+          Demos<span class="text-orange-500">.</span>
+        </h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {demos.map((demo) => (
+            <Card {...demo.data} />
+          ))}
+        </div>
+      </section>
+    )
+  }
 
-			for (let i = visibleCount; i < newVisible; i++) {
-				items[i]?.classList.remove('hidden');
-			}
+  <script>
+    // Delegated click handler — bound once per document lifetime. Visible count is
+    // stored on the container as a data attribute so the handler is stateless and
+    // survives ClientRouter navigations.
+    document.addEventListener('click', (event) => {
+      const target = event.target
+      if (!(target instanceof Element)) return
+      const btn = target.closest('#load-more-btn')
+      if (!(btn instanceof HTMLElement)) return
 
-			visibleCount = newVisible;
+      const container = document.getElementById('news-container')
+      if (!container) return
 
-			if (visibleCount >= totalCount) {
-				document.getElementById('load-more-btn')?.remove();
-			}
-		});
-	</script>
+      const total = Number(container.dataset.total ?? '0')
+      const visible = Number(container.dataset.visible ?? container.dataset.initial ?? '0')
+      const next = Math.min(visible + 3, total)
+
+      const items = container.querySelectorAll('.news-item')
+      for (let i = visible; i < next; i++) {
+        items[i]?.classList.remove('hidden')
+      }
+      container.dataset.visible = String(next)
+
+      if (next >= total) btn.remove()
+    })
+  </script>
 </Layout>

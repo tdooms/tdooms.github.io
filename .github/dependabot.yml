@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      astro:
+        patterns:
+          - astro
+          - '@astrojs/*'
+      tailwind:
+        patterns:
+          - tailwindcss
+          - '@tailwindcss/*'
+          - daisyui
+      three:
+        patterns:
+          - three
+          - '@types/three'
+      dev-tooling:
+        patterns:
+          - prettier
+          - 'prettier-plugin-*'
+          - lefthook
+          - '@playwright/test'
+          - playwright
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

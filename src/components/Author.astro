@@ -1,0 +1,20 @@
+---
+interface Props {
+  name: string
+  isEqual: boolean
+  isSelf: boolean
+}
+
+const { name, isEqual, isSelf } = Astro.props
+---
+
+<span class:list={[isSelf && 'font-semibold text-gray-900']}>
+  {name}
+  {
+    isEqual && (
+      <span class="tooltip tooltip-bottom" data-tip="Equal contribution">
+        <sup class="text-primary">*</sup>
+      </span>
+    )
+  }
+</span>

@@ -1,0 +1,21 @@
+title = "When are two networks the same?"
+shortTitle = "Tensor Similarity"
+date = "2026-05-14"
+conference = "arXiv"
+description = "A weight-based similarity metric invariant to weight-space symmetries"
+link = "/research/tensor-similarity"
+authors = ["ML Nissen Gonzalez", "Melwina Albuquerque", "Laurence Wroe", "Jacob Meyer Cohen", "Logan Riggs Smith", "Thomas Dooms"]
+
+paper = "https://arxiv.org/abs/2605.15183"
+
+bibtex = """
+@misc{gonzalez2026tensorsimilarity,
+      title={When Are Two Networks the Same? Tensor Similarity for Mechanistic Interpretability},
+      author={ML Nissen Gonzalez and Melwina Albuquerque and Laurence Wroe and Jacob Meyer Cohen and Logan Riggs Smith and Thomas Dooms},
+      year={2026},
+      eprint={2605.15183},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2605.15183},
+}
+"""

@@ -1,4 +1,5 @@
 title = "Tokenized SAEs: disentangling SAE reconstructions"
+shortTitle = "Tokenized SAEs"
 date = "2024-06-01"
 conference = "ICML'24"
 labels = ["workshop"]

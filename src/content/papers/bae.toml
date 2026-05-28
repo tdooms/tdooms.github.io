@@ -1,24 +1,25 @@
-title = "Finding manifolds with bilinear autoencoders"
-date = "2025-10-01"
+title = "Bilinear autoencoders find interpretable manifolds"
+shortTitle = "Bilinear Autoencoders"
+date = "2026-05-09"
 conference = "NeurIPS'25"
 labels = ["workshop", "spotlight"]
 description = "Autoencoder architecture that decomposes activations into polynomial manifolds"
 link = "/research/bae"
-authors = ["Thomas Dooms", "Ward Gauderis"]
+authors = ["Thomas Dooms", "Ward Gauderis", "Geraint A. Wiggins", "Jose Oramas"]
 
-paper="https://arxiv.org/abs/2510.16820"
-code="https://github.com/tdooms/bae"
-models="https://huggingface.co/tdooms/qwen3-0.6b-base-scope"
-demo="/demos/manifolds"
+paper = "https://arxiv.org/abs/2605.08891"
+code = "https://github.com/tdooms/bae"
+models = "https://huggingface.co/tdooms/qwen3-0.6b-base-scope"
+demo = "/demos/manifolds"
 
 bibtex = """
-@misc{dooms2025findingmanifoldsbilinearautoencoders,
-      title={Finding Manifolds With Bilinear Autoencoders}, 
-      author={Thomas Dooms and Ward Gauderis},
-      year={2025},
-      eprint={2510.16820},
+@misc{dooms2026bilinearautoencoders,
+      title={Bilinear autoencoders find interpretable manifolds},
+      author={Thomas Dooms and Ward Gauderis and Geraint A. Wiggins and Jose Oramas},
+      year={2026},
+      eprint={2605.08891},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2510.16820}, 
+      url={https://arxiv.org/abs/2605.08891},
 }
 """

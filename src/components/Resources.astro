@@ -1,36 +1,39 @@
 ---
 interface Props {
-	paper?: string;
-	code?: string;
-	models?: string;
-	demo?: string;
-	video?: string;
-	news?: string;
+  paper?: string
+  code?: string
+  models?: string
+  demo?: string
+  video?: string
+  news?: string
 }
 
-const { paper, code, models, demo, video, news } = Astro.props;
+const { paper, code, models, demo, video, news } = Astro.props
 
 const resources = [
-	{ url: paper, icon: 'fa-regular fa-file', label: 'Paper' },
-	{ url: code, icon: 'fa-solid fa-code', label: 'Code' },
-	{ url: models, icon: 'fa-solid fa-database', label: 'Models' },
-	{ url: video, icon: 'fa-solid fa-video', label: 'Video' },
-	{ url: demo, icon: 'fa-solid fa-flask', label: 'Demo' },
-	{ url: news, icon: 'fa-solid fa-newspaper', label: 'News' },
-].filter(r => r.url);
+  { url: paper, icon: 'fa-regular fa-file', label: 'Paper' },
+  { url: code, icon: 'fa-solid fa-code', label: 'Code' },
+  { url: models, icon: 'fa-solid fa-database', label: 'Models' },
+  { url: video, icon: 'fa-solid fa-video', label: 'Video' },
+  { url: demo, icon: 'fa-solid fa-flask', label: 'Demo' },
+  { url: news, icon: 'fa-solid fa-newspaper', label: 'News' },
+].flatMap((r) => (r.url ? [{ ...r, url: r.url, external: !r.url.startsWith('/') }] : []))
 ---
 
-<div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-	{resources.map(resource => (
-		<a 
-			href={resource.url} 
-			target={resource.label !== 'Demo' ? '_blank' : undefined}
-			class="card bg-white shadow-md hover:shadow-lg transition-shadow p-6 text-center block w-32"
-		>
-			<span class="text-4xl block mb-2">
-				<i class={resource.icon}></i>
-			</span>
-			<p class="text-gray-900">{resource.label}</p>
-		</a>
-	))}
+<div class="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
+  {
+    resources.map((resource) => (
+      <a
+        href={resource.url}
+        target={resource.external ? '_blank' : undefined}
+        rel={resource.external ? 'noopener noreferrer' : undefined}
+        class="card block w-32 bg-white p-6 text-center shadow-md transition-shadow hover:shadow-lg"
+      >
+        <span class="mb-2 block text-4xl">
+          <i class={resource.icon} aria-hidden="true" />
+        </span>
+        <p class="text-gray-900">{resource.label}</p>
+      </a>
+    ))
+  }
 </div>

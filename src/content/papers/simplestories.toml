@@ -1,4 +1,5 @@
 title = "Parameterized synthetic text generation with SimpleStories"
+shortTitle = "Introducing SimpleStories"
 date = "2025-10-01"
 conference = "NeurIPS'25"
 description = "A synthetic dataset containing diverse but simple stories"

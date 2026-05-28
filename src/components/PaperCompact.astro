@@ -7,57 +7,56 @@ interface Props {
   description: string
   conference: string
   link: string
+  external?: boolean
   image?: ImageMetadata
   labels?: string[]
 }
 
-const { title, shortTitle, description, conference, link, image, labels = [] } = Astro.props
-
-// Conference-driven accent. Adds visual identity without requiring per-paper images.
-const venueAccent = (c: string) => {
-  const v = c.toLowerCase()
-  if (v.includes('iclr')) return 'bg-blue-500'
-  if (v.includes('neurips')) return 'bg-purple-500'
-  if (v.includes('icml')) return 'bg-red-500'
-  if (v.includes('aaai')) return 'bg-indigo-500'
-  if (v.includes('tmlr')) return 'bg-emerald-500'
-  if (v.includes('biorxiv')) return 'bg-teal-500'
-  return 'bg-orange-500'
-}
+const {
+  title,
+  shortTitle,
+  description,
+  conference,
+  link,
+  external = false,
+  image,
+  labels = [],
+} = Astro.props
 ---
 
 <a
   href={link}
-  class="group flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-200/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  class="group bg-base-100 ring-base-300/60 flex h-full flex-col overflow-hidden rounded-xl shadow-sm ring-1 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
 >
-  <div class={`h-1 ${venueAccent(conference)}`}></div>
+  <div class="bg-primary/40 h-1"></div>
   {
     image && (
-      <figure class="aspect-[5/3] overflow-hidden bg-gray-50">
+      <figure class="bg-base-200 relative aspect-[5/3] overflow-hidden">
         <Image
           src={image}
           alt={title}
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          layout="none"
+          class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </figure>
     )
   }
   <div class="flex flex-1 flex-col gap-2 p-4">
     <div
-      class="flex items-center gap-2 text-xs font-semibold tracking-wider text-gray-500 uppercase"
+      class="text-base-content/70 flex items-center gap-2 text-xs font-semibold tracking-wider uppercase"
     >
       <span>{conference}</span>
       {
         labels.map((label) => (
-          <span class="bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-gray-600 normal-case">
+          <span class="bg-base-200 text-base-content/75 px-1.5 py-0.5 text-[10px] font-medium tracking-wide normal-case">
             {label}
           </span>
         ))
       }
     </div>
-    <h3 class="group-hover:text-primary text-base font-bold text-gray-900 transition-colors">
-      {shortTitle ?? title}
-    </h3>
-    <p class="text-sm leading-snug text-gray-600">{description}</p>
+    <h3 class="text-base-content text-base font-bold">{shortTitle ?? title}</h3>
+    <p class="text-base-content/75 text-sm leading-snug">{description}</p>
   </div>
 </a>

@@ -1,6 +1,0 @@
-title = "Eigenvectors"
-sub = "Full model weight decomposition into eigenvectors"
-url = "/demos/eigenvectors"
-image = "@/assets/thumbnails/eigenvectors.png"
-square = true
-order = 2

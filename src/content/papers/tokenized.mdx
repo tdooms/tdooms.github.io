@@ -2,13 +2,13 @@ import { Image } from 'astro:assets'
 import speedupGpt2 from '../../assets/research/tokenized/speedup_gpt2.svg'
 import speedupPythia from '../../assets/research/tokenized/speedup_pythia.svg'
 
-### Background
+## Background
 
 Sparse auto-encoders have become the main focus of mechinterp research; they provide a means to extract interpretable bases from intermediate stages of the model.
 They achieve this by locally reconstructing activations. While this has been remarkably effective, this has some suboptimal side-effects, in this paper we focus on distribution-dependent features.
 We explain why these arise and propose a technique to separate some of them from the main reconstruction.
 
-### Motivation
+## Motivation
 
 The motivation for this work can be framed from multiple perspectives. Initially, it arose from spending quite a bit of time on Neuronpedia and seeing that the vast majority of features are token-based instead of context-based. From a training perspective, this makes sense due to the following two facts:
 
@@ -17,7 +17,7 @@ The motivation for this work can be framed from multiple perspectives. Initially
 
 Regardless of the reason they exist, ideally, they wouldn't clutter the (generally limited) learned features.
 
-### Method
+## Method
 
 The method is a simple trick to remove these single-token features, and it works surprisingly well.
 The main idea: introduce a lookup table to the decoder, indexed by the original token of the current activations.
@@ -30,7 +30,7 @@ $$\hat{x}_t = W_{dec}(a_t) + b_{dec} + W_{lookup}(t)$$
 
 There are some caveats to training this lookup table, described in the paper.
 
-### Results
+## Results
 
 We show adding a lookup table improves the final reconstructions by a significant margin on GPT-2 layer 8.
 
@@ -53,6 +53,6 @@ We again show the speedup.
   <figcaption>Speedup of TSAE vs baseline on Pythia 1.4B</figcaption>
 </figure>
 
-### Future Work
+## Future Work
 
 The notion of incorporating inductive bias into SAEs seems interesting to pursue. Trivially, a more general (sparse) n-gram lookup table could be used. Furthermore, features from a preceding SAE could similarly be used into some kind of lookup table.

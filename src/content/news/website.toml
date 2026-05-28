@@ -1,4 +1,3 @@
-title = "My website is now live"
+title = "Welcome to my **new website**!"
 date = "2023-02-01"
-description = "Welcome!"
-icon = "fa-solid fa-newspaper"
+icon = "fa6-solid:newspaper"

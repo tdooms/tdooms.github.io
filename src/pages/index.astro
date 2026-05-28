@@ -1,63 +1,67 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 import profileImg from '../assets/profile.jpg'
+import goodfireSvg from '../assets/goodfire.svg?raw'
 import News from '../components/News.astro'
 import PaperCompact from '../components/PaperCompact.astro'
 import Blog from '../components/Blog.astro'
-import Card from '../components/Card.astro'
 import { getCollection } from 'astro:content'
 
 const papers = (await getCollection('papers')).sort((a, b) =>
   b.data.date.localeCompare(a.data.date),
 )
 const blogs = (await getCollection('blogs')).sort((a, b) => b.data.date.localeCompare(a.data.date))
-const demos = (await getCollection('demos')).sort((a, b) => a.data.order - b.data.order)
 const news = (await getCollection('news')).sort((a, b) => b.data.date.localeCompare(a.data.date))
 
-const initialNews = 3
-
 const contactLinks = [
-  { icon: 'fa-solid fa-envelope', label: 'Email', href: 'mailto:doomsthomas@gmail.com' },
-  { icon: 'fa-brands fa-x-twitter', label: 'Twitter', href: 'https://x.com/thomasdooms' },
-  { icon: 'fa-brands fa-github', label: 'GitHub', href: 'https://github.com/tdooms' },
+  { icon: 'fa6-solid:envelope', label: 'Email', href: 'mailto:doomsthomas@gmail.com' },
+  { icon: 'fa6-brands:x-twitter', label: 'Twitter', href: 'https://x.com/thomasdooms' },
+  { icon: 'fa6-brands:github', label: 'GitHub', href: 'https://github.com/tdooms' },
   {
-    icon: 'fa-brands fa-linkedin',
+    icon: 'fa6-brands:linkedin',
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/thomas-dooms-5518a4169/',
   },
-  {
-    icon: 'fa-brands fa-google-scholar',
-    label: 'Scholar',
-    href: 'https://scholar.google.com/citations?user=PPakd2AAAAAJ&hl=en',
-  },
-  { icon: 'fa-solid fa-calendar', label: 'Meet', href: 'https://cal.com/tdooms' },
-  { icon: 'fa-solid fa-file-lines', label: 'Resume', href: '/resume' },
+  { icon: 'fa6-solid:calendar', label: 'Meet', href: 'https://cal.com/tdooms' },
+  { icon: 'fa6-solid:file-lines', label: 'Resume', href: '/resume' },
 ]
 ---
 
 <Layout>
   <!-- Hero -->
-  <section class="grid grid-cols-1 gap-10 lg:grid-cols-[260px_1fr]">
+  <section class="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-[260px_1fr]">
     <!-- Profile -->
     <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
       <Image
         src={profileImg}
         alt="Thomas Dooms"
-        class="h-40 w-40 rounded-2xl object-cover shadow-md ring-1 ring-gray-200"
+        class="ring-base-300 h-40 w-40 rounded-2xl object-cover shadow-md ring-1"
         width={320}
         height={320}
         loading="eager"
         fetchpriority="high"
       />
-      <h1 class="mt-5 text-4xl font-bold tracking-tight text-gray-900">Thomas Dooms</h1>
-      <p class="mt-2 text-sm font-semibold tracking-widest text-gray-500 uppercase">
-        PhD Researcher
+      <h1 class="text-base-content mt-5 text-4xl font-bold tracking-tight">Thomas Dooms</h1>
+      <p class="text-base-content/70 mt-2 text-sm font-semibold tracking-widest uppercase">
+        Member of Technical Staff <a
+          href="https://www.goodfire.ai/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-primary text-base-content/85 inline-flex items-baseline gap-1.5 whitespace-nowrap transition-colors"
+        >
+          Goodfire
+          <span
+            class="text-primary inline-block h-3.5 w-[0.72rem] translate-y-px [&>svg]:h-full [&>svg]:w-full"
+            set:html={goodfireSvg}
+          />
+        </a>
       </p>
-      <p class="text-sm text-gray-500">Interpretability</p>
+      <p class="text-base-content/70 text-sm">PhD in interpretability</p>
 
       <div
-        class="mt-5 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-gray-600 lg:justify-start"
+        class="text-base-content/75 mt-5 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm lg:justify-start"
       >
         {
           contactLinks.map(({ icon, label, href }) => (
@@ -67,7 +71,7 @@ const contactLinks = [
               target={href.startsWith('http') ? '_blank' : undefined}
               rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
             >
-              <i class={icon} aria-hidden="true" />
+              <Icon name={icon} />
               <span>{label}</span>
             </a>
           ))
@@ -76,10 +80,12 @@ const contactLinks = [
     </div>
 
     <!-- Bio -->
-    <div class="prose prose-gray max-w-none">
+    <div class="prose prose-gray flex max-w-none flex-col justify-between [&>p]:my-0">
       <p>
         Hi, I'm Thomas! I'm a PhD student working on <a
           href="https://compinterp.github.io"
+          target="_blank"
+          rel="noopener noreferrer"
           class="hl">compositional interpretability</a
         >. I'm interested in understanding how neural networks encode complex behaviours and
         knowledge.
@@ -101,16 +107,16 @@ const contactLinks = [
         Outside of work, I love to go on long bike rides, game with friends, go skiing and wear
         shorts. I used to play a lot of Diablo 3, achieving <span
           class="tooltip"
-          data-tip="Suck it Elon">rank 1</span
+          data-tip="Suck it Elon"><span class="hl">top-1</span></span
         > in grift leaderboards at some point.
       </p>
     </div>
   </section>
 
   <!-- Papers -->
-  <section class="mt-20">
-    <h2 class="mb-6 text-2xl font-bold text-gray-900">
-      Papers<span class="text-orange-500">.</span>
+  <section class="mt-14">
+    <h2 class="text-base-content mb-6 text-2xl font-bold">
+      Papers<span class="text-primary">.</span>
     </h2>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {papers.map((paper) => <PaperCompact {...paper.data} />)}
@@ -118,38 +124,21 @@ const contactLinks = [
   </section>
 
   <!-- News -->
-  <section class="mt-20">
-    <h2 class="mb-6 text-2xl font-bold text-gray-900">
-      News<span class="text-orange-500">.</span>
+  <section class="mt-14">
+    <h2 class="text-base-content mb-6 text-2xl font-bold">
+      News<span class="text-primary">.</span>
     </h2>
-    <div class="space-y-3" id="news-container" data-initial={initialNews} data-total={news.length}>
-      {
-        news.map((item, index) => (
-          <div class:list={['news-item', index >= initialNews && 'hidden']}>
-            <News {...item.data} />
-          </div>
-        ))
-      }
-      {
-        news.length > initialNews && (
-          <button
-            type="button"
-            id="load-more-btn"
-            class="text-primary w-full cursor-pointer py-2 hover:underline"
-          >
-            Load more
-          </button>
-        )
-      }
+    <div class="space-y-2">
+      {news.map((item) => <News {...item.data} />)}
     </div>
   </section>
 
   <!-- Blog -->
   {
     blogs.length > 0 && (
-      <section class="mt-20">
-        <h2 class="mb-6 text-2xl font-bold text-gray-900">
-          Blog<span class="text-orange-500">.</span>
+      <section class="mt-14">
+        <h2 class="text-base-content mb-6 text-2xl font-bold">
+          Blog<span class="text-primary">.</span>
         </h2>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {blogs.map((blog) => (
@@ -165,47 +154,4 @@ const contactLinks = [
       </section>
     )
   }
-
-  <!-- Demos -->
-  {
-    demos.length > 0 && (
-      <section class="mt-20">
-        <h2 class="mb-6 text-2xl font-bold text-gray-900">
-          Demos<span class="text-orange-500">.</span>
-        </h2>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {demos.map((demo) => (
-            <Card {...demo.data} />
-          ))}
-        </div>
-      </section>
-    )
-  }
-
-  <script>
-    // Delegated click handler — bound once per document lifetime. Visible count is
-    // stored on the container as a data attribute so the handler is stateless and
-    // survives ClientRouter navigations.
-    document.addEventListener('click', (event) => {
-      const target = event.target
-      if (!(target instanceof Element)) return
-      const btn = target.closest('#load-more-btn')
-      if (!(btn instanceof HTMLElement)) return
-
-      const container = document.getElementById('news-container')
-      if (!container) return
-
-      const total = Number(container.dataset.total ?? '0')
-      const visible = Number(container.dataset.visible ?? container.dataset.initial ?? '0')
-      const next = Math.min(visible + 3, total)
-
-      const items = container.querySelectorAll('.news-item')
-      for (let i = visible; i < next; i++) {
-        items[i]?.classList.remove('hidden')
-      }
-      container.dataset.visible = String(next)
-
-      if (next >= total) btn.remove()
-    })
-  </script>
 </Layout>

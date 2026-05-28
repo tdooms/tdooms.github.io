@@ -8,7 +8,7 @@ interface Props {
 const { name, isEqual, isSelf } = Astro.props
 ---
 
-<span class:list={[isSelf && 'font-semibold text-gray-900']}>
+<span class:list={[isSelf && 'text-base-content font-semibold']}>
   {name}
   {
     isEqual && (

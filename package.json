@@ -10,16 +10,22 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "astro check",
-    "test": "playwright test"
+    "test": "playwright test",
+    "perf": "astro build && lhci autorun"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.0",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/svelte": "^8.1.2",
+    "@iconify-json/fa6-brands": "^1.2.6",
+    "@iconify-json/fa6-regular": "^1.2.4",
+    "@iconify-json/fa6-solid": "^1.2.4",
     "@tailwindcss/vite": "^4.3.0",
     "apache-arrow": "^21.1.0",
     "astro": "^6.4.0",
+    "astro-icon": "^1.1.5",
     "daisyui": "^5.5.20",
+    "katex": "^0.17.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "svelte": "^5.55.10",
@@ -29,6 +35,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/three": "~0.184.0",
@@ -36,6 +43,7 @@
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-svelte": "^4.0.1",
-    "prettier-plugin-tailwindcss": "^0.8.0"
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "rehype-external-links": "^3.0.0"
   }
 }

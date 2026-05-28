@@ -19,6 +19,9 @@ test-results/
 playwright-report/
 playwright/.cache/
 
+# lighthouse ci
+.lighthouseci/
+
 # environment variables
 .env
 .env.production

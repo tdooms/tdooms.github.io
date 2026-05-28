@@ -1,17 +1,18 @@
 ---
 import '../assets/app.css'
+import 'katex/dist/katex.min.css'
 import { ClientRouter } from 'astro:transitions'
 import { Font } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 import profileImg from '../assets/profile.jpg'
 
 interface Props {
   title?: string
   description?: string
-  math?: boolean
   back?: boolean
 }
 
-const { title, description, math = false, back = false } = Astro.props
+const { title, description, back = false } = Astro.props
 
 const SITE_NAME = 'Thomas Dooms'
 const SITE_DESCRIPTION =
@@ -25,30 +26,14 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
 ---
 
 <!doctype html>
-<html lang="en" data-theme="emerald">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    {math && <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />}
     <Font cssVariable="--font-fira-sans" preload />
     <Font cssVariable="--font-fira-code" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    />
-    {
-      math && (
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-          integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
-          crossorigin="anonymous"
-        />
-      )
-    }
 
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
@@ -90,14 +75,25 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
     >
       Skip to content
     </a>
+
+    <label
+      class="swap swap-rotate text-base-content/65 hover:text-base-content fixed top-4 right-4 z-40 transition-colors"
+      aria-label="Toggle dark mode"
+    >
+      <input type="checkbox" class="theme-controller" value="dark" />
+      <Icon name="fa6-solid:sun" class="swap-off h-5 w-5" />
+      <Icon name="fa6-solid:moon" class="swap-on h-5 w-5" />
+    </label>
+
     <main id="main-content" class="mx-auto max-w-[1100px] px-4 pt-6 pb-20">
       {
         back && (
           <a
             href="/"
-            class="hover:text-primary mb-6 inline-flex items-center gap-2 text-sm text-gray-500 transition-colors"
+            aria-label="Back to home"
+            class="text-base-content/65 ring-base-300/60 hover:text-base-content hover:ring-base-300 mb-6 inline-flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-all hover:-translate-x-0.5"
           >
-            <span aria-hidden="true">←</span> Thomas Dooms
+            <Icon name="fa6-solid:arrow-left" class="text-sm" />
           </a>
         )
       }

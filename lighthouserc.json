@@ -1,0 +1,45 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/blog/index.html",
+        "http://localhost/research/index.html",
+        "http://localhost/research/bae/index.html",
+        "http://localhost/research/bilinear/index.html",
+        "http://localhost/research/compositional/index.html",
+        "http://localhost/research/evee/index.html",
+        "http://localhost/research/similarity/index.html",
+        "http://localhost/research/simplestories/index.html",
+        "http://localhost/research/tokenized/index.html",
+        "http://localhost/research/trifecta/index.html",
+        "http://localhost/research/xnets/index.html",
+        "http://localhost/resume/index.html"
+      ],
+      "numberOfRuns": 3,
+      "settings": {
+        "preset": "desktop",
+        "throttlingMethod": "simulate"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 1 }],
+        "categories:accessibility": ["error", { "minScore": 1 }],
+        "categories:best-practices": ["error", { "minScore": 1 }],
+        "categories:seo": ["error", { "minScore": 1 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 1000 }],
+        "first-contentful-paint": ["error", { "maxNumericValue": 700 }],
+        "total-blocking-time": ["error", { "maxNumericValue": 50 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.01 }],
+        "speed-index": ["error", { "maxNumericValue": 700 }],
+        "interactive": ["error", { "maxNumericValue": 1000 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "./.lighthouseci"
+    }
+  }
+}

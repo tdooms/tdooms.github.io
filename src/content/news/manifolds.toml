@@ -1,5 +1,4 @@
-title = "New interactive visualization for manifolds"
+title = "New **interactive visualization** of LLM activation geometry"
 date = "2025-11-01"
-description = "A glimpse into the geometry of large language model activations."
-icon = "fa-solid fa-flask"
-link = "/demos/manifolds"
+icon = "fa6-solid:flask"
+link = "/research/bae"

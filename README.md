@@ -53,6 +53,6 @@ bun run build
 A list of external references to this website that I should try to maintain.
 
 ```txt
-Bilinear Autoencoder Paper: https://tdooms.github.io/demos/manifolds
+Bilinear Autoencoder Paper: https://tdooms.github.io/research/bae
 Bilinear Autoencoder Poster: https://tdooms.github.io/research/bae
 ```

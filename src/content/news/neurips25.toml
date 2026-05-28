@@ -1,5 +1,4 @@
-title = "Spotlight at the Mechanistic Interpretability workshop"
+title = "Bilinear autoencoders awarded a **spotlight** at the NeurIPS Mech Interp workshop!"
 date = "2025-10-01"
-description = "Our paper on bilinear autoencoders is a spotlight paper!"
-icon = "fa-solid fa-star"
+icon = "fa6-solid:star"
 link = "/research/bae"

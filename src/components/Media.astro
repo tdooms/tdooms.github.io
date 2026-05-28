@@ -14,68 +14,49 @@ interface Props {
 
 const { icon, title, start, end, text, grade, subject, advisor } = Astro.props
 
-// Format date helper
 const formatDate = (dateStr: string) => {
-  const date = new Date(dateStr)
-  const monthNames = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
-  const month = monthNames[date.getMonth()]
-  const year = date.getFullYear()
-  return `${month} ${year}`
+  const d = new Date(dateStr)
+  return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 }
 
-const dateRange = end ? `${formatDate(start)} - ${formatDate(end)}` : `${formatDate(start)} - TBD`
+const dateRange = end ? `${formatDate(start)} — ${formatDate(end)}` : `${formatDate(start)} — TBD`
 ---
 
-<div class="card mb-4 bg-white p-6 shadow-md">
-  <div class="mb-4 flex gap-4">
-    <div class="flex-shrink-0">
-      <figure class="h-12 w-12">
-        <Image
-          src={icon}
-          alt={`${title} logo`}
-          width={96}
-          height={96}
-          class="h-full w-full object-contain"
-        />
-      </figure>
-    </div>
-    <div class="flex-grow">
-      <h5 class="mb-0 text-xl font-bold text-gray-900">{title}</h5>
-      <h6 class="text-sm text-gray-600">{dateRange}</h6>
+<div class="bg-base-100 ring-base-300/60 mb-3 rounded-xl p-5 shadow-sm ring-1">
+  <div class="flex items-start gap-4">
+    <figure class="h-10 w-10 shrink-0">
+      <Image
+        src={icon}
+        alt={`${title} logo`}
+        width={80}
+        height={80}
+        class="h-full w-full object-contain"
+      />
+    </figure>
+    <div class="min-w-0 flex-1">
+      <h5 class="text-base-content text-lg font-bold">{title}</h5>
+      <p class="text-base-content/70 text-xs font-semibold tracking-wider uppercase">{dateRange}</p>
     </div>
   </div>
-  {text && <p class="mt-2">{text}</p>}
+  {text && <p class="text-base-content/85 mt-3 text-sm">{text}</p>}
   {
     subject && (
-      <p class="mt-2">
-        <b>Subject:</b> {subject}
+      <p class="text-base-content/85 mt-2 text-sm">
+        <span class="font-semibold">Subject:</span> {subject}
       </p>
     )
   }
   {
     advisor && (
-      <p class={subject ? '' : 'mt-2'}>
-        <b>Advisor:</b> {advisor}
+      <p class="text-base-content/85 mt-1 text-sm">
+        <span class="font-semibold">Advisor:</span> {advisor}
       </p>
     )
   }
   {
     grade && (
-      <p class={subject || advisor ? '' : 'mt-2'}>
-        <b>Grade:</b> {grade}
+      <p class="text-base-content/85 mt-1 text-sm">
+        <span class="font-semibold">Grade:</span> {grade}
       </p>
     )
   }

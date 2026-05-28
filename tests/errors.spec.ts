@@ -4,13 +4,11 @@ const PAGES = [
   '/',
   '/research',
   '/blog',
-  '/demos',
   '/resume',
   '/research/bilinear',
   '/research/evee',
   '/research/bae',
   '/research/simplestories',
-  '/demos/eigenvectors',
 ]
 
 for (const url of PAGES) {
@@ -29,7 +27,7 @@ test('no broken internal links across the site', async ({ page }) => {
   const visited = new Set<string>()
   const broken: string[] = []
 
-  const pages = ['/', '/research', '/blog', '/demos', '/resume']
+  const pages = ['/', '/research', '/blog', '/resume']
 
   for (const url of pages) {
     await page.goto(url)

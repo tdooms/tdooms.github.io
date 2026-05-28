@@ -1,6 +1,6 @@
 title = "Bilinear autoencoders find interpretable manifolds"
 shortTitle = "Bilinear Autoencoders"
-date = "2026-05-09"
+date = "2026-05-28"
 conference = "NeurIPS'25"
 labels = ["workshop", "spotlight"]
 description = "Autoencoder architecture that decomposes activations into polynomial manifolds"
@@ -10,7 +10,6 @@ authors = ["Thomas Dooms", "Ward Gauderis", "Geraint A. Wiggins", "Jose Oramas"]
 paper = "https://arxiv.org/abs/2605.08891"
 code = "https://github.com/tdooms/bae"
 models = "https://huggingface.co/tdooms/qwen3-0.6b-base-scope"
-demo = "/demos/manifolds"
 
 bibtex = """
 @misc{dooms2026bilinearautoencoders,

@@ -33,16 +33,18 @@ Format and typecheck:
 ```bash
 bun run format        # write formatting fixes across the repo
 bun run format:check  # verify formatting without writing (used in CI)
-bun run typecheck     # astro check — types for .astro, .ts, .svelte
+bun run typecheck     # astro check - types for .astro, .ts, .svelte
 ```
 
 Website issue checks:
 
 ```bash
-bun run links  # build, then verify all built internal links resolve
-bun run test   # Playwright checks for console errors, layout, images, and regressions
-bun run perf   # Lighthouse CI budgets over the built site
-bun run audit  # format, typecheck, links, Playwright, and Lighthouse
+bun run check:build  # matches the GitHub Pages build job
+bun run check:test   # matches the GitHub Pages Playwright job
+bun run check:ci     # local equivalent of the GitHub Actions checks
+bun run links        # build, then verify all built internal links resolve
+bun run perf         # Lighthouse CI budgets over the built site
+bun run audit        # check:ci plus Lighthouse
 ```
 
 Update all dependencies to latest:

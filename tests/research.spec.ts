@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('research pages', () => {
-  test('all paper cards link to reachable pages', async ({ page }) => {
-    await page.goto('/research')
+  test('paper cards on home link to reachable paper pages', async ({ page }) => {
+    await page.goto('/')
 
     const links = await page.locator('a[href^="/research/"]').all()
     expect(links.length).toBeGreaterThan(0)
@@ -38,16 +38,5 @@ test.describe('research pages', () => {
     await expect(star).toBeVisible()
     const container = page.locator('.tooltip').first()
     await expect(container).toHaveAttribute('data-tip', 'Equal contribution')
-  })
-
-  test('author toggle expands long lists', async ({ page }) => {
-    await page.goto('/research/evee')
-
-    const summary = page.locator('details summary')
-    await expect(summary).toBeVisible()
-    await expect(summary).toContainText('authors')
-
-    await summary.click()
-    await expect(page.locator('details[open]')).toBeVisible()
   })
 })

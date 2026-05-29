@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Explorer from '../components/Explorer.svelte'
+---
+
+<Layout
+  title="BAE explorer"
+  description="Interactive dashboard for browsing latents and manifolds of a trained bilinear autoencoder."
+  bleed
+>
+  <Explorer client:only="svelte" />
+</Layout>

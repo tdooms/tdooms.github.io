@@ -1,24 +1,8 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('client-side navigation re-initializes interactive components', () => {
-  test('author toggle works after navigating from research index', async ({ page }) => {
-    await page.goto('/research')
-
-    // Find a paper that will have >5 authors (EVEE has 22)
-    const eveeLink = page.locator('a[href="/research/evee"]')
-    await eveeLink.click()
-    await page.waitForURL('**/research/evee')
-
-    const summary = page.locator('details summary')
-    await expect(summary).toBeVisible()
-    await summary.click()
-
-    const details = page.locator('details[open]')
-    await expect(details).toBeVisible()
-  })
-
-  test('citation copy button is clickable after navigation', async ({ page }) => {
-    await page.goto('/research')
+  test('citation copy button is clickable after navigating from home', async ({ page }) => {
+    await page.goto('/')
 
     const paperLink = page.locator('a[href^="/research/"]').first()
     await paperLink.click()
@@ -31,18 +15,12 @@ test.describe('client-side navigation re-initializes interactive components', ()
     }
   })
 
-  test('news load-more works after navigating home from another page', async ({ page }) => {
-    await page.goto('/research')
-    // Use the back-link in Layout
-    await page.locator('a[href="/"]').first().click()
-    await page.waitForURL('**/')
+  test('navigating home from a paper page leaves the home hero intact', async ({ page }) => {
+    await page.goto('/research/bilinear')
+    // Use the house icon in the layout's top-left
+    await page.locator('a[aria-label="Home"]').first().click()
+    await page.waitForURL((url) => url.pathname === '/')
 
-    const loadMore = page.locator('#load-more-btn')
-    if (await loadMore.isVisible()) {
-      const hiddenBefore = await page.locator('.news-item.hidden').count()
-      await loadMore.click()
-      const hiddenAfter = await page.locator('.news-item.hidden').count()
-      expect(hiddenAfter).toBeLessThan(hiddenBefore)
-    }
+    await expect(page.locator('h1', { hasText: 'Thomas Dooms' })).toBeVisible()
   })
 })

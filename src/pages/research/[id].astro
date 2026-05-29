@@ -4,16 +4,25 @@ import Layout from '../../layouts/Layout.astro'
 import Authors from '../../components/Authors.astro'
 import Resources from '../../components/Resources.astro'
 import Cite from '../../components/Cite.astro'
+import EntryNav from '../../components/EntryNav.astro'
 
 export async function getStaticPaths() {
   const papers = await getCollection('papers')
-  return papers.map((paper) => ({
-    params: { id: paper.id },
-    props: { paper },
-  }))
+  const sorted = papers.slice().sort((a, b) => b.data.date.localeCompare(a.data.date))
+  const titleOf = (p: (typeof sorted)[number]) => p.data.shortTitle ?? p.data.title
+  return papers.map((paper) => {
+    const idx = sorted.findIndex((p) => p.id === paper.id)
+    const prev =
+      idx > 0 ? { href: sorted[idx - 1]!.data.link, title: titleOf(sorted[idx - 1]!) } : null
+    const next =
+      idx < sorted.length - 1
+        ? { href: sorted[idx + 1]!.data.link, title: titleOf(sorted[idx + 1]!) }
+        : null
+    return { params: { id: paper.id }, props: { paper, prev, next } }
+  })
 }
 
-const { paper } = Astro.props
+const { paper, prev, next } = Astro.props
 const body = await getEntry('papersContent', paper.id)
 if (!body) {
   throw new Error(
@@ -23,7 +32,7 @@ if (!body) {
 const { Content } = await render(body)
 ---
 
-<Layout back title={paper.data.shortTitle ?? paper.data.title} description={paper.data.description}>
+<Layout title={paper.data.shortTitle ?? paper.data.title} description={paper.data.description}>
   <h1 class="mb-2 text-4xl font-bold">{paper.data.shortTitle ?? paper.data.title}</h1>
   <Authors authors={paper.data.authors} />
   <div class="mt-6"></div>
@@ -43,4 +52,6 @@ const { Content } = await render(body)
 
   <div class="pt-6"></div>
   {paper.data.bibtex && <Cite bib={paper.data.bibtex} />}
+
+  <EntryNav prev={prev} next={next} />
 </Layout>

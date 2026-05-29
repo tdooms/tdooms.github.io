@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro'
 import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
-import profileImg from '../assets/profile.jpg'
+import profileImg from '../assets/profile/main.jpg'
+import skiImg from '../assets/profile/ski.jpg'
 import goodfireSvg from '../assets/goodfire.svg?raw'
 import News from '../components/News.astro'
 import PaperCompact from '../components/PaperCompact.astro'
@@ -41,7 +42,6 @@ const contactLinks = [
         width={320}
         height={320}
         loading="eager"
-        fetchpriority="high"
       />
       <h1 class="text-base-content mt-5 text-4xl font-bold tracking-tight">Thomas Dooms</h1>
       <p class="text-base-content/70 mt-2 text-sm font-semibold tracking-widest uppercase">
@@ -58,10 +58,10 @@ const contactLinks = [
           />
         </a>
       </p>
-      <p class="text-base-content/70 text-sm">PhD in interpretability</p>
+      <p class="text-base-content/70 text-sm">PhD in interpretable AI</p>
 
       <div
-        class="text-base-content/75 mt-5 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm lg:justify-start"
+        class="text-base-content/75 mt-5 grid grid-cols-3 justify-items-center gap-x-4 gap-y-2 text-sm lg:justify-items-start"
       >
         {
           contactLinks.map(({ icon, label, href }) => (
@@ -82,33 +82,63 @@ const contactLinks = [
     <!-- Bio -->
     <div class="prose prose-gray flex max-w-none flex-col justify-between [&>p]:my-0">
       <p>
-        Hi, I'm Thomas! I'm a PhD student working on <a
-          href="https://compinterp.github.io"
+        Hey, I'm Thomas. I work on the life sciences team at <a
+          href="https://www.goodfire.ai/"
           target="_blank"
           rel="noopener noreferrer"
-          class="hl">compositional interpretability</a
-        >. I'm interested in understanding how neural networks encode complex behaviours and
-        knowledge.
+          class="hl">Goodfire</a
+        >. My research focuses on interpretability for scientific discovery: the <span
+          class="tooltip tooltip-bottom cursor-help align-baseline [--tt-bg:var(--color-base-100)]"
+          ><span
+            tabindex="0"
+            class="hl focus-visible:outline-primary rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >science</span
+          ><span class="tooltip-content not-prose text-base-content p-2">read dark art</span></span
+        > of understanding what models have learned.
       </p>
 
       <p>
-        Modern deep networks are astonishingly intricate and difficult to disentangle. I argue that
-        we should embrace this <span class="hl">complexity</span> rather than shoehorn them into simplistic
-        feature sets, flattening the very structures we hope to understand.
+        Deep networks encode rich knowledge from semantic relationships in language models to hidden
+        mechanisms in bio-models. I treat them as compositional systems whose parts interact and
+        recombine. Foundation models should be structural priors for our goals, not shoehorned into
+        simplistic features.
       </p>
 
       <p>
-        My research treats a model's weights as a <span class="hl">compositional system</span> whose parts
-        interact and recombine. By developing flexible, formally grounded tools for compositional analysis,
-        I aim to reveal how rich mechanisms and representations arise and how we can reason about them.
+        The goal of my research is to interface between how models think (numbers and geometries)
+        and how humans think (concepts and compositions). My PhD built the mathematical foundations
+        and now I'm scaling these tools to open scientific problems.
       </p>
 
       <p>
-        Outside of work, I love to go on long bike rides, game with friends, go skiing and wear
-        shorts. I used to play a lot of Diablo 3, achieving <span
-          class="tooltip"
-          data-tip="Suck it Elon"><span class="hl">top-1</span></span
-        > in grift leaderboards at some point.
+        When I'm not researching, you'll find me on a long bike ride, gaming with friends, skiing,
+        wearing shorts, or
+        <span class="tooltip tooltip-top cursor-help align-baseline [--tt-bg:var(--color-base-100)]"
+          ><span
+            tabindex="0"
+            class="hl focus-visible:outline-primary rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >some combination</span
+          ><span class="tooltip-content not-prose text-base-content w-48 p-2">
+            <Image
+              src={skiImg}
+              alt=""
+              class="aspect-square w-full rounded-md object-cover"
+              width={320}
+              height={320}
+              loading="lazy"
+            />
+            <span class="text-base-content/70 mt-2 block text-left text-xs leading-relaxed">
+              It's a sunny day!
+            </span>
+          </span></span
+        >. I used to play a lot of Diablo 3, reaching <span
+          class="tooltip tooltip-top cursor-help align-baseline [--tt-bg:var(--color-base-100)]"
+          ><span
+            tabindex="0"
+            class="hl focus-visible:outline-primary rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >top-1</span
+          ><span class="tooltip-content not-prose text-base-content p-2">suck it Elon</span></span
+        > on the grift leaderboards.
       </p>
     </div>
   </section>

@@ -10,8 +10,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "astro check",
+    "links": "bun run build && node scripts/check-links.mjs",
     "test": "playwright test",
-    "perf": "astro build && lhci autorun"
+    "perf": "astro build && lhci autorun",
+    "audit": "bun run format:check && bun run typecheck && bun run links && bun run test && bun run perf",
+    "postinstall": "node scripts/clean-vite-cache.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.0",
@@ -25,6 +28,7 @@
     "astro": "^6.4.0",
     "astro-icon": "^1.1.5",
     "daisyui": "^5.5.20",
+    "echarts": "^6.1.0",
     "katex": "^0.17.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",

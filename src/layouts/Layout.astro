@@ -3,16 +3,20 @@ import '../assets/app.css'
 import 'katex/dist/katex.min.css'
 import { ClientRouter } from 'astro:transitions'
 import { Font } from 'astro:assets'
-import { Icon } from 'astro-icon/components'
-import profileImg from '../assets/profile.jpg'
+import Navbar from '../components/Navbar.astro'
+import profileImg from '../assets/profile/main.jpg'
 
 interface Props {
   title?: string
   description?: string
-  back?: boolean
+  // App-style pages (e.g. /bae) want the full viewport instead of the centered
+  // max-w-1100 column. ``bleed`` swaps the wrapping ``<main>`` for a flex
+  // column that fills the viewport below the shared Navbar so embedded chrome
+  // can use ``flex-1 min-h-0`` and ``h-full`` against a real height.
+  bleed?: boolean
 }
 
-const { title, description, back = false } = Astro.props
+const { title, description, bleed = false } = Astro.props
 
 const SITE_NAME = 'Thomas Dooms'
 const SITE_DESCRIPTION =
@@ -32,7 +36,7 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <Font cssVariable="--font-fira-sans" preload />
+    <Font cssVariable="--font-fira-sans" preload={[{ weight: 400 }, { weight: 700 }]} />
     <Font cssVariable="--font-fira-code" />
 
     <meta name="generator" content={Astro.generator} />
@@ -54,51 +58,58 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-7H9E0Y121Q"></script>
+    <!-- Google tag (gtag.js), loaded after the page has had a chance to paint. -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || []
+      window.dataLayer = []
       function gtag() {
         dataLayer.push(arguments)
       }
-      gtag('js', new Date())
 
-      gtag('config', 'G-7H9E0Y121Q')
+      function loadAnalytics() {
+        const script = document.createElement('script')
+        script.async = true
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-7H9E0Y121Q'
+        document.head.appendChild(script)
+        gtag('js', new Date())
+        gtag('config', 'G-7H9E0Y121Q')
+      }
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadAnalytics, { timeout: 2000 })
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true })
+      }
     </script>
 
     <ClientRouter />
   </head>
-  <body>
+  <body class="flex min-h-screen flex-col">
     <a
       href="#main-content"
-      class="focus:bg-primary sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:px-4 focus:py-2 focus:text-white"
+      class="focus:bg-primary focus:text-primary-content sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:px-4 focus:py-2"
     >
       Skip to content
     </a>
 
-    <label
-      class="swap swap-rotate text-base-content/65 hover:text-base-content fixed top-4 right-4 z-40 transition-colors"
-      aria-label="Toggle dark mode"
-    >
-      <input type="checkbox" class="theme-controller" value="dark" />
-      <Icon name="fa6-solid:sun" class="swap-off h-5 w-5" />
-      <Icon name="fa6-solid:moon" class="swap-on h-5 w-5" />
-    </label>
+    {
+      /* Site Navbar only on regular pages. Bleed (app-style) pages — currently
+         just /bae — own their entire top chrome via the embedded navbar (the
+         bae InfoBar, which carries home + breadcrumb + stats + search). Two
+         top bars would be redundant and the lower one's search would clip. */
+      !bleed && <Navbar />
+    }
 
-    <main id="main-content" class="mx-auto max-w-[1100px] px-4 pt-6 pb-20">
-      {
-        back && (
-          <a
-            href="/"
-            aria-label="Back to home"
-            class="text-base-content/65 ring-base-300/60 hover:text-base-content hover:ring-base-300 mb-6 inline-flex h-9 w-9 items-center justify-center rounded-full ring-1 transition-all hover:-translate-x-0.5"
-          >
-            <Icon name="fa6-solid:arrow-left" class="text-sm" />
-          </a>
-        )
-      }
-      <slot />
-    </main>
+    {
+      bleed ? (
+        <div id="main-content" class="flex min-h-0 flex-1 flex-col overflow-hidden">
+          <slot />
+        </div>
+      ) : (
+        <main id="main-content" class="mx-auto w-full max-w-[1100px] px-4 pb-20">
+          <slot />
+        </main>
+      )
+    }
   </body>
 </html>
 
@@ -107,7 +118,6 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
   body {
     margin: 0;
     width: 100%;
-    height: 100%;
   }
 
   /* Hide scrollbar but keep scroll functionality. Stops layout jumping between

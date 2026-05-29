@@ -1,22 +1,14 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('bugs that should exist', () => {
-  test('news load-more works after navigating away and back', async ({ page }) => {
+  test('paper-card → back to home round-trip works', async ({ page }) => {
     await page.goto('/')
-    // Navigate to a paper via the compact card
     await page.locator('a[href^="/research/"]').first().click()
     await page.waitForURL('**/research/**')
-    // Navigate back via the Layout back-link
-    await page.locator('a[href="/"]', { hasText: 'Thomas Dooms' }).click()
-    await page.waitForURL('**/')
-
-    const loadMore = page.locator('#load-more-btn')
-    if (!(await loadMore.isVisible())) return
-
-    const hiddenBefore = await page.locator('.news-item.hidden').count()
-    await loadMore.click()
-    const hiddenAfter = await page.locator('.news-item.hidden').count()
-    expect(hiddenAfter).toBeLessThan(hiddenBefore)
+    // Layout back-link is the fixed house icon at top-left, not text.
+    await page.locator('a[aria-label="Home"]').click()
+    await page.waitForURL((u) => u.pathname === '/')
+    await expect(page.locator('h1', { hasText: 'Thomas Dooms' })).toBeVisible()
   })
 
   test('external links have rel="noopener" for security', async ({ page }) => {
@@ -44,11 +36,13 @@ test.describe('bugs that should exist', () => {
     }
   })
 
-  test('images in blog cards actually load (src resolves)', async ({ page }) => {
-    await page.goto('/blog')
+  test('images on the site actually load (src resolves)', async ({ page }) => {
+    // Hit a page known to ship raster images (the home profile card + paper
+    // thumbnails). Walk every <img>, scroll into view, await load.
+    await page.goto('/')
     await page.waitForLoadState('networkidle')
 
-    const images = page.locator('.card img')
+    const images = page.locator('main img')
     const count = await images.count()
     expect(count).toBeGreaterThan(0)
 
@@ -68,21 +62,16 @@ test.describe('bugs that should exist', () => {
     }
   })
 
-  test('interactive elements have accessible labels', async ({ page }) => {
-    await page.goto('/')
-
-    // Load-more button should have accessible text
-    const loadMore = page.locator('#load-more-btn')
-    if (await loadMore.isVisible()) {
-      const text = await loadMore.textContent()
-      expect(text?.trim().length).toBeGreaterThan(0)
-    }
-
-    // Navigate to a paper with authors
+  test('paper page renders authors', async ({ page }) => {
+    // Authors used to live inside a <details><summary>; now they're a plain
+    // paragraph (Authors.astro). Assert the paragraph + at least one author
+    // anchor (Author.astro renders each as a link) exists.
     await page.goto('/research/evee')
-    const summary = page.locator('details summary')
-    const text = await summary.textContent()
-    expect(text?.trim()).toMatch(/\d+ authors/)
+    await page.waitForLoadState('networkidle')
+    const authorsPara = page.locator('main p').first()
+    await expect(authorsPara).toBeVisible()
+    const text = await authorsPara.textContent()
+    expect(text?.trim().length, 'Authors paragraph is empty').toBeGreaterThan(0)
   })
 
   test('cite button copies bibtex to clipboard', async ({ page, context }) => {

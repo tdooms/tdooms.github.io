@@ -39,7 +39,13 @@ jobs:
       - name: Check internal links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --offline --include-fragments --base dist "dist/**/*.html"
+          args: >-
+            --no-progress
+            --offline
+            --include-fragments
+            --base "${{ github.workspace }}/dist"
+            --root-dir "${{ github.workspace }}/dist"
+            "${{ github.workspace }}/dist/**/*.html"
           fail: true
 
       - name: Upload Pages artifact

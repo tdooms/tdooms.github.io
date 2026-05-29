@@ -5,7 +5,7 @@ conference = "ICML'26"
 labels = ["workshop"]
 description = "A category-theoretic framework for formalizing mechanistic explanations of neural networks"
 link = "/research/compositional"
-authors = ["Ward Gauderis", "Thomas Dooms", "Steven T. Holmer", "Kola Ayonrinde", "Geraint A. Wiggins"]
+authors = ["Ward Gauderis*", "Thomas Dooms*", "Steven T. Holmer", "Kola Ayonrinde", "Geraint A. Wiggins"]
 
 paper = "https://arxiv.org/abs/2605.08934"
 slides = "https://docs.google.com/presentation/d/1H9X0Yb2DDh4LpGCMn3yzf3_KggxJTj2su48iuE1Z1vY/edit?usp=sharing"

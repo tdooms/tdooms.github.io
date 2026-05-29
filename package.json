@@ -12,8 +12,11 @@
     "typecheck": "astro check",
     "links": "bun run build && node scripts/check-links.mjs",
     "test": "playwright test",
+    "check:build": "bun run format:check && bun run typecheck && bun run build && node scripts/check-links.mjs",
+    "check:test": "bun run test",
+    "check:ci": "bun run check:build && bun run check:test",
     "perf": "astro build && lhci autorun",
-    "audit": "bun run format:check && bun run typecheck && bun run links && bun run test && bun run perf",
+    "audit": "bun run check:ci && bun run perf",
     "postinstall": "node scripts/clean-vite-cache.mjs"
   },
   "dependencies": {

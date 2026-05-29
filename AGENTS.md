@@ -101,10 +101,11 @@ All gates must pass green before a change is "done":
 
 ```bash
 bun run dev              # local dev server (--force if Vite dep cache is stale)
-bun run astro check      # type / content / schema check
-bunx prettier --check .  # format check
-bun run build            # production build
+bun run check:ci         # local equivalent of GitHub Actions build + test checks
+bun run check:build      # format, typecheck, production build, internal links
+bun run check:test       # Playwright regression suite
 bun run perf             # build + Lighthouse CI with budgets
+bun run audit            # check:ci plus Lighthouse
 ```
 
 Format-fix: `bunx prettier --write <file>`. Never bypass with `--no-verify` or similar.

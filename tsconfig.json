@@ -3,11 +3,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "$lib/*": ["src/components/bae/lib/*"],
+      "$app/state": ["src/components/_bae-shim/app-state.ts"],
+      "$app/paths": ["src/components/_bae-shim/app-paths.ts"],
+      "$app/navigation": ["src/components/_bae-shim/app-navigation.ts"]
     },
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist", "src/components/bae"]
 }

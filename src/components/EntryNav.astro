@@ -1,0 +1,64 @@
+---
+import { Icon } from 'astro-icon/components'
+
+interface NavItem {
+  href: string
+  title: string
+}
+
+interface Props {
+  prev: NavItem | null
+  next: NavItem | null
+}
+
+const { prev, next } = Astro.props
+---
+
+<nav class="border-base-300/60 mt-12 grid items-center gap-6 border-t pt-8 sm:grid-cols-3 sm:gap-4">
+  {
+    prev ? (
+      <a
+        href={prev.href}
+        class="group text-base-content/85 hover:text-primary flex flex-col gap-1 transition-colors sm:col-start-1"
+      >
+        <span class="text-base-content/65 flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase">
+          <Icon
+            name="fa6-solid:arrow-left"
+            class="text-xs transition-transform group-hover:-translate-x-0.5"
+          />
+          Previous
+        </span>
+        <span class="font-semibold">{prev.title}</span>
+      </a>
+    ) : (
+      <span class="sm:col-start-1" />
+    )
+  }
+
+  <a
+    href="/"
+    class="text-base-content/65 hover:text-base-content text-center text-sm transition-colors sm:col-start-2"
+  >
+    Home
+  </a>
+
+  {
+    next ? (
+      <a
+        href={next.href}
+        class="group text-base-content/85 hover:text-primary flex flex-col gap-1 text-right transition-colors sm:col-start-3"
+      >
+        <span class="text-base-content/65 flex items-center justify-end gap-1.5 text-xs font-semibold tracking-wider uppercase">
+          Next
+          <Icon
+            name="fa6-solid:arrow-right"
+            class="text-xs transition-transform group-hover:translate-x-0.5"
+          />
+        </span>
+        <span class="font-semibold">{next.title}</span>
+      </a>
+    ) : (
+      <span class="sm:col-start-3" />
+    )
+  }
+</nav>

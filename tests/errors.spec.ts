@@ -2,12 +2,12 @@ import { test, expect } from '@playwright/test'
 
 const PAGES = [
   '/',
-  '/research',
   '/blog',
   '/resume',
   '/research/bilinear',
   '/research/evee',
   '/research/bae',
+  '/bae',
   '/research/simplestories',
 ]
 
@@ -27,7 +27,7 @@ test('no broken internal links across the site', async ({ page }) => {
   const visited = new Set<string>()
   const broken: string[] = []
 
-  const pages = ['/', '/research', '/blog', '/resume']
+  const pages = ['/', '/blog', '/resume']
 
   for (const url of pages) {
     await page.goto(url)

@@ -1,5 +1,3 @@
-import Manifolds from '../../components/Manifolds.svelte'
-
 ## Technique
 
 Sparse autoencoders are the standard tool to find interpretable features within model activations in unsupervised fashion.
@@ -13,25 +11,9 @@ We use this toward automated extraction of subspaces that are likely to contain 
 
 ## Explore the manifolds
 
-<Manifolds
-  client:visible
-  samples={[
-    { name: 'Year Circle', url: '/manifolds/year-circle.feather', slug: 'year-circle' },
-    { name: 'Triangle', url: '/manifolds/new-triangle.feather', slug: 'new-triangle' },
-    {
-      name: 'Negation Directions',
-      url: '/manifolds/negation-directions.feather',
-      slug: 'negation-directions',
-    },
-    {
-      name: 'Conjunction Clusters',
-      url: '/manifolds/conjunction-clusters.feather',
-      slug: 'conjunction-clusters',
-    },
-  ]}
-/>
-
-Points are activations linearly projected into a 3D subspace, coloured by activation strength of the studied bilinear form. Hover any point for the underlying token and the model's predicted next token. Switch samples to compare structural families. Illusory gaps near the origin come from thresholding low activations.
+The full latent atlas and the 3D manifolds of every composite live in the
+[interactive explorer](/bae). Browse the UMAP of all composites, drill into
+individual latents, and rotate the manifolds for any of them.
 
 ## Extensions
 

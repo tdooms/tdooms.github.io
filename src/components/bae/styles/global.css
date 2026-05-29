@@ -1,0 +1,11 @@
+/*
+ * Empty stand-in for the bae frontend's global.css. The verbatim copy of
+ * routes/+layout.svelte imports `../styles/global.css`; in tdooms.github.io
+ * tailwindcss + daisyui (with our orange-primary theme) are already loaded
+ * from src/assets/app.css via Layout.astro, so importing bae's original
+ * global.css would double-init the plugins and re-define the theme.
+ *
+ * Bae-specific typography (Inter font, font-feature-settings, heading
+ * weight scale) is intentionally not carried over — tdooms's Fira Sans +
+ * defaults apply uniformly across the explorer.
+ */

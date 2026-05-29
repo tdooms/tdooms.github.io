@@ -3,21 +3,27 @@ import { test, expect } from '@playwright/test'
 test.describe('blog', () => {
   test('blog cards render with titles and dates', async ({ page }) => {
     await page.goto('/blog')
-    const cards = page.locator('.card')
+    // Each Blog card is an anchor whose href is either /blog/<id> (internal)
+    // or an external URL. Both forms wrap an <h3> title and a <time> date.
+    const cards = page.locator('main a[class*="rounded-xl"]')
     expect(await cards.count()).toBeGreaterThan(0)
-    await expect(cards.first().locator('.card-title')).toBeVisible()
+    await expect(cards.first().locator('h3')).toBeVisible()
+    await expect(cards.first().locator('time')).toBeVisible()
   })
 
-  test('external blog posts have indicator icon and open in new tab', async ({ page }) => {
+  test('external blog posts open in new tab with a visible indicator', async ({ page }) => {
     await page.goto('/blog')
 
-    const externalLinks = page.locator('a[target="_blank"]')
+    const externalLinks = page.locator('main a[target="_blank"]')
     const count = await externalLinks.count()
     if (count === 0) return
 
-    const firstExternal = externalLinks.first()
-    const icon = firstExternal.locator('.fa-arrow-up-right-from-square')
-    await expect(icon).toBeVisible()
+    const first = externalLinks.first()
+    // Indicator is the iconify-rendered "arrow-up-right-from-square" — astro-icon
+    // inlines an SVG, so check on the wrapping <svg> via title/class rather than
+    // the old fontawesome class.
+    await expect(first.locator('svg').first()).toBeVisible()
+    await expect(first).toHaveAttribute('rel', /noopener/)
   })
 
   test('internal blog posts navigate within the site', async ({ page }) => {

@@ -1,15 +1,25 @@
 ---
 import { getCollection, render } from 'astro:content'
 import Layout from '../../layouts/Layout.astro'
+import EntryNav from '../../components/EntryNav.astro'
 
 export async function getStaticPaths() {
   const blogs = await getCollection('blogs')
-  return blogs
-    .filter((blog) => !blog.data.external)
-    .map((blog) => ({ params: { id: blog.id }, props: { blog } }))
+  const local = blogs.filter((blog) => !blog.data.external)
+  const sorted = local.slice().sort((a, b) => b.data.date.localeCompare(a.data.date))
+  return local.map((blog) => {
+    const idx = sorted.findIndex((b) => b.id === blog.id)
+    const prev =
+      idx > 0 ? { href: `/blog/${sorted[idx - 1]!.id}`, title: sorted[idx - 1]!.data.title } : null
+    const next =
+      idx < sorted.length - 1
+        ? { href: `/blog/${sorted[idx + 1]!.id}`, title: sorted[idx + 1]!.data.title }
+        : null
+    return { params: { id: blog.id }, props: { blog, prev, next } }
+  })
 }
 
-const { blog } = Astro.props
+const { blog, prev, next } = Astro.props
 const { Content } = await render(blog)
 
 const formattedDate = new Date(blog.data.date).toLocaleDateString('en-GB', {
@@ -19,7 +29,7 @@ const formattedDate = new Date(blog.data.date).toLocaleDateString('en-GB', {
 })
 ---
 
-<Layout back title={blog.data.title} description={blog.data.description}>
+<Layout title={blog.data.title} description={blog.data.description}>
   <div class="mx-auto max-w-3xl">
     <h1 class="mb-2 text-4xl font-bold">{blog.data.title}</h1>
     <div class="text-base-content/75 mb-6">{formattedDate}</div>
@@ -27,5 +37,7 @@ const formattedDate = new Date(blog.data.date).toLocaleDateString('en-GB', {
     <div class="prose prose-lg max-w-none">
       <Content />
     </div>
+
+    <EntryNav prev={prev} next={next} />
   </div>
 </Layout>

@@ -10,9 +10,9 @@ test.describe('responsive layout', () => {
     await expect(page.locator('h1', { hasText: 'Thomas Dooms' })).toBeVisible()
   })
 
-  test('research cards render at both desktop and mobile viewports', async ({ page }) => {
-    await page.goto('/research')
-    const card = page.locator('h5', { hasText: /./ }).first()
+  test('home paper grid renders at both desktop and mobile viewports', async ({ page }) => {
+    await page.goto('/')
+    const card = page.locator('a[href^="/research/"]').first()
 
     await page.setViewportSize({ width: 1280, height: 800 })
     await expect(card).toBeVisible()
@@ -21,9 +21,9 @@ test.describe('responsive layout', () => {
     await expect(card).toBeVisible()
   })
 
-  test('subpages render the back link', async ({ page }) => {
+  test('subpages render the home icon in the top-left', async ({ page }) => {
     await page.goto('/research/bilinear')
-    const back = page.locator('a[href="/"]', { hasText: 'Thomas Dooms' })
-    await expect(back).toBeVisible()
+    const home = page.locator('a[aria-label="Home"]')
+    await expect(home).toBeVisible()
   })
 })

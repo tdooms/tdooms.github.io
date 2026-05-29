@@ -4,7 +4,10 @@ test.describe('homepage', () => {
   test('profile card renders', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('h1', { hasText: 'Thomas Dooms' })).toBeVisible()
-    await expect(page.locator('text=PhD Researcher')).toBeVisible()
+    // Tagline text is owner-editable; assert presence of "PhD" + "interpretability"
+    // separately so future copy tweaks don't break this.
+    await expect(page.getByText(/PhD/i).first()).toBeVisible()
+    await expect(page.getByText(/interpretability/i).first()).toBeVisible()
   })
 
   test('social links have correct targets', async ({ page }) => {
@@ -13,30 +16,13 @@ test.describe('homepage', () => {
     await expect(github).toBeVisible()
   })
 
-  test('news items are visible', async ({ page }) => {
+  test('news section renders entries', async ({ page }) => {
     await page.goto('/')
-    const newsItems = page.locator('.news-item')
-    const count = await newsItems.count()
-    expect(count).toBeGreaterThan(0)
-  })
-
-  test('load-more reveals additional news and disappears when done', async ({ page }) => {
-    await page.goto('/')
-
-    const loadMore = page.locator('#load-more-btn')
-    if (!(await loadMore.isVisible())) return
-
-    const totalItems = await page.locator('.news-item').count()
-    let visibleBefore = await page.locator('.news-item:not(.hidden)').count()
-
-    while (await loadMore.isVisible()) {
-      await loadMore.click()
-      const visibleAfter = await page.locator('.news-item:not(.hidden)').count()
-      expect(visibleAfter).toBeGreaterThan(visibleBefore)
-      visibleBefore = visibleAfter
-    }
-
-    expect(visibleBefore).toBe(totalItems)
-    await expect(loadMore).not.toBeVisible()
+    // News.astro renders each entry's title in an <h3>. Scope to the News
+    // section heading's parent so we don't pick up titles elsewhere.
+    const newsSection = page.locator('section', { has: page.locator('h2', { hasText: 'News' }) })
+    await expect(newsSection).toBeVisible()
+    const entries = newsSection.locator('h3')
+    expect(await entries.count()).toBeGreaterThan(0)
   })
 })

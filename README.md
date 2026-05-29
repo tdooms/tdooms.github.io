@@ -36,6 +36,15 @@ bun run format:check  # verify formatting without writing (used in CI)
 bun run typecheck     # astro check — types for .astro, .ts, .svelte
 ```
 
+Website issue checks:
+
+```bash
+bun run links  # build, then verify all built internal links resolve
+bun run test   # Playwright checks for console errors, layout, images, and regressions
+bun run perf   # Lighthouse CI budgets over the built site
+bun run audit  # format, typecheck, links, Playwright, and Lighthouse
+```
+
 Update all dependencies to latest:
 
 ```bash

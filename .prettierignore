@@ -6,3 +6,8 @@ playwright-report
 bun.lock
 bun.lockb
 package-lock.json
+
+# Verbatim copy of the bae frontend (~/bae/frontend/src/{lib,routes}). Kept
+# byte-identical so future syncs with upstream are a straight copy; reformatting
+# here would create per-line drift that obscures real upstream changes.
+src/components/bae/

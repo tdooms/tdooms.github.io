@@ -37,16 +37,7 @@ jobs:
         run: bun run build
 
       - name: Check internal links
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: >-
-            --no-progress
-            --offline
-            --include-fragments
-            --base "${{ github.workspace }}/dist"
-            --root-dir "${{ github.workspace }}/dist"
-            "${{ github.workspace }}/dist/**/*.html"
-          fail: true
+        run: node scripts/check-links.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

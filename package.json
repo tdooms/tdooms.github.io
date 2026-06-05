@@ -35,7 +35,7 @@
     "katex": "^0.17.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
-    "svelte": "^5.55.10",
+    "svelte": "^5.56.2",
     "tailwindcss": "^4.3.0",
     "three": "~0.184.0",
     "typescript": "^6.0.3"

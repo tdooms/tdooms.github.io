@@ -20,7 +20,7 @@
     "postinstall": "node scripts/clean-vite-cache.mjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "^6.0.0",
+    "@astrojs/mdx": "^6.0.2",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/svelte": "^8.1.2",
     "@iconify-json/fa6-brands": "^1.2.6",

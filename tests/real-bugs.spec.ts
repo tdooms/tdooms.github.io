@@ -29,9 +29,23 @@ test.describe('bugs that should exist', () => {
     const count = await resourceLinks.count()
     expect(count).toBeGreaterThan(0)
 
+    // External hosts (github, arxiv) intermittently drop the socket mid-request
+    // ("socket hang up"). Retry only on *thrown* network errors — never on a
+    // received HTTP response, so a real 404/500 dead link still fails the test.
+    const getWithRetry = async (href: string, attempts = 3) => {
+      for (let attempt = 1; ; attempt++) {
+        try {
+          return await page.request.get(href, { timeout: 15_000 })
+        } catch (err) {
+          if (attempt >= attempts) throw err
+          await new Promise((r) => setTimeout(r, 500 * attempt))
+        }
+      }
+    }
+
     for (let i = 0; i < count; i++) {
       const href = await resourceLinks.nth(i).getAttribute('href')
-      const response = await page.request.get(href!)
+      const response = await getWithRetry(href!)
       expect(response.status(), `${href} returned ${response.status()}`).toBeLessThan(400)
     }
   })

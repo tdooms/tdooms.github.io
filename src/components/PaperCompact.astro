@@ -3,13 +3,13 @@ import { Image } from 'astro:assets'
 
 interface Props {
   title: string
-  shortTitle?: string
+  shortTitle?: string | undefined
   description: string
   conference: string
   link: string
-  external?: boolean
-  image?: ImageMetadata
-  labels?: string[]
+  external?: boolean | undefined
+  image?: ImageMetadata | undefined
+  labels?: string[] | undefined
 }
 
 const {
@@ -38,7 +38,7 @@ const {
           src={image}
           alt={title}
           layout="none"
-          class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          class="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-500 [backface-visibility:hidden] group-hover:scale-105"
         />
       </figure>
     )
@@ -50,7 +50,7 @@ const {
       <span>{conference}</span>
       {
         labels.map((label) => (
-          <span class="bg-base-200 text-base-content/75 px-1.5 py-0.5 text-[10px] font-medium tracking-wide normal-case">
+          <span class="badge badge-ghost badge-sm text-[10px] font-medium tracking-wide normal-case">
             {label}
           </span>
         ))

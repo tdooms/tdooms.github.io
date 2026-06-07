@@ -8,7 +8,9 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  // Pin to one worker in CI; locally omit the key so Playwright auto-scales.
+  // (Under exactOptionalPropertyTypes an explicit `undefined` is rejected.)
+  ...(process.env.CI ? { workers: 1 } : {}),
   webServer: {
     command: `bun run build && bun run preview -- --host 127.0.0.1 --port ${previewPort}`,
     url: baseURL,

@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components'
+import HomeIcon from './Icon.svelte'
 
 interface NavItem {
   href: string
@@ -14,12 +15,14 @@ interface Props {
 const { prev, next } = Astro.props
 ---
 
-<nav class="border-base-300/60 mt-12 grid items-center gap-6 border-t pt-8 sm:grid-cols-3 sm:gap-4">
+<nav
+  class="border-base-300/60 mt-12 grid grid-cols-[1fr_auto_1fr] items-center gap-4 border-t pt-8"
+>
   {
     prev ? (
       <a
         href={prev.href}
-        class="group text-base-content/85 hover:text-primary flex flex-col gap-1 transition-colors sm:col-start-1"
+        class="group text-base-content/85 hover:text-primary flex flex-col gap-1 transition-colors"
       >
         <span class="text-base-content/65 flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase">
           <Icon
@@ -31,22 +34,19 @@ const { prev, next } = Astro.props
         <span class="font-semibold">{prev.title}</span>
       </a>
     ) : (
-      <span class="sm:col-start-1" />
+      <span />
     )
   }
 
-  <a
-    href="/"
-    class="text-base-content/65 hover:text-base-content text-center text-sm transition-colors sm:col-start-2"
-  >
-    Home
+  <a href="/" aria-label="Back to home" class="btn btn-ghost btn-square btn-sm">
+    <HomeIcon name="house" class="h-4 w-4" />
   </a>
 
   {
     next ? (
       <a
         href={next.href}
-        class="group text-base-content/85 hover:text-primary flex flex-col gap-1 text-right transition-colors sm:col-start-3"
+        class="group text-base-content/85 hover:text-primary flex flex-col gap-1 text-right transition-colors"
       >
         <span class="text-base-content/65 flex items-center justify-end gap-1.5 text-xs font-semibold tracking-wider uppercase">
           Next
@@ -58,7 +58,7 @@ const { prev, next } = Astro.props
         <span class="font-semibold">{next.title}</span>
       </a>
     ) : (
-      <span class="sm:col-start-3" />
+      <span />
     )
   }
 </nav>

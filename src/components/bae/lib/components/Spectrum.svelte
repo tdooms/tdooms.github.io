@@ -57,7 +57,7 @@
         type: "bar",
         data: values.map((v, i) => ({
           value: v,
-          itemStyle: { color: v >= 0 ? t.primary : t.error },
+          itemStyle: { color: v >= 0 ? t.primary : t.secondary },
           label: axisLabels[i]
             ? { show: true, position: v >= 0 ? "top" : "bottom", formatter: axisLabels[i],
                 color: t.baseContent, fontSize: 11, fontWeight: 600, distance: 4 }

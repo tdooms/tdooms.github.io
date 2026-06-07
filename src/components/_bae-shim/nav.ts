@@ -18,7 +18,7 @@ export const page = {
   get url(): URL {
     return new URL(typeof window === 'undefined' ? 'http://localhost/' : window.location.href)
   },
-  get params(): { id?: string } {
+  get params(): { id?: string | undefined } {
     return { id: pageState.params.get('composite') ?? undefined }
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

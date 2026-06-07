@@ -58,8 +58,8 @@
           </span>
           {#if c.value !== undefined}
             <span class="text-xs font-mono tabular-nums shrink-0
-                         {c.value < 0 ? 'text-error/85' : 'text-base-content/70'}">
-              {c.value >= 0 ? c.value.toFixed(3) : `−${(-c.value).toFixed(3)}`}
+                         {c.value < 0 ? 'text-secondary/85' : 'text-base-content/70'}">
+              {c.value >= 0 ? c.value.toFixed(2) : `−${(-c.value).toFixed(2)}`}
             </span>
           {/if}
         </a>

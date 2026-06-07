@@ -2,12 +2,12 @@
 import { Icon } from 'astro-icon/components'
 
 interface Props {
-  paper?: string
-  code?: string
-  models?: string
-  video?: string
-  slides?: string
-  news?: string
+  paper?: string | undefined
+  code?: string | undefined
+  models?: string | undefined
+  video?: string | undefined
+  slides?: string | undefined
+  news?: string | undefined
 }
 
 const { paper, code, models, video, slides, news } = Astro.props

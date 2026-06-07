@@ -4,9 +4,9 @@ import { Icon } from 'astro-icon/components'
 interface Props {
   title: string
   date: string
-  icon?: string
-  link?: string
-  external?: boolean
+  icon?: string | undefined
+  link?: string | undefined
+  external?: boolean | undefined
 }
 
 const { title, date, icon = 'fa6-solid:newspaper', link, external = false } = Astro.props

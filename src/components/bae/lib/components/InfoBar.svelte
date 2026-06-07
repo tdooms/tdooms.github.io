@@ -113,7 +113,7 @@
          and uses the shared Icon component + daisyUI ``btn btn-ghost`` so the
          button matches the site Navbar's home byte-for-byte (same glyph,
          same hover state, same dimensions). -->
-    <a href="/" class="btn btn-ghost btn-square btn-sm shrink-0" aria-label="Home">
+    <a href="/" class="btn btn-ghost btn-square btn-sm shrink-0 text-base-content/65" aria-label="Home">
       <Icon name="house" class="h-4 w-4" />
     </a>
     <div class="flex items-baseline gap-2.5 min-w-0 text-xs font-mono text-base-content/70">
@@ -197,7 +197,7 @@
         aria-label="search composite descriptions" />
       <kbd class="kbd kbd-sm">/</kbd>
     </label>
-    <label class="btn btn-ghost btn-square btn-sm swap shrink-0" aria-label="Toggle dark mode">
+    <label class="btn btn-ghost btn-square btn-sm swap shrink-0 text-base-content/65" aria-label="Toggle dark mode">
       <input type="checkbox" class="theme-controller" value="dark" />
       <Icon name="sun" class="swap-off h-4 w-4" />
       <Icon name="moon" class="swap-on h-4 w-4" />

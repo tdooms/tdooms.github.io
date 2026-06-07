@@ -7,16 +7,17 @@ import type { Composite } from "./types";
  * JSON read needed). ``totalComposites`` re-normalises ``importance`` so the
  * population mean reads 1× — Python ships values that sum to 1.
  *
- * Drift from bae verbatim: importance uses a fixed one-decimal format
- * (``.toFixed(1)``) instead of the adaptive formatter; the latter's
- * scientific-notation fallback for values <0.01 (``8e-3×``) is noisier than
- * useful in the stats bar. Small values just round to ``0.0×``.
+ * Every readout is fixed to exactly two decimals for a uniform stat bar
+ * (``0.90`` not ``0.9``). Importance uses a fixed format rather than the
+ * adaptive formatter, whose scientific-notation fallback for values <0.01
+ * (``8e-3×``) is noisier than useful here; small values just round to
+ * ``0.00×``.
  */
 export const compositeStats = (c: Composite, totalComposites: number) => ({
-  density:    c.density.toFixed(3),
+  density:    c.density.toFixed(2),
   rank:       c.rank.toFixed(2),
   support:    c.support,
-  importance: `${(c.importance * totalComposites).toFixed(1)}×`,
+  importance: `${(c.importance * totalComposites).toFixed(2)}×`,
 });
 
 /**

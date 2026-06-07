@@ -47,13 +47,14 @@ export interface PointsData {
 
 export interface Theme {
   primary: string;
+  secondary: string;
   base100: string;
   base200: string;
   base300: string;
   baseContent: string;
   error: string;
   warning: string;
-  softPink: string;
+  primarySoft: string;
   muted: string;
   faint: string;
 }

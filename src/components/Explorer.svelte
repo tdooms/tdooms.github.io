@@ -202,7 +202,7 @@
   {#snippet children()}
     {#if layoutError}
       <div class="p-6">
-        <div class="alert alert-error">Failed to load explorer data: {layoutError}</div>
+        <div class="alert alert-error">Failed to load atlas data: {layoutError}</div>
       </div>
     {:else if activeComposite}
       {#if compositeError}

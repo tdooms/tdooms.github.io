@@ -4,6 +4,8 @@ import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
 import profileImg from '../assets/profile/main.jpg'
 import skiImg from '../assets/profile/ski.jpg'
+import oldImg from '../assets/profile/old.jpg'
+import youngImg from '../assets/profile/young.jpg'
 import goodfireSvg from '../assets/goodfire.svg?raw'
 import News from '../components/News.astro'
 import PaperCompact from '../components/PaperCompact.astro'
@@ -111,18 +113,46 @@ const contactLinks = [
       </p>
 
       <p>
-        When I'm not researching, you'll find me on a long bike ride, gaming with friends, skiing,
-        wearing shorts, or
+        When I'm not researching, you'll find me on a long bike ride, <span
+          class="tooltip tooltip-top cursor-help align-baseline [--tt-bg:var(--color-base-100)]"
+          ><span
+            tabindex="0"
+            class="hl focus-visible:outline-primary rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >gaming</span
+          ><span class="tooltip-content not-prose text-base-content p-2">
+            <span class="flex gap-2">
+              <Image
+                src={oldImg}
+                alt=""
+                class="aspect-square w-48 rounded-md object-cover"
+                width={320}
+                height={320}
+                loading="lazy"
+              />
+              <Image
+                src={youngImg}
+                alt=""
+                class="aspect-square w-48 rounded-md object-cover"
+                width={320}
+                height={320}
+                loading="lazy"
+              />
+            </span>
+            <span class="text-base-content/70 mt-2 block text-left text-xs leading-relaxed">
+              doing the computer stuff since ...
+            </span>
+          </span></span
+        > with friends, skiing, wearing shorts, or
         <span class="tooltip tooltip-top cursor-help align-baseline [--tt-bg:var(--color-base-100)]"
           ><span
             tabindex="0"
             class="hl focus-visible:outline-primary rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             >some combination</span
-          ><span class="tooltip-content not-prose text-base-content w-48 p-2">
+          ><span class="tooltip-content not-prose text-base-content p-2">
             <Image
               src={skiImg}
               alt=""
-              class="aspect-square w-full rounded-md object-cover"
+              class="aspect-square w-48 rounded-md object-cover"
               width={320}
               height={320}
               loading="lazy"

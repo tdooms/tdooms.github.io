@@ -2,7 +2,7 @@
   import type { CallbackDataParams } from "echarts/types/dist/shared";
   import { bindChart } from "../chart";
   import { adaptive, compact } from "../format";
-  import { theme } from "../theme";
+  import { theme, mixLinear } from "../theme";
 
   // ``counts`` is N bins, ``edges`` is N+1 bin boundaries — the off-by-one is
   // typed so callers don't slip.
@@ -20,6 +20,9 @@
     if (!c) return;
     const t = theme();
     const centers = edges.slice(0, -1).map((e, i) => (e + edges[i + 1]) / 2);
+    // Largest |h| across the bins — normalises each bar onto the 3D scatter's
+    // colour ramp (both signs share one scale, like the dot shader).
+    const maxAbs = Math.max(...centers.map((v) => Math.abs(v)), 1e-6);
     // ECharts feeds tick values as strings sometimes (numeric x-axis).
     // Snap a near-zero value to "0" so the central tick reads cleanly.
     const xLabel = (v: number | string) => Math.abs(Number(v)) < 1e-9 ? "0" : adaptive(Number(v));
@@ -66,10 +69,16 @@
         type: "bar",
         // ECharts auto-fits bar width on a value axis to the smallest x-spacing,
         // i.e. one bin. Removing `large` mode + zero-border makes them touch.
-        data: counts.map((c, i) => ({
-          value: [centers[i], c],
-          itemStyle: { color: centers[i] >= 0 ? t.primary : t.error, borderWidth: 0 },
-        })),
+        // Each bar is coloured like the 3D dots: neutral at h≈0, ramping to the
+        // muted accent toward the tails (|h| → max), capped at 80% to match.
+        data: counts.map((c, i) => {
+          const accent = centers[i] >= 0 ? t.primary : t.secondary;
+          const intensity = Math.min(Math.abs(centers[i]) / maxAbs, 1) * 0.8;
+          return {
+            value: [centers[i], c],
+            itemStyle: { color: mixLinear(accent, t.base300, intensity), borderWidth: 0 },
+          };
+        }),
         barWidth: "100%",
       }],
     });

@@ -3,7 +3,7 @@
   import TokenChip from "./TokenChip.svelte";
 
   // Two stacks: top-N firing positive (primary) and top-N firing negative
-  // (error). Mirrors the diverging colormap on the 3D scatter — color-mix in
+  // (secondary). Mirrors the diverging colormap on the 3D scatter — color-mix in
   // srgb-linear matches the shader's linear-RGB interpolation toward the
   // base-300 neutral, so low |activation| values fade to gray exactly like the
   // dots.
@@ -34,12 +34,14 @@
   });
 
   const fmt = (v: number) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+  // Accent ramped to at most 80% of full colour, fading to base-300 at low
+  // |activation| — mirrors the 3D scatter's dots.
   const mix = (tone: string, intensity: number) =>
-    `color-mix(in srgb-linear, var(--color-${tone}) ${Math.round(intensity * 100)}%, var(--color-base-300))`;
+    `color-mix(in srgb-linear, var(--color-${tone}) ${Math.round(intensity * 0.8 * 100)}%, var(--color-base-300))`;
 </script>
 
 <div class="flex flex-col gap-3 overflow-y-auto">
-  {#each [{ rows: split.positive, tone: "primary" }, { rows: split.negative, tone: "error" }] as { rows, tone }}
+  {#each [{ rows: split.positive, tone: "primary" }, { rows: split.negative, tone: "secondary" }] as { rows, tone }}
     {#if rows.length}
       <section class="flex flex-col">
         <ul class="flex flex-col font-mono text-xs">

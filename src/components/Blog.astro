@@ -6,8 +6,8 @@ interface Props {
   title: string
   date: string
   link: string
-  image?: ImageMetadata
-  external?: boolean
+  image?: ImageMetadata | undefined
+  external?: boolean | undefined
 }
 
 const { title, date, link, image, external = false } = Astro.props
@@ -32,7 +32,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-GB', {
           src={image}
           alt={title}
           layout="none"
-          class="absolute inset-0 h-full w-full object-cover saturate-50 transition-[filter] duration-300 ease-out group-hover:saturate-100"
+          class="absolute inset-0 h-full w-full transform-gpu object-cover saturate-50 transition-[filter] duration-300 ease-out [backface-visibility:hidden] group-hover:saturate-100"
         />
       </figure>
     )

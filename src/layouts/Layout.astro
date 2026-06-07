@@ -7,8 +7,8 @@ import Navbar from '../components/Navbar.astro'
 import profileImg from '../assets/profile/main.jpg'
 
 interface Props {
-  title?: string
-  description?: string
+  title?: string | undefined
+  description?: string | undefined
   // App-style pages (e.g. /bae) want the full viewport instead of the centered
   // max-w-1100 column. ``bleed`` swaps the wrapping ``<main>`` for a flex
   // column that fills the viewport below the shared Navbar so embedded chrome
@@ -101,7 +101,7 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
 
     {
       bleed ? (
-        <div id="main-content" class="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div id="main-content" class="flex h-dvh flex-col overflow-hidden">
           <slot />
         </div>
       ) : (

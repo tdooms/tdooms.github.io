@@ -81,15 +81,16 @@ const FRAG = `
   uniform vec3  uPos;
   uniform vec3  uNeg;
   uniform vec3  uColors[6];
+  uniform float uMaxMix;                                                      // cap the ramp short of full colour (softer dots)
   void main() {
     if (length(vUv) > 0.48) discard;                                         // quad → inscribed circle
     vec3 c;
+    float t = abs(vActivation) * uMaxMix;
     if (uMode == 0) {
-      float t = abs(vActivation);
       c = vActivation > 0.0 ? mix(uNeutral, uPos, t) : mix(uNeutral, uNeg, t);
     } else {
       int idx = int(vCluster + 0.5);
-      c = mix(uNeutral, uColors[idx], abs(vActivation));
+      c = mix(uNeutral, uColors[idx], t);
     }
     gl_FragColor = vec4(c, 1.0);
   }
@@ -182,8 +183,9 @@ export class ManifoldScene {
         uMode:      { value: 0 },
         uNeutral:   { value: new THREE.Color(t.base300) },
         uPos:       { value: new THREE.Color(t.primary) },
-        uNeg:       { value: new THREE.Color(t.error) },
+        uNeg:       { value: new THREE.Color(t.secondary) },
         uColors:    { value: PALETTE.map((c) => new THREE.Color(c)) },
+        uMaxMix:    { value: 0.8 },                                           // dots ramp to 80% of full colour, not 100%
       },
       transparent: false,
       depthWrite: true,
@@ -272,7 +274,7 @@ export class ManifoldScene {
     this.axes.position.set(...p.origin);
 
     const t = theme();
-    const tint = (v: number) => new THREE.Color(v >= 0 ? t.primary : t.error);
+    const tint = (v: number) => new THREE.Color(v >= 0 ? t.primary : t.secondary);
     const [tx, ty, tz] = p.eigvals.map(tint) as [THREE.Color, THREE.Color, THREE.Color];
     this.axesPos.setColors(tx, ty, tz);
     this.axesNeg.setColors(tx, ty, tz);

@@ -40,6 +40,33 @@ test('composite page renders a non-collapsed WebGL canvas', async ({ page }) => 
     'canvas collapsed vertically (likely a height-chain regression)',
   ).toBeGreaterThan(200)
   expect(box!.width, 'canvas collapsed horizontally').toBeGreaterThan(200)
+
+  // Stronger than "not collapsed": the manifold must *fill* the viewport and
+  // the bleed page must not scroll. A `> 200` check passes even when the grid
+  // row stretches to the (tall) detail panel and the canvas overflows the
+  // viewport — exactly the regression where `#main-content` lost its definite
+  // height and the toolbar got pushed below the fold. Assert both here.
+  const vp = page.viewportSize()!
+  expect(
+    box!.height,
+    'canvas does not fill the viewport (height chain not definite)',
+  ).toBeGreaterThan(vp.height - 120)
+  const scrollH = await page.evaluate(() => document.documentElement.scrollHeight)
+  expect(
+    scrollH,
+    'bleed/app page scrolls vertically — it should be exactly viewport tall',
+  ).toBeLessThanOrEqual(vp.height + 2)
+
+  // The toolbar (keyboard / sampling / rotate / axes buttons) sits at the
+  // bottom of the manifold pane; if the pane overflows, it lands below the
+  // fold. Assert it is within the viewport.
+  const axesBtn = page.getByRole('button', { name: 'toggle eigenvalue axes' })
+  const axesBox = await axesBtn.boundingBox()
+  expect(axesBox, 'manifold toolbar missing').not.toBeNull()
+  expect(
+    axesBox!.y + axesBox!.height,
+    'manifold toolbar is below the fold (pane overflows the viewport)',
+  ).toBeLessThanOrEqual(vp.height + 1)
 })
 
 test('sidebar items navigate to composite (click interception works)', async ({ page }) => {

@@ -5,11 +5,11 @@ interface Props {
   icon: ImageMetadata
   title: string
   start: string
-  end?: string
-  text?: string
-  grade?: string
-  subject?: string
-  advisor?: string
+  end?: string | undefined
+  text?: string | undefined
+  grade?: string | undefined
+  subject?: string | undefined
+  advisor?: string | undefined
 }
 
 const { icon, title, start, end, text, grade, subject, advisor } = Astro.props

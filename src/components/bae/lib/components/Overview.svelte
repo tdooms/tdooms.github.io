@@ -70,7 +70,7 @@
           // when no label exists (--picks-only runs, missing entries).
           const heading = v[7] || `composite ${padId(v[3])}`;
           return `<b>${heading}</b> <span style="color:${t.muted}">${padId(v[3])}</span><br>` +
-            `<span style="color:${t.muted}">density</span> ${v[4].toFixed(3)}<br>` +
+            `<span style="color:${t.muted}">density</span> ${v[4].toFixed(2)}<br>` +
             `<span style="color:${t.muted}">rank</span> ${v[5].toFixed(2)}<br>` +
             `<span style="color:${t.muted}">support</span> ${v[2]}<br>` +
             `<span style="color:${t.muted}">importance</span> ${percent(v[6])}`;
@@ -93,7 +93,7 @@
         itemWidth: 14, itemHeight: 140,
         textStyle: { fontSize: 11, color: t.muted },
         text: ["", "rank"],                                                  // label on the right (max side)
-        inRange: { color: [t.softPink, t.primary] },
+        inRange: { color: [t.primarySoft, t.primary] },
       },
       series: [{
         type: "scatter",

@@ -26,7 +26,7 @@ const { paper, prev, next } = Astro.props
 const body = await getEntry('papersContent', paper.id)
 if (!body) {
   throw new Error(
-    `Missing MDX body for paper "${paper.id}". Expected src/content/papers/${paper.id}.mdx`,
+    `Missing MDX body for paper "${paper.id}". Expected src/content/papers/${paper.id}/content.mdx`,
   )
 }
 const { Content } = await render(body)
@@ -40,6 +40,7 @@ const { Content } = await render(body)
   <Resources
     paper={paper.data.paper}
     code={paper.data.code}
+    demo={paper.data.demo}
     models={paper.data.models}
     video={paper.data.video}
     slides={paper.data.slides}

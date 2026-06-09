@@ -3,9 +3,10 @@ import { test, expect } from '@playwright/test'
 test.describe('blog', () => {
   test('blog cards render with titles and dates', async ({ page }) => {
     await page.goto('/blog')
-    // Each Blog card is an anchor whose href is either /blog/<id> (internal)
-    // or an external URL. Both forms wrap an <h3> title and a <time> date.
-    const cards = page.locator('main a[class*="rounded-xl"]')
+    // Each Blog card is an anchor wrapping an <h3> title and a <time> date —
+    // match on that structure, not on a styling class (which the card markup
+    // may change).
+    const cards = page.locator('main a:has(h3):has(time)')
     expect(await cards.count()).toBeGreaterThan(0)
     await expect(cards.first().locator('h3')).toBeVisible()
     await expect(cards.first().locator('time')).toBeVisible()

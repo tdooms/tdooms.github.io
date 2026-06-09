@@ -2,8 +2,14 @@ import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 
+const paperIdFromEntry = ({ entry }: { entry: string }) => entry.split('/')[0] ?? entry
+
 const papers = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.toml', base: './src/content/papers' }),
+  loader: glob({
+    pattern: '*/metadata.toml',
+    base: './src/content/papers',
+    generateId: paperIdFromEntry,
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -16,6 +22,7 @@ const papers = defineCollection({
       external: z.boolean().optional(),
       authors: z.array(z.string()),
       code: z.string().optional(),
+      demo: z.string().optional(),
       video: z.string().optional(),
       slides: z.string().optional(),
       paper: z.string().optional(),
@@ -28,7 +35,11 @@ const papers = defineCollection({
 })
 
 const papersContent = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.mdx', base: './src/content/papers' }),
+  loader: glob({
+    pattern: '*/content.mdx',
+    base: './src/content/papers',
+    generateId: paperIdFromEntry,
+  }),
   schema: z.object({}).strict(),
 })
 

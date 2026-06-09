@@ -5,10 +5,11 @@ conference = "NeurIPS'25"
 labels = ["workshop", "spotlight"]
 description = "Autoencoder architecture that decomposes activations into polynomial manifolds"
 link = "/research/bae"
-authors = ["Thomas Dooms", "Ward Gauderis", "Geraint A. Wiggins", "Jose Oramas"]
+authors = ["Thomas Dooms*", "Ward Gauderis*", "Geraint A. Wiggins", "Jose Oramas"]
 
 paper = "https://arxiv.org/abs/2605.08891"
 code = "https://github.com/tdooms/bae"
+demo = "/bae"
 models = "https://huggingface.co/tdooms/qwen3-0.6b-base-scope"
 
 bibtex = """

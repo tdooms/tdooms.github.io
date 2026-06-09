@@ -4,17 +4,19 @@ import { Icon } from 'astro-icon/components'
 interface Props {
   paper?: string | undefined
   code?: string | undefined
+  demo?: string | undefined
   models?: string | undefined
   video?: string | undefined
   slides?: string | undefined
   news?: string | undefined
 }
 
-const { paper, code, models, video, slides, news } = Astro.props
+const { paper, code, demo, models, video, slides, news } = Astro.props
 
 const resources = [
   { url: paper, icon: 'fa6-regular:file', label: 'Paper' },
   { url: code, icon: 'fa6-solid:code', label: 'Code' },
+  { url: demo, icon: 'fa6-solid:play', label: 'Demo' },
   { url: models, icon: 'fa6-solid:database', label: 'Models' },
   { url: video, icon: 'fa6-solid:video', label: 'Video' },
   { url: slides, icon: 'fa6-solid:chalkboard', label: 'Slides' },
@@ -29,7 +31,7 @@ const resources = [
         href={resource.url}
         target={resource.external ? '_blank' : undefined}
         rel={resource.external ? 'noopener noreferrer' : undefined}
-        class="hover:bg-primary/5 hover:text-primary hover:ring-primary/30 bg-base-100 text-base-content/85 ring-base-300/60 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium shadow-sm ring-1 transition-all hover:-translate-y-0.5 hover:shadow-md"
+        class="btn btn-sm btn-outline"
       >
         <Icon name={resource.icon} />
         <span>{resource.label}</span>

@@ -10,5 +10,18 @@
     ],
     "deny": [],
     "ask": []
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/stop-hook.mjs",
+            "timeout": 180
+          }
+        ]
+      }
+    ]
   }
 }

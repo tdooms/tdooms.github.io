@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('research pages', () => {
-  test('paper cards on home link to reachable paper pages', async ({ page }) => {
+  test('paper cards on home link to reachable paper pages', async ({ page, browserName }) => {
+    // Pure HTTP checks via page.request — engine-independent, one pass suffices.
+    test.skip(browserName !== 'chromium', 'HTTP-only test, engine-independent')
     await page.goto('/')
 
     const links = await page.locator('a[href^="/research/"]').all()

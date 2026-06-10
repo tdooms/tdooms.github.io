@@ -41,7 +41,9 @@ for (const url of PAGES) {
   })
 }
 
-test('no broken internal links across the site', async ({ page }) => {
+test('no broken internal links across the site', async ({ page, browserName }) => {
+  // Pure HTTP checks via page.request — engine-independent, one pass suffices.
+  test.skip(browserName !== 'chromium', 'HTTP-only test, engine-independent')
   const visited = new Set<string>()
   const broken: string[] = []
 

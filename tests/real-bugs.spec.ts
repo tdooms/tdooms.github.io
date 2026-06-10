@@ -23,7 +23,13 @@ test.describe('bugs that should exist', () => {
     }
   })
 
-  test('all resource links resolve (no 404 PDFs or dead arxiv links)', async ({ page }) => {
+  test('all resource links resolve (no 404 PDFs or dead arxiv links)', async ({
+    page,
+    browserName,
+  }) => {
+    // Pure HTTP checks via page.request — nothing engine-specific. One pass
+    // is enough; per-browser repeats just triple the external-host flake.
+    test.skip(browserName !== 'chromium', 'HTTP-only test, engine-independent')
     await page.goto('/research/bilinear')
     const resourceLinks = page.locator('a[target="_blank"][href^="http"]')
     const count = await resourceLinks.count()
@@ -88,7 +94,10 @@ test.describe('bugs that should exist', () => {
     expect(text?.trim().length, 'Authors paragraph is empty').toBeGreaterThan(0)
   })
 
-  test('cite button copies bibtex to clipboard', async ({ page, context }) => {
+  test('cite button copies bibtex to clipboard', async ({ page, context, browserName }) => {
+    // grantPermissions for the clipboard is Chromium-only in Playwright;
+    // Firefox/WebKit throw "Unknown permission".
+    test.skip(browserName !== 'chromium', 'clipboard permissions are Chromium-only')
     await context.grantPermissions(['clipboard-read', 'clipboard-write'])
     await page.goto('/research/bilinear')
 

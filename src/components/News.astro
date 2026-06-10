@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components'
+import { formatMonthYear } from '../lib/format'
 
 interface Props {
   title: string
@@ -11,10 +12,7 @@ interface Props {
 
 const { title, date, icon = 'fa6-solid:newspaper', link, external = false } = Astro.props
 
-const formattedDate = new Date(date).toLocaleDateString('en-US', {
-  month: 'short',
-  year: 'numeric',
-})
+const formattedDate = formatMonthYear(date)
 
 // Title supports **bold** markdown for emphasis (rendered in primary orange).
 const renderedTitle = title.replace(

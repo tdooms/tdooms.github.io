@@ -1,7 +1,8 @@
 {
-  "name": "astro",
+  "name": "tdooms.github.io",
   "type": "module",
   "version": "0.0.1",
+  "private": true,
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,7 +10,7 @@
     "astro": "astro",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "astro check",
+    "typecheck": "astro check && tsc --noEmit",
     "links": "bun run build && node scripts/check-links.mjs",
     "test": "playwright test",
     "check:build": "bun run format:check && bun run typecheck && bun run build && node scripts/check-links.mjs",

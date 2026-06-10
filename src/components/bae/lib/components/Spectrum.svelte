@@ -36,9 +36,12 @@
         borderColor: t.base300,
         textStyle: { color: t.baseContent, fontSize: 12 },
         // ``trigger: "axis"`` always yields an array of per-series datums.
+        // Same adaptive precision as the tick labels — values are normalised
+        // to |λ|max = 1, so this reads 2 dp for most bars and exponential for
+        // the tail.
         formatter: (params) => {
           const p = params as CallbackDataParams[];
-          return `λ<sub>${p[0].dataIndex}</sub> = ${(p[0].value as number).toFixed(4)}`;
+          return `λ<sub>${p[0].dataIndex}</sub> = ${adaptive(p[0].value as number)}`;
         },
       },
       xAxis: { type: "category", show: false, data: values.map((_, i) => i) },

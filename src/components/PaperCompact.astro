@@ -34,10 +34,15 @@ const {
   {
     image && (
       <figure class="bg-base-200 relative aspect-[5/3] overflow-hidden">
+        {/* Sized to the card (≈350px wide, 2× for retina) — see Blog.astro;
+            unsized `layout="none"` ships the original asset at full weight. */}
         <Image
           src={image}
           alt={title}
           layout="none"
+          width={700}
+          height={420}
+          quality={60}
           class="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-500 [backface-visibility:hidden] group-hover:scale-105"
         />
       </figure>

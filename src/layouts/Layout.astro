@@ -36,7 +36,15 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <Font cssVariable="--font-fira-sans" preload={[{ weight: 400 }, { weight: 700 }]} />
+    {
+      /* Preload every Fira Sans weight the pages use — a used-but-unpreloaded
+        weight is only discovered after the render-blocking CSS and its swap
+        repaints the text LCP (the home bio links are weight 500). */
+    }
+    <Font
+      cssVariable="--font-fira-sans"
+      preload={[{ weight: 400 }, { weight: 500 }, { weight: 600 }, { weight: 700 }]}
+    />
     <Font cssVariable="--font-fira-code" />
 
     <meta name="generator" content={Astro.generator} />
@@ -57,6 +65,50 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
+
+    <!-- Theme persistence. daisyUI's `theme-controller` checkbox is pure CSS:
+         it applies the dark theme only while checked, so on its own the choice
+         resets on every reload and every ClientRouter navigation (the swap
+         brings in a fresh, unchecked checkbox). This script restores the
+         stored choice synchronously in <head> (before first paint, no flash)
+         and again on `astro:after-swap` (fires before the swapped page paints
+         — the official Astro dark-mode recipe). Identical inline scripts run
+         once per session under ClientRouter, so listeners bind exactly once.
+         Kept at the *end* of head: placed before the font preload links it
+         delayed font discovery enough to push the home page's text LCP past
+         the 1 s budget. -->
+    <script is:inline>
+      ;(() => {
+        const stored = () => {
+          try {
+            return localStorage.getItem('theme') === 'dark'
+          } catch {
+            return false
+          }
+        }
+        const apply = () => {
+          const dark = stored()
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+          // Sync every toggle (site Navbar + bae InfoBar) so the sun/moon
+          // icon matches. No-op in <head> where the body isn't parsed yet.
+          for (const el of document.querySelectorAll('input.theme-controller')) el.checked = dark
+        }
+        apply()
+        document.addEventListener('DOMContentLoaded', apply, { once: true })
+        document.addEventListener('astro:after-swap', apply)
+        document.addEventListener('change', (e) => {
+          const el = e.target
+          if (!(el instanceof HTMLInputElement) || !el.classList.contains('theme-controller'))
+            return
+          try {
+            localStorage.setItem('theme', el.checked ? 'dark' : 'light')
+          } catch {
+            /* private mode — theme still applies for this page */
+          }
+          document.documentElement.dataset.theme = el.checked ? 'dark' : 'light'
+        })
+      })()
+    </script>
 
     <!-- Google tag (gtag.js), loaded after the page has had a chance to paint. -->
     <script is:inline>

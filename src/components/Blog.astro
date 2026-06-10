@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
+import { formatDate } from '../lib/format'
 
 interface Props {
   title: string
@@ -12,11 +13,7 @@ interface Props {
 
 const { title, date, link, image, external = false } = Astro.props
 
-const formattedDate = new Date(date).toLocaleDateString('en-GB', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-})
+const formattedDate = formatDate(date)
 ---
 
 <a
@@ -28,10 +25,17 @@ const formattedDate = new Date(date).toLocaleDateString('en-GB', {
   {
     image && (
       <figure class="bg-base-200 relative aspect-[5/3] overflow-hidden">
+        {/* Sized to the card (≈350px wide, 2× for retina) — `layout="none"`
+            here once shipped the full 1254px originals (90–240 KB each) and
+            blew the home page's Lighthouse LCP budget. q60 because card art
+            renders desaturated at ~350px; the savings buy LCP headroom. */}
         <Image
           src={image}
           alt={title}
           layout="none"
+          width={700}
+          height={420}
+          quality={60}
           class="absolute inset-0 h-full w-full transform-gpu object-cover saturate-50 transition-[filter] duration-300 ease-out [backface-visibility:hidden] group-hover:saturate-100"
         />
       </figure>

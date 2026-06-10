@@ -18,17 +18,30 @@ const papers = (await getCollection('papers')).sort((a, b) =>
 const blogs = (await getCollection('blogs')).sort((a, b) => b.data.date.localeCompare(a.data.date))
 const news = (await getCollection('news')).sort((a, b) => b.data.date.localeCompare(a.data.date))
 
+// `external` gates target="_blank" (site convention: explicit flag, never a
+// protocol heuristic). Email and Resume stay in-tab.
 const contactLinks = [
-  { icon: 'fa6-solid:envelope', label: 'Email', href: 'mailto:doomsthomas@gmail.com' },
-  { icon: 'fa6-brands:x-twitter', label: 'Twitter', href: 'https://x.com/thomasdooms' },
-  { icon: 'fa6-brands:github', label: 'GitHub', href: 'https://github.com/tdooms' },
+  {
+    icon: 'fa6-solid:envelope',
+    label: 'Email',
+    href: 'mailto:doomsthomas@gmail.com',
+    external: false,
+  },
+  {
+    icon: 'fa6-brands:x-twitter',
+    label: 'Twitter',
+    href: 'https://x.com/thomasdooms',
+    external: true,
+  },
+  { icon: 'fa6-brands:github', label: 'GitHub', href: 'https://github.com/tdooms', external: true },
   {
     icon: 'fa6-brands:linkedin',
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/thomas-dooms-5518a4169/',
+    external: true,
   },
-  { icon: 'fa6-solid:calendar', label: 'Meet', href: 'https://cal.com/tdooms' },
-  { icon: 'fa6-solid:file-lines', label: 'Resume', href: '/resume' },
+  { icon: 'fa6-solid:calendar', label: 'Meet', href: 'https://cal.com/tdooms', external: true },
+  { icon: 'fa6-solid:file-lines', label: 'Resume', href: '/resume', external: false },
 ]
 ---
 
@@ -66,12 +79,12 @@ const contactLinks = [
         class="text-base-content/75 mt-5 grid grid-cols-3 justify-items-center gap-x-4 gap-y-2 text-sm lg:justify-items-start"
       >
         {
-          contactLinks.map(({ icon, label, href }) => (
+          contactLinks.map(({ icon, label, href, external }) => (
             <a
               href={href}
               class="hover:text-primary inline-flex items-center gap-1.5 transition-colors"
-              target={href.startsWith('http') ? '_blank' : undefined}
-              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener noreferrer' : undefined}
             >
               <Icon name={icon} />
               <span>{label}</span>
@@ -82,7 +95,7 @@ const contactLinks = [
     </div>
 
     <!-- Bio -->
-    <div class="prose prose-gray flex max-w-none flex-col justify-between [&>p]:my-0">
+    <div class="prose flex max-w-none flex-col justify-between [&>p]:my-0">
       <p>
         Hey, I'm Thomas. I work on the life sciences team at <a
           href="https://www.goodfire.ai/"
@@ -121,8 +134,9 @@ const contactLinks = [
             >gaming</span
           ><span class="tooltip-content not-prose text-base-content p-2">
             <span class="flex gap-2">
+              {/* Chronological: childhood photo first, recent photo second. */}
               <Image
-                src={oldImg}
+                src={youngImg}
                 alt=""
                 class="aspect-square w-48 rounded-md object-cover"
                 width={320}
@@ -130,7 +144,7 @@ const contactLinks = [
                 loading="lazy"
               />
               <Image
-                src={youngImg}
+                src={oldImg}
                 alt=""
                 class="aspect-square w-48 rounded-md object-cover"
                 width={320}

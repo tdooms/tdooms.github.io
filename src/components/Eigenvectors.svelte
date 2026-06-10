@@ -1,4 +1,9 @@
 <script lang="ts">
+  // Eigenvector browser for the bilinear-MLPs paper: picks one of nine
+  // regularization regimes (3 categories × 3 intensities) and one of the top-5
+  // positive/negative eigenvectors, then shows the matching pre-rendered SVG
+  // from /public/eigenvectors/<model>/<pos|neg><n>.svg. Selection is mirrored
+  // into ?model= and ?index= so views are shareable and survive back/forward.
   type ModelType = `${'noise' | 'translate' | 'rotate'}-${'light' | 'medium' | 'strong'}`
 
   interface Intensity {
@@ -47,15 +52,22 @@
     { label: 'Rotation', prefix: 'rotate' },
   ]
 
+  // Every valid `?model=` value — used to reject malformed URLs instead of
+  // casting blindly (a bad value would point the <img> at a 404).
+  const validModels: string[] = categories.flatMap((c) =>
+    intensities.map((i) => `${c.prefix}-${i.value}`),
+  )
+
   const syncFromURL = () => {
     const params = new URLSearchParams(window.location.search)
     const urlIndex = params.get('index')
     const urlModel = params.get('model')
     if (urlIndex) {
       const parsed = parseInt(urlIndex, 10)
-      if (Number.isFinite(parsed)) index = parsed
+      // Valid indices are ±1..±5 (sign picks positive vs negative spectrum).
+      if (Number.isInteger(parsed) && parsed !== 0 && Math.abs(parsed) <= 5) index = parsed
     }
-    if (urlModel) model = urlModel as ModelType
+    if (urlModel && validModels.includes(urlModel)) model = urlModel as ModelType
   }
 
   $effect(() => {

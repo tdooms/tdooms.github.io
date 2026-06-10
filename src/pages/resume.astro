@@ -48,7 +48,7 @@ const awardEntries = (await getCollection('awards')).sort((a, b) => a.data.order
                 <span class="text-base-content/75">{language.data.level}</span>
               </div>
               <progress
-                class="progress progress-error mb-4 h-2"
+                class="progress progress-primary mb-4 h-2"
                 max="100"
                 value={language.data.percent}
               >

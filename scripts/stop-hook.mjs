@@ -45,8 +45,12 @@ const isWin = process.platform === 'win32'
 rmSync('dist', { recursive: true, force: true })
 
 const steps = [
-  ['type-check', 'bun', ['run', 'astro', 'check']],
-  ['format', 'bunx', ['prettier', '--check', 'src/', 'tests/', 'scripts/']],
+  // `bun run typecheck` = astro check (covers .astro/.svelte) + tsc --noEmit
+  // (covers plain .ts) — same compound gate as check:build, no drift.
+  ['type-check', 'bun', ['run', 'typecheck']],
+  // Same scope as `bun run format:check` — checking only src/tests/scripts
+  // here once let root-level files drift past the hook but fail CI.
+  ['format', 'bunx', ['prettier', '--check', '.']],
   ['build', 'bun', ['run', 'build']],
   ['link-check', 'node', ['scripts/check-links.mjs']],
   ['playwright', 'bun', ['run', 'test', '--reporter=line']],

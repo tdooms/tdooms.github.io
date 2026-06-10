@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+import { formatMonthYear } from '../lib/format'
 
 interface Props {
   icon: ImageMetadata
@@ -14,12 +15,9 @@ interface Props {
 
 const { icon, title, start, end, text, grade, subject, advisor } = Astro.props
 
-const formatDate = (dateStr: string) => {
-  const d = new Date(dateStr)
-  return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-}
-
-const dateRange = end ? `${formatDate(start)} — ${formatDate(end)}` : `${formatDate(start)} — TBD`
+const dateRange = end
+  ? `${formatMonthYear(start)} — ${formatMonthYear(end)}`
+  : `${formatMonthYear(start)} — TBD`
 ---
 
 <div class="bg-base-100 ring-base-300/60 mb-3 rounded-xl p-5 shadow-sm ring-1">

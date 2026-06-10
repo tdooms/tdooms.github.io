@@ -1,6 +1,6 @@
 # My Personal Website
 
-Written in `astro.js`. Please steal, it's quite customizable.
+Built with [Astro](https://astro.build). Please steal, it's quite customizable.
 I try to update this regularly.
 
 ## Development

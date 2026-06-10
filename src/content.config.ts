@@ -19,6 +19,8 @@ const papers = defineCollection({
       labels: z.array(z.string()).optional(),
       description: z.string(),
       link: z.string(),
+      // Opens the card's `link` in a new tab — for a paper hosted elsewhere
+      // with no local page. Mirrors `blogs.external`; no paper uses it yet.
       external: z.boolean().optional(),
       authors: z.array(z.string()),
       code: z.string().optional(),
@@ -106,7 +108,7 @@ const awards = defineCollection({
 const news = defineCollection({
   loader: glob({ pattern: '**/[^_]*.toml', base: './src/content/news' }),
   schema: z.object({
-    // `title` supports **bold** markdown — rendered in brand orange to emphasize key words.
+    // `title` supports **bold** markdown — rendered in the primary accent to emphasize key words.
     title: z.string(),
     date: z.string(),
     icon: z.string().optional(),

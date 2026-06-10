@@ -46,7 +46,10 @@ const LOOK = {
 
 // Cluster palette — points lerp from neutral up to these per |activation|, so a
 // saturated target gives the gradient real range. Indexed by cluster id;
-// centroid labels reuse these hexes directly.
+// centroid labels reuse these hexes directly. Deliberately *not* theme-derived:
+// a categorical palette needs six mutually-distinguishable hues, which two
+// brand slots can't supply; these mid-lightness values stay legible on both
+// the light and dark base.
 export const PALETTE = ["#6699d6", "#dd7676", "#5fb476", "#a779c9", "#dfa845", "#5fb3b1"];
 
 // ─── Shaders ──────────────────────────────────────────────────────────────

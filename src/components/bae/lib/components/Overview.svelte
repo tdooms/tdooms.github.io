@@ -5,7 +5,6 @@
   import type { CallbackDataParams } from "echarts/types/dist/shared";
   import { bindChart } from "../chart";
   import { padId } from "../data";
-  import { percent } from "../format";
   import { theme } from "../theme";
   import type { Composite } from "../types";
 
@@ -69,11 +68,13 @@
           // Curated description as the headline; fall back to the composite ID
           // when no label exists (--picks-only runs, missing entries).
           const heading = v[7] || `composite ${padId(v[3])}`;
+          // Importance reads ``1.23×`` (mean-normalised) — the exact format
+          // the InfoBar stat bar uses, so the two surfaces agree.
           return `<b>${heading}</b> <span style="color:${t.muted}">${padId(v[3])}</span><br>` +
             `<span style="color:${t.muted}">density</span> ${v[4].toFixed(2)}<br>` +
             `<span style="color:${t.muted}">rank</span> ${v[5].toFixed(2)}<br>` +
             `<span style="color:${t.muted}">support</span> ${v[2]}<br>` +
-            `<span style="color:${t.muted}">importance</span> ${percent(v[6])}`;
+            `<span style="color:${t.muted}">importance</span> ${v[6].toFixed(2)}×`;
         },
       },
       // UMAP axes are dimensionless — the absolute coordinates carry no

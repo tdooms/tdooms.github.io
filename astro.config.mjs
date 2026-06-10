@@ -15,6 +15,11 @@ import { unified } from '@astrojs/markdown-remark'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tdooms.github.io',
+  // Dev-only chrome, disabled: its lazy-loaded chunks 504 ("Outdated Optimize
+  // Dep") after every Vite re-optimization, polluting the console on each
+  // config/lockfile change. Its audit features duplicate the real gates
+  // (Lighthouse budgets + Playwright). Zero effect on production builds.
+  devToolbar: { enabled: false },
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',
@@ -28,7 +33,11 @@ export default defineConfig({
       name: 'Fira Sans',
       cssVariable: '--font-fira-sans',
       provider: fontProviders.google(),
-      weights: [300, 400, 500, 600, 700],
+      // Exactly the weights the site uses (font-medium/semibold/bold + body).
+      // All four are preloaded in Layout.astro: a weight that is used but only
+      // discovered via the render-blocking CSS arrives late and repaints the
+      // text LCP past the 1 s budget (this bit us with 500/600).
+      weights: [400, 500, 600, 700],
       styles: ['normal'],
     },
     {

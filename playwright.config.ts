@@ -21,5 +21,18 @@ export default defineConfig({
     baseURL,
     trace: 'on-first-retry',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  // Chromium is the always-on project — the local loop (and the Stop hook,
+  // which runs the suite on every stop) stays fast. Firefox + WebKit run in
+  // CI, or locally via CROSS_BROWSER=1 (`$env:CROSS_BROWSER='1'; bun run test`).
+  // Running all three locally by default tripled the suite and WebKit-on-
+  // Windows wedged under parallel load.
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    ...(process.env.CI || process.env.CROSS_BROWSER
+      ? [
+          { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+          { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+        ]
+      : []),
+  ],
 })

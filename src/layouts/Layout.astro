@@ -35,6 +35,13 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {
+      /* base-100 per theme; the theme script below keeps it in sync with the
+        manual dark toggle so the browser chrome matches the page surface. */
+    }
+    <meta name="theme-color" content="#ffffff" />
 
     {
       /* Preload every Fira Sans weight the pages use — a used-but-unpreloaded
@@ -86,13 +93,16 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
             return false
           }
         }
-        const apply = () => {
-          const dark = stored()
+        const set = (dark) => {
           document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+          // Browser-chrome tint follows the page surface (base-100 per theme).
+          const meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.content = dark ? '#1d232a' : '#ffffff'
           // Sync every toggle (site Navbar + bae InfoBar) so the sun/moon
           // icon matches. No-op in <head> where the body isn't parsed yet.
           for (const el of document.querySelectorAll('input.theme-controller')) el.checked = dark
         }
+        const apply = () => set(stored())
         apply()
         document.addEventListener('DOMContentLoaded', apply, { once: true })
         document.addEventListener('astro:after-swap', apply)
@@ -105,7 +115,7 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
           } catch {
             /* private mode — theme still applies for this page */
           }
-          document.documentElement.dataset.theme = el.checked ? 'dark' : 'light'
+          set(el.checked)
         })
       })()
     </script>

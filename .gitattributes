@@ -1,0 +1,14 @@
+# Force LF in working trees regardless of local core.autocrlf. Prettier
+# checks for LF; with autocrlf=true (Windows default) a branch switch
+# re-materializes files with CRLF and fails the format gate on 45 files
+# that nobody edited.
+* text=auto eol=lf
+
+# Binary assets — never touch line endings.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary

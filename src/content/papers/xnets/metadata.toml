@@ -3,7 +3,7 @@ shortTitle = "Deep Interpretable Models"
 date = "2025-02-01"
 conference = "AAAI'25"
 labels = ["workshop"]
-description = "Scaling up weight-based interpretability to multi-layer models"
+description = "Scaling up weight-based interpretability from single layers to deep multi-layer models."
 link = "/research/xnets"
 authors = ["Thomas Dooms*", "Ward Gauderis*", "Geraint A. Wiggins", "Jose Oramas"]
 

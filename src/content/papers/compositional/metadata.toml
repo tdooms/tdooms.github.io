@@ -3,7 +3,7 @@ shortTitle = "Compositional Interpretability"
 date = "2026-05-09"
 conference = "ICML'26"
 labels = ["workshop"]
-description = "A category-theoretic framework for formalizing mechanistic explanations of neural networks"
+description = "A category-theoretic framework for formalizing mechanistic explanations of neural networks."
 link = "/research/compositional"
 authors = ["Ward Gauderis*", "Thomas Dooms*", "Steven T. Holmer", "Kola Ayonrinde", "Geraint A. Wiggins"]
 

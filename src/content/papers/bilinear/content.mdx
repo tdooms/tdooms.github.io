@@ -31,7 +31,7 @@ The natural objection: if each branch is just linear, how can this be a good mod
 
 As foreshadowed, the linearity of each branch is helpful for interpretability. In this context, techniques from linear algebra, such as SVD, are now actually meaningful as they do not ignore the activation function. However, that's not all. Each output of a bilinear layer is equivalent to a sum of (weighted) pairwise input feature interactions. Note that this is impossible in a layer with a ReLU (or other activation functions); no simple formula describes how features interact without considering the inputs.
 
-## Decomposing The Weights
+## Decomposing the weights
 
 Because of the bilinear layer's appealing properties, it becomes possible to trace from output to input, which was previously only possible using gradient-based methods. This allows us to decompose the model into the most important components for any desired output direction. While we won't go into details, these are the main ideas behind the decomposition.
 
@@ -56,7 +56,7 @@ This shows that exploiting these properties of the bilinear layer can yield very
 - Qualitatively studying the impact of regularization/augmentation.
 - Post-hoc explanations of (mis)classification.
 
-## Language Models
+## Language models
 
 Each output of a bilinear layer is described by weighted pairwise interactions between their input
 features. Beyond tracing between the actual output classes and the input, we can use this technique to trace between latent features in large models.
@@ -78,7 +78,7 @@ We highlight one particular circuit that we extracted, which performs a form of 
 This circuit performs an AND operation between sentiment features (firing broadly on positive and negative segments) and negation features (which fires on tokens which as not and isn't).
 It then flips this sentiment in the output direction.
 
-## Future Work
+## Future work
 
 Due to the generality and novelty of this technique, we haven't yet explored many possibilities for interpretability.
 The current plan is to focus on continuing the work on language models and seeing which kinds of mechanisms we're able to detect.

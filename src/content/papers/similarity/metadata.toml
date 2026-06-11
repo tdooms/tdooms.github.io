@@ -2,7 +2,7 @@ title = "When are two networks the same?"
 shortTitle = "Tensor Similarity"
 date = "2026-05-14"
 conference = "arXiv"
-description = "A weight-based similarity metric invariant to weight-space symmetries"
+description = "A weight-based similarity metric for neural networks, invariant to weight symmetries."
 link = "/research/similarity"
 authors = ["ML Nissen Gonzalez", "Melwina Albuquerque", "Laurence Wroe", "Jacob Meyer Cohen", "Logan Riggs Smith", "Thomas Dooms"]
 

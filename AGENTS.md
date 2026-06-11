@@ -119,6 +119,13 @@ Dev-server 504s ("Outdated Optimize Dep"): editing `astro.config.mjs` / `tsconfi
 
 - **Blogs**: MDX with frontmatter in `src/content/blogs/`. Slugs are single words (`tensors`, `tokenized`), no hyphens.
 - **Papers**: one directory per paper in `src/content/papers/<id>/` holding `metadata.toml` + `content.mdx`. Same single-word slug rule. Paper MDX bodies start at h2 (`##`); the `<h1>` is the paper title in the layout. Skipping h2 fails Lighthouse heading-order.
+- **Copy style** (titles, descriptions, headings):
+  - `title` and every MDX heading: sentence case ("Future work", not "Future Work"). Blog titles too.
+  - `shortTitle`: Title Case — it acts as the paper's display name on cards and the page h1.
+  - `description`: one sentence, sentence case, **always ends with a period**, 80–91 characters. 91 (the compositional paper) is the ceiling; the band keeps the home-page cards visually even.
+  - News titles: headline style, no trailing period (`!` allowed); em-dash — never a comma splice — joins clauses.
+  - `bibtex` blocks are the published record: never restyle their capitalization or author forms.
+  - Author display names: one canonical form per person across all papers ("Jose Oramas"); the bibtex may differ.
 - **News**: TOML in `src/content/news/`. Title is a single sentence with `**bold**` parts for emphasis (rendered in the primary clay). Highlight the named thing being announced (a paper, an org, a launch), never the verb describing what happened to it. Em-dash only as sentence punctuation, never as a title/description separator.
 - **External links**: every external `<a>` opens in a new tab. In Astro components, gate `target="_blank" rel="noopener noreferrer"` on an explicit `external` flag. In MDX prose, `rehype-external-links` (configured in [astro.config.mjs](astro.config.mjs)) auto-injects the attributes.
 - **No fork-the-palette**: see Theme above. Override `--color-primary`, don't add `--color-brand`.

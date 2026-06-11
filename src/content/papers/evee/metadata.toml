@@ -1,8 +1,8 @@
 title = "Interpretable variant effect prediction from genomic foundation models"
-shortTitle = "ClinVar variant prediction"
+shortTitle = "ClinVar Variant Prediction"
 date = "2026-04-11"
 conference = "bioRxiv"
-description = "Predicting and explaining pathogenicity on 4.2M genomic variants."
+description = "Predicting and explaining the pathogenicity of 4.2M genomic variants from ClinVar."
 link = "/research/evee"
 authors = ["Michael T. Pearce*", "Thomas Dooms*", "Ryo Yamamoto*", "Joshua Meehl", "Carl Molnar", "Mark Bissell", "Dron Hazra", "Ching Fang", "Nam Nguyen", "Michael Anderson", "Collin Osborne", "Patrick Duffy", "Bridget Toomey", "Eric Klee", "Elena Myasoedova", "Alexander Ryu", "Shant Ayanian", "Panos Korfiatis", "Matt Redlon", "Archa Jain", "Daniel Balsam", "Nicholas K. Wang"]
 

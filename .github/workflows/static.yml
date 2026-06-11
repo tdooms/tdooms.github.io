@@ -53,15 +53,21 @@ jobs:
         run: bunx playwright install --with-deps chromium firefox webkit
 
       - name: Run Playwright tests
-        run: bun run check:test
+        shell: bash
+        run: |
+          set -o pipefail
+          bun run check:test 2>&1 | tee pw.log
 
-      - name: Upload Playwright report
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
+      # Annotations are readable via the public API even when raw step logs
+      # require admin auth — surface the failure tail where it can be seen.
+      - name: Surface failure tail as annotation
+        if: failure()
+        shell: bash
+        run: |
+          tailtxt=$(tail -c 1800 pw.log | tr -d '\r')
+          tailtxt="${tailtxt//'%'/%25}"
+          tailtxt="${tailtxt//$'\n'/%0A}"
+          echo "::error title=Playwright failure tail::$tailtxt"
 
   deploy:
     needs: [build, test]

@@ -16,6 +16,11 @@ export default defineConfig({
     url: baseURL,
     timeout: 120_000,
     reuseExistingServer: false,
+    // Pipe the server's own output into Playwright's. Without this, a dying
+    // `build`/`preview` inside the webServer reads as a silent 120 s poll
+    // timeout with zero diagnostics (exactly how the CI deploys broke).
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
   use: {
     baseURL,

@@ -35,7 +35,23 @@ export default defineConfig({
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     ...(process.env.CI || process.env.CROSS_BROWSER
       ? [
-          { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+          {
+            name: 'firefox',
+            use: {
+              ...devices['Desktop Firefox'],
+              launchOptions: {
+                // GPU-less CI runners can't give Firefox a real WebGL context
+                // and, unlike Chromium (SwiftShader), Firefox refuses software
+                // GL by default ("AllowWebgl2:false"). The Atlas's three.js
+                // canvas then throws and the console-error gate rightly fails.
+                // Force software WebGL so the explorer is actually exercised.
+                firefoxUserPrefs: {
+                  'webgl.force-enabled': true,
+                  'webgl.disabled': false,
+                },
+              },
+            },
+          },
           { name: 'webkit', use: { ...devices['Desktop Safari'] } },
         ]
       : []),

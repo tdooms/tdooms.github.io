@@ -39,12 +39,15 @@ export default defineConfig({
             name: 'firefox',
             use: {
               ...devices['Desktop Firefox'],
+              // Headless Firefox has no WebGL path at all on GPU-less Linux
+              // (tryNativeGL → EXHAUSTED_DRIVERS even with webgl.force-enabled),
+              // so the Atlas's three.js canvas throws and the console-error
+              // gate rightly fails. The documented recipe: run Firefox headed
+              // under xvfb (CI wraps the test step in xvfb-run), where mesa's
+              // llvmpipe provides software GL. Local runs stay headless —
+              // desktop Firefox has real WebGL.
+              ...(process.env.CI ? { headless: false } : {}),
               launchOptions: {
-                // GPU-less CI runners can't give Firefox a real WebGL context
-                // and, unlike Chromium (SwiftShader), Firefox refuses software
-                // GL by default ("AllowWebgl2:false"). The Atlas's three.js
-                // canvas then throws and the console-error gate rightly fails.
-                // Force software WebGL so the explorer is actually exercised.
                 firefoxUserPrefs: {
                   'webgl.force-enabled': true,
                   'webgl.disabled': false,

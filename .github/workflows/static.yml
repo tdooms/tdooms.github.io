@@ -54,9 +54,13 @@ jobs:
 
       - name: Run Playwright tests
         shell: bash
+        # xvfb gives the headed Firefox project a virtual display, the only
+        # way Firefox gets (software) WebGL on a GPU-less runner. Chromium and
+        # WebKit stay headless and are unaffected by the wrapper.
         run: |
           set -o pipefail
-          bun run check:test 2>&1 | tee pw.log
+          command -v xvfb-run >/dev/null || sudo apt-get install -y -qq xvfb
+          xvfb-run --auto-servernum bun run check:test 2>&1 | tee pw.log
 
       # Annotations are readable via the public API even when raw step logs
       # require admin auth — surface the failure tail where it can be seen.

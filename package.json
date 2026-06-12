@@ -30,7 +30,7 @@
     "@iconify-json/fa6-solid": "^1.2.4",
     "@tailwindcss/vite": "^4.3.0",
     "apache-arrow": "^21.1.0",
-    "astro": "^6.4.0",
+    "astro": "^6.4.6",
     "astro-icon": "^1.1.5",
     "daisyui": "^5.5.20",
     "echarts": "^6.1.0",

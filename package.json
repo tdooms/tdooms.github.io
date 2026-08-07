@@ -39,7 +39,7 @@
     "remark-math": "^6.0.0",
     "svelte": "^5.56.2",
     "tailwindcss": "^4.3.0",
-    "three": "~0.184.0",
+    "three": "~0.185.1",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/three": "~0.184.0",
+    "@types/three": "~0.185.3",
     "lefthook": "^2.1.9",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",

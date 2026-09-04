@@ -22,15 +22,15 @@
     "postinstall": "node scripts/clean-vite-cache.mjs"
   },
   "dependencies": {
-    "@astrojs/mdx": "^6.0.2",
-    "@astrojs/sitemap": "^3.7.3",
-    "@astrojs/svelte": "^8.1.2",
+    "@astrojs/mdx": "^8.0.0",
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/svelte": "^9.0.1",
     "@iconify-json/fa6-brands": "^1.2.6",
     "@iconify-json/fa6-regular": "^1.2.4",
     "@iconify-json/fa6-solid": "^1.2.4",
     "@tailwindcss/vite": "^4.3.0",
     "apache-arrow": "^21.1.0",
-    "astro": "^6.4.0",
+    "astro": "^7.2.10",
     "astro-icon": "^1.1.5",
     "daisyui": "^5.5.20",
     "echarts": "^6.1.0",
@@ -43,7 +43,7 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
+    "@astrojs/check": "^0.9.10",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.19",

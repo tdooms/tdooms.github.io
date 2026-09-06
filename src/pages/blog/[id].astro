@@ -24,17 +24,23 @@ const { blog, prev, next } = Astro.props
 const { Content } = await render(blog)
 
 const formattedDate = formatFullDate(blog.data.date)
+const homeHref = '/#blog'
 ---
 
-<Layout title={blog.data.title} description={blog.data.description}>
+<Layout title={blog.data.title} description={blog.data.description} {homeHref}>
   <div class="mx-auto max-w-3xl">
     <h1 class="mb-2 text-4xl font-bold">{blog.data.title}</h1>
     <div class="text-base-content/75 mb-6">{formattedDate}</div>
 
-    <div class="prose prose-lg max-w-none">
+    <div
+      class="prose prose-lg max-w-none overflow-x-auto [overflow-wrap:anywhere]"
+      role="region"
+      aria-label={`${blog.data.title} article`}
+      tabindex="0"
+    >
       <Content />
     </div>
 
-    <EntryNav prev={prev} next={next} />
+    <EntryNav prev={prev} next={next} {homeHref} />
   </div>
 </Layout>

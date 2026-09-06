@@ -4,12 +4,9 @@
     // No `baseUrl` (deprecated in TS 6) — `paths` resolve relative to this file.
     "paths": {
       "@/*": ["./src/*"],
-      "$lib/*": ["./src/components/bae/lib/*"],
-      "$app/state": ["./src/components/_bae-shim/app-state.ts"],
-      "$app/paths": ["./src/components/_bae-shim/app-paths.ts"],
-      "$app/navigation": ["./src/components/_bae-shim/app-navigation.ts"]
+      "$lib/*": ["./src/components/bae/lib/*"]
     }
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "src/components/bae"]
+  "exclude": ["dist"]
 }

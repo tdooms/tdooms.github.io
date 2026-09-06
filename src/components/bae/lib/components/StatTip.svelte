@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-  import HoverHeader from "./HoverHeader.svelte";
-  import Tex from "./Tex.svelte";
+  import type { Snippet } from 'svelte'
+  import HoverHeader from './HoverHeader.svelte'
+  import Tex from './Tex.svelte'
 
   // Body of a HoverCard tip describing a single metric. Three rows:
   //   1. label / value title row (always)
@@ -17,17 +17,17 @@
     tex = null,
     children,
   }: {
-    label: string;
-    value: string;
-    tex?: string | null;
-    children: Snippet;
-  } = $props();
+    label: string
+    value: string
+    tex?: string | null
+    children: Snippet
+  } = $props()
 </script>
 
 <HoverHeader {label} code={value} />
 {#if tex}
-  <div class="text-primary bg-primary/8 rounded px-2 py-1.5 leading-relaxed text-center">
+  <div class="text-primary bg-primary/8 rounded px-2 py-1.5 text-center leading-relaxed">
     <Tex {tex} displayMode />
   </div>
 {/if}
-<p class="text-xs text-base-content/70 leading-relaxed">{@render children()}</p>
+<p class="text-base-content/70 text-xs leading-relaxed">{@render children()}</p>

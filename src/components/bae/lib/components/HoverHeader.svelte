@@ -4,10 +4,10 @@
   // truth for that pairing's typography (truncate, weights, alpha steps), so
   // the model breadcrumb / AE breadcrumb / metric tip / keyboard popover all
   // line up exactly.
-  let { label, code }: { label: string; code: string } = $props();
+  let { label, code }: { label: string; code: string } = $props()
 </script>
 
 <div class="flex items-baseline justify-between gap-2">
-  <span class="text-xs uppercase tracking-wider text-base-content/70 font-semibold">{label}</span>
-  <code class="text-xs font-mono text-primary tabular-nums truncate">{code}</code>
+  <span class="text-base-content/70 text-xs font-semibold tracking-wider uppercase">{label}</span>
+  <code class="text-primary truncate font-mono text-xs tabular-nums">{code}</code>
 </div>

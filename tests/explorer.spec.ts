@@ -8,7 +8,7 @@ test('overview renders with a non-collapsed UMAP scatter region', async ({ page 
   await page.goto('/bae/')
   // The Overview's ECharts container is the lone div inside `<section>` in
   // routes/+page.svelte. Wait for the layout fetch to land (network idle is a
-  // reliable proxy: index.json + index.feather + curated.json + vocab.json).
+  // reliable proxy: index.feather + curated.json + clusters.json).
   await page.waitForLoadState('networkidle')
 
   // The chart container fills its grid cell. If the bleed layout regressed,
@@ -69,16 +69,11 @@ test('composite page renders a non-collapsed WebGL canvas', async ({ page }) => 
   ).toBeLessThanOrEqual(vp.height + 1)
 })
 
-test('sidebar items navigate to composite (click interception works)', async ({ page }) => {
-  // The bae verbatim components render `<a href="${base}/composite/N">` and
-  // expect SvelteKit to intercept the click. Without that, the browser would
-  // do a real navigation to /bae/composite/N which 404s (we use query-param
-  // routing). Explorer.svelte has a click-delegation handler that rewrites
-  // the navigation via `goto()`. This test guards that handler.
+test('sidebar items navigate to composite', async ({ page }) => {
   await page.goto('/bae/')
   await page.waitForLoadState('networkidle')
 
-  const sidebarLink = page.locator('aside a[href*="/composite/"]').first()
+  const sidebarLink = page.locator('aside a[href*="?composite="]').first()
   await expect(sidebarLink).toBeVisible({ timeout: 10_000 })
   await sidebarLink.click()
 

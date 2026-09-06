@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('bugs that should exist', () => {
+test.describe('site behavior regressions', () => {
   test('paper-card → back to home round-trip works', async ({ page }) => {
     await page.goto('/')
     await page.locator('a[href^="/research/"]').first().click()
@@ -12,8 +12,8 @@ test.describe('bugs that should exist', () => {
   })
 
   test('external links have rel="noopener" for security', async ({ page }) => {
-    await page.goto('/blog')
-    const externalLinks = page.locator('a[target="_blank"]')
+    await page.goto('/#blog')
+    const externalLinks = page.locator('#blog a[target="_blank"]')
     const count = await externalLinks.count()
 
     for (let i = 0; i < count; i++) {
@@ -83,30 +83,71 @@ test.describe('bugs that should exist', () => {
   })
 
   test('paper page renders authors', async ({ page }) => {
-    // Authors used to live inside a <details><summary>; now they're a plain
-    // paragraph (Authors.astro). Assert the paragraph + at least one author
-    // anchor (Author.astro renders each as a link) exists.
     await page.goto('/research/evee')
-    await page.waitForLoadState('networkidle')
-    const authorsPara = page.locator('main p').first()
+    const authorsPara = page.locator('main h1 + p')
     await expect(authorsPara).toBeVisible()
-    const text = await authorsPara.textContent()
-    expect(text?.trim().length, 'Authors paragraph is empty').toBeGreaterThan(0)
+    for (const author of ['Michael T. Pearce', 'Thomas Dooms', 'Nicholas K. Wang']) {
+      await expect(authorsPara).toContainText(author)
+    }
   })
 
-  test('cite button copies bibtex to clipboard', async ({ page, context, browserName }) => {
+  test('cite button copies the paper citation on a phone after navigation from home', async ({
+    page,
+    context,
+    browserName,
+  }) => {
     // grantPermissions for the clipboard is Chromium-only in Playwright;
     // Firefox/WebKit throw "Unknown permission".
     test.skip(browserName !== 'chromium', 'clipboard permissions are Chromium-only')
     await context.grantPermissions(['clipboard-read', 'clipboard-write'])
-    await page.goto('/research/bilinear')
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/')
+    await page.locator('a.card[href="/research/bilinear"]').click()
+    await expect(page).toHaveURL(/\/research\/bilinear\/?$/)
 
-    const copyButton = page.locator('button[aria-label="Copy citation"]')
-    if (!(await copyButton.isVisible())) return
+    const copyButton = page.getByRole('button', { name: 'Copy citation' })
+    await expect(copyButton).toBeVisible()
 
     await copyButton.click()
+    await expect(page.locator('.cite-status')).toHaveText('Citation copied.')
     const clipboard = await page.evaluate(() => navigator.clipboard.readText())
-    expect(clipboard).toContain('@')
-    expect(clipboard).toContain('title')
+    expect(clipboard).toBe(await page.locator('.cite-content').textContent())
+    expect(clipboard).toContain('@misc{pearce2025bilinearmlpsenableweightbased,')
+    expect(clipboard).toContain(
+      'title={Bilinear MLPs enable weight-based mechanistic interpretability}',
+    )
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(375)
+  })
+
+  test('clipboard rejection reports a recoverable failure and keeps the citation available', async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: {
+          writeText: () => Promise.reject(new DOMException('Clipboard denied', 'NotAllowedError')),
+        },
+      })
+    })
+    const errors: string[] = []
+    page.on('pageerror', (error) => errors.push(error.message))
+    await page.goto('/research/bilinear')
+    const citation = page.locator('.cite-content')
+    const original = await citation.textContent()
+    const copyButton = page.getByRole('button', { name: 'Copy citation' })
+    await expect(copyButton).toBeVisible()
+    await copyButton.click()
+    await expect(page.getByRole('status')).toHaveText('Copy failed. Select the citation below.')
+    await expect(copyButton).toBeEnabled()
+    await expect(citation).toBeVisible()
+    expect(await citation.textContent()).toBe(original)
+    expect(errors).toEqual([])
+
+    await page.evaluate(() => {
+      navigator.clipboard.writeText = async () => {}
+    })
+    await copyButton.click()
+    await expect(page.getByRole('status')).toHaveText('Citation copied.')
   })
 })

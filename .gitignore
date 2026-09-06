@@ -22,6 +22,8 @@ playwright/.cache/
 # lighthouse ci
 .lighthouseci/
 
-# environment variables
-.env
-.env.production
+# local credentials, agent settings, and unpublished content
+.env*
+.claude/
+.codex/
+src/content/**/_*

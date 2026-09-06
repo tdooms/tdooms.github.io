@@ -1,24 +1,14 @@
 <script lang="ts">
-  // Top-level orchestrator for the bae explorer. Owns:
-  //   * layout data load (replicates bae's routes/+layout.ts)
-  //   * per-composite data load (replicates routes/composite/[id]/+page.ts)
-  //   * route switch (?composite= → composite view, else → overview)
-  //   * pushing the merged data into page.data via the shim so SvelteKit-style
-  //     `import { page } from "$app/state"` reads keep working
-  // The bae routes/* and lib/* trees are byte-identical to the bae frontend
-  // repo; this file is the only adapter that knows we live on top of Astro.
-
-  import { dataUrl, fetchJson, fetchBuffer, padId } from '$lib/data'
+  // Loads the Atlas index and selected composite; child views receive typed data.
+  import { getAbortSignal, type Component } from 'svelte'
+  import { dataUrl, fetchJson, fetchOptionalJson, fetchBuffer, padId } from '$lib/data'
   import { parseIPC } from '$lib/arrow'
   import { dequantize } from '$lib/manifold'
-  import type { Composite, Meta, PointsData } from '$lib/types'
-  import { base, goto, setPageData } from './_bae-shim/nav'
-  import { pageState } from './_bae-shim/state.svelte'
+  import type { AtlasIndex, AtlasComposite, Composite, Meta } from '$lib/types'
+  import { base, goto, route } from '$lib/navigation.svelte'
 
   import RootLayout from './bae/routes/+layout.svelte'
   import Overview from './bae/routes/+page.svelte'
-  import CompositeLayout from './bae/routes/composite/+layout.svelte'
-  import CompositePage from './bae/routes/composite/[id]/+page.svelte'
 
   interface IndexColumns {
     latent_id: Uint32Array
@@ -30,76 +20,75 @@
     umap_y: Float32Array
   }
 
-  interface LayoutData {
-    vocab: Record<string, string>
-    curated: { labels: Record<number, string> }
-    clustered: number[]
-    index: {
-      model_name: string
-      autoencoder: string
-      composites: Composite[]
-      byId: Map<number, Composite>
-    }
-  }
-
-  interface CompositeData {
-    id: string
-    meta: Meta
-    points: PointsData
-  }
-
-  let layoutData = $state<LayoutData | null>(null)
+  let layoutData = $state<AtlasIndex | null>(null)
   let layoutError = $state<string | null>(null)
-  let compositeData = $state<CompositeData | null>(null)
+  let compositeData = $state<AtlasComposite | null>(null)
   let compositeError = $state<string | null>(null)
+  let CompositeView = $state<Component<{ data: AtlasIndex & AtlasComposite }> | null>(null)
+  // Context text is needed only by composite views; reuse it after the first load.
+  let vocab: Record<string, string> | undefined
 
-  let activeComposite = $derived(pageState.params.get('composite'))
+  let activeComposite = $derived(route.compositeId)
 
-  // Layout-data load: one-shot on mount. Mirrors bae routes/+layout.ts.
+  // Load the shared index once on mount.
   $effect(() => {
+    const signal = getAbortSignal()
+    const request: typeof fetch = (url, options) => fetch(url, { ...options, signal })
     void (async () => {
       try {
-        const [meta, idxBuf, vocab, curated, clustered] = await Promise.all([
-          fetchJson<{ model_name: string; autoencoder: string; n_latents: number }>(
-            globalThis.fetch,
-            dataUrl('index.json'),
-          ),
-          fetchBuffer(globalThis.fetch, dataUrl('index.feather')),
-          fetchJson<Record<string, string>>(globalThis.fetch, dataUrl('vocab.json')),
-          fetchJson<{ labels: Record<number, string> }>(globalThis.fetch, dataUrl('curated.json')),
-          fetchJson<number[]>(globalThis.fetch, dataUrl('clusters.json')).catch(
-            () => [] as number[],
-          ),
+        const [idxBuf, curated, clustered] = await Promise.all([
+          fetchBuffer(request, dataUrl('index.feather')),
+          fetchJson<{ labels: Record<number, string> }>(request, dataUrl('curated.json')),
+          fetchJson<number[]>(request, dataUrl('clusters.json')),
         ])
         const cols = parseIPC<IndexColumns>(idxBuf)
+        const count = cols.latent_id?.length
+        if (!count) throw new Error('Atlas index contains no composites')
+        const names = [
+          'latent_id',
+          'density',
+          'eff_rank',
+          'importance',
+          'support',
+          'umap_x',
+          'umap_y',
+        ] as const
+        for (const name of names) {
+          const column = cols[name]
+          if (!column || column.length !== count || !column.every(Number.isFinite)) {
+            throw new Error(`Invalid index column: ${name}`)
+          }
+        }
+        if (
+          !cols.latent_id.every((id) => Number.isSafeInteger(id) && id >= 0) ||
+          new Set(cols.latent_id).size !== count
+        ) {
+          throw new Error('Index composite IDs must be unique nonnegative integers')
+        }
         const composites: Composite[] = Array.from(cols.latent_id, (id, i) => ({
           id: Number(id),
-          density: cols.density[i] ?? 0,
-          rank: cols.eff_rank[i] ?? 0,
-          importance: cols.importance[i] ?? 0,
-          support: cols.support[i] ?? 0,
-          umap: [cols.umap_x[i] ?? 0, cols.umap_y[i] ?? 0],
+          density: cols.density[i]!,
+          rank: cols.eff_rank[i]!,
+          importance: cols.importance[i]!,
+          support: cols.support[i]!,
+          umap: [cols.umap_x[i]!, cols.umap_y[i]!],
         }))
         const byId = new Map<number, Composite>(composites.map((c) => [c.id, c]))
         layoutData = {
-          vocab,
           curated,
           clustered,
           index: {
-            model_name: meta.model_name,
-            autoencoder: meta.autoencoder,
             composites,
             byId,
           },
         }
       } catch (err) {
-        layoutError = err instanceof Error ? err.message : String(err)
+        if (!signal.aborted) layoutError = err instanceof Error ? err.message : String(err)
       }
     })()
   })
 
-  // Composite-data load: re-runs on activeComposite change. Mirrors bae
-  // routes/composite/[id]/+page.ts.
+  // Load the selected composite when its ID changes.
   $effect(() => {
     const cid = activeComposite
     const ld = layoutData
@@ -108,121 +97,102 @@
       compositeError = null
       return
     }
-    const padded = padId(parseInt(cid, 10))
     compositeData = null
     compositeError = null
-    let cancelled = false
+    const id = Number(cid)
+    if (!/^\d+$/.test(cid) || !Number.isSafeInteger(id) || !ld.index.byId.has(id)) {
+      compositeError = 'Unknown composite ID'
+      return
+    }
+    const padded = padId(id)
+    const signal = getAbortSignal()
+    const request: typeof fetch = (url, options) => fetch(url, { ...options, signal })
     void (async () => {
       try {
-        const [meta, feather, clusterMap] = await Promise.all([
-          fetchJson<Meta>(globalThis.fetch, dataUrl(`latent_${padded}.json`)),
-          fetchBuffer(globalThis.fetch, dataUrl(`latent_${padded}.feather`)).then((b) =>
+        const [view, tokens, meta, feather, clusterMap] = await Promise.all([
+          import('./bae/routes/composite/+layout.svelte'),
+          vocab ?? fetchJson<Record<string, string>>(request, dataUrl('vocab.json')),
+          fetchJson<Meta>(request, dataUrl(`latent_${padded}.json`)),
+          fetchBuffer(request, dataUrl(`latent_${padded}.feather`)).then((b) =>
             parseIPC<{
               x: Int16Array
               y: Int16Array
               z: Int16Array
               h: Int8Array
-              context: Int32Array
+              context: Uint32Array
             }>(b),
           ),
-          fetchJson<{
-            cluster_per_point: Int32Array
+          fetchOptionalJson<{
+            cluster_per_point: number[]
             clusters: { id: number; label: string; centroid: [number, number, number] }[]
-          }>(globalThis.fetch, dataUrl(`latent_${padded}.cluster.json`)).catch(() => null),
+          }>(request, dataUrl(`latent_${padded}.cluster.json`)),
         ])
-        if (cancelled) return
+        if (signal.aborted) return
+        if (meta.latent_id !== id)
+          throw new Error(`Expected composite ${id}, received ${meta.latent_id}`)
+        const points = dequantize(feather, meta, tokens, clusterMap)
+        vocab = tokens
+        CompositeView = view.default
         compositeData = {
           id: padded,
           meta,
-          points: dequantize(feather, meta, ld.vocab, clusterMap),
+          points,
         }
       } catch (err) {
-        if (cancelled) return
+        if (signal.aborted) return
         compositeError = err instanceof Error ? err.message : String(err)
       }
     })()
-    return () => {
-      cancelled = true
-    }
   })
 
-  // Merged page.data, mirrors SvelteKit's layout+page data merge. Components
-  // that read page.data via the $app/state shim see this object.
-  let merged = $derived.by<LayoutData | (LayoutData & CompositeData) | null>(() => {
-    if (!layoutData) return null
-    if (compositeData) return { ...layoutData, ...compositeData }
-    return layoutData
-  })
+  const merged = $derived(layoutData && compositeData ? { ...layoutData, ...compositeData } : null)
 
-  // `$effect.pre` runs before the DOM update and before child effects, so
-  // `page.data` is current the first time InfoBar / CompositeLayout read it.
-  // A plain `$effect` would flush after children, racing the destructure
-  // `const { meta, index } = page.data` and crashing on first paint.
-  $effect.pre(() => {
-    if (merged) setPageData(merged)
-  })
-
-  // SvelteKit-style click delegation. The bae verbatim components render
-  // `<a href="${base}/composite/N">` (e.g. CompositeList sidebar items)
-  // expecting SvelteKit to intercept the click and route via its router.
-  // Without SvelteKit, the browser does a real navigation and 404s — the
-  // explorer is a single Astro page that uses query-params, not nested
-  // routes. Catch in-app clicks at the document level (capture phase, so we
-  // run before Astro's `<ClientRouter />` prefetch / view-transition handler
-  // gets a turn) and forward to `goto()`.
+  // Atlas anchors use real query-param URLs so new tabs and copied links work.
+  // Ordinary clicks update the selected view without remounting the island.
   $effect(() => {
     const onClick = (e: MouseEvent): void => {
       if (e.defaultPrevented || e.button !== 0) return
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return // let new-tab pass
-      const target = e.target as HTMLElement | null
-      const link = target?.closest('a')
+      const link = e.target instanceof Element ? e.target.closest('a') : null
       if (!link) return
       const href = link.getAttribute('href')
       if (!href) return
       if (link.target && link.target !== '_self') return
       if (link.hasAttribute('download')) return
-      if (/^(https?:)?\/\//.test(href)) return // external
-      if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return
       const url = new URL(href, window.location.href)
-      if (url.origin !== window.location.origin) return
-      if (!url.pathname.startsWith(base)) return // links escaping the explorer
+      if (url.origin !== window.location.origin || url.hash) return
+      if (url.pathname !== base && url.pathname !== `${base}/`) return
       e.preventDefault()
-      e.stopImmediatePropagation()
       goto(url)
     }
-    document.addEventListener('click', onClick, { capture: true })
-    return () => document.removeEventListener('click', onClick, { capture: true })
+    document.addEventListener('click', onClick)
+    return () => document.removeEventListener('click', onClick)
   })
 </script>
 
 <!-- Chrome always renders (RootLayout = top nav + search). Data regions inside
      the slot either render content or render a content-shaped skeleton; we
      never paint a "Loading…" overlay over the chrome. -->
-<RootLayout>
+<RootLayout data={merged ?? layoutData}>
   {#snippet children()}
     {#if layoutError}
       <div class="p-6">
-        <div class="alert alert-error">Failed to load atlas data: {layoutError}</div>
+        <div class="alert alert-error" role="alert">Failed to load atlas data: {layoutError}</div>
       </div>
     {:else if activeComposite}
       {#if compositeError}
         <div class="p-6">
-          <div class="alert alert-error">
+          <div class="alert alert-error" role="alert">
             Failed to load composite {activeComposite}: {compositeError}
           </div>
         </div>
-      {:else if !layoutData || !compositeData || !merged}
-        <!-- Composite-shaped skeleton: same three-track grid as
-             `composite/+layout.svelte` (24rem detail | 1fr manifold | 20rem
-             neighbours), so the WebGL canvas mounts into a stable rectangle
-             and the page is byte-stable when data lands. Shown whether we're
-             waiting on layoutData, compositeData, or both — the user landed
-             on a composite URL, so the composite shape is what to skeleton. -->
+      {:else if !layoutData || !compositeData || !merged || !CompositeView}
+        <span class="sr-only" role="status">Loading composite</span>
         <div
-          class="divide-base-200 grid h-full grid-cols-[1fr] grid-rows-1 divide-x md:grid-cols-[24rem_1fr] xl:grid-cols-[24rem_1fr_20rem]"
+          class="divide-base-200 grid h-full grid-cols-[1fr] grid-rows-1 divide-x xl:grid-cols-[24rem_1fr_20rem]"
           aria-busy="true"
         >
-          <aside class="hidden min-h-0 flex-col gap-4 p-6 md:flex">
+          <aside class="hidden min-h-0 flex-col gap-4 p-6 xl:flex">
             <div class="skeleton h-6 w-2/3"></div>
             <div class="skeleton h-24"></div>
             <div class="skeleton h-40"></div>
@@ -238,16 +208,10 @@
           </aside>
         </div>
       {:else}
-        <CompositeLayout data={merged}>
-          {#snippet children()}
-            <CompositePage data={merged} />
-          {/snippet}
-        </CompositeLayout>
+        <CompositeView data={merged} />
       {/if}
     {:else if !layoutData}
-      <!-- Overview-shaped skeleton: main panel (UMAP scatter) + 20rem sidebar.
-           Animated grey blocks that occupy the same grid as the real Overview,
-           so the page is byte-stable when data lands. -->
+      <span class="sr-only" role="status">Loading Atlas</span>
       <div
         class="divide-base-200 grid h-full grid-cols-[1fr] grid-rows-1 divide-x md:grid-cols-[1fr_20rem]"
         aria-busy="true"

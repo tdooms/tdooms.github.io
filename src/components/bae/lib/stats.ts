@@ -1,6 +1,6 @@
 // Per-composite stats, formatted for display. The chrome (InfoBar) calls
 // these and renders the strings; no arithmetic in the chrome itself.
-import type { Composite } from "./types";
+import type { Composite } from './types'
 
 /**
  * Four pre-formatted stats sourced from the global index (no per-composite
@@ -14,11 +14,11 @@ import type { Composite } from "./types";
  * ``0.00×``.
  */
 export const compositeStats = (c: Composite, totalComposites: number) => ({
-  density:    c.density.toFixed(2),
-  rank:       c.rank.toFixed(2),
-  support:    c.support,
+  density: c.density.toFixed(2),
+  rank: c.rank.toFixed(2),
+  support: c.support,
   importance: `${(c.importance * totalComposites).toFixed(2)}×`,
-});
+})
 
 /**
  * Fraction of the composite's bilinear weight captured by the top three
@@ -26,10 +26,11 @@ export const compositeStats = (c: Composite, totalComposites: number) => ({
  * means the rest of the spectrum carries the remaining 37%.
  */
 export const captured = (eigvals: number[]): string => {
-  const abs = eigvals.map(Math.abs).sort((a, b) => b - a);
-  const total = abs.reduce((s, v) => s + v, 0);
-  return `${(((abs[0] + abs[1] + abs[2]) / total) * 100).toFixed(0)}%`;
-};
+  const abs = eigvals.map(Math.abs).sort((a, b) => b - a)
+  const total = abs.reduce((s, v) => s + v, 0)
+  const topThree = abs.slice(0, 3).reduce((s, v) => s + v, 0)
+  return `${((topThree / total) * 100).toFixed(0)}%`
+}
 
 /**
  * Top-``n`` eigenvalues by |λ|, normalised so the largest absolute bar is 1
@@ -40,19 +41,25 @@ export const captured = (eigvals: number[]): string => {
  * manifold scene's k-th axis (k = top-``k`` by |λ|), else ``null``.
  */
 export const topSpectrum = (
-  eigvals: number[], n = 32, k = 3,
+  eigvals: number[],
+  n = 32,
+  k = 3,
 ): { values: number[]; labels: (string | null)[] } => {
-  const indexed = eigvals.map((v, i) => [v, i] as const);
-  indexed.sort((a, b) => Math.abs(b[0]) - Math.abs(a[0]));
-  const top = indexed.slice(0, n).sort((a, b) => a[0] - b[0]);
-  const axisIdx = indexed.slice(0, k).map(([, i]) => i);
-  const norm = Math.max(...top.map(([v]) => Math.abs(v)), 1e-12);
-  const tag = "XYZ";
+  if (!Number.isInteger(k) || k < 0 || k > 3) {
+    throw new RangeError('Spectrum labels require between zero and three manifold axes')
+  }
+  const indexed = eigvals.map((v, i) => [v, i] as const)
+  indexed.sort((a, b) => Math.abs(b[0]) - Math.abs(a[0]))
+  const top = indexed.slice(0, n).sort((a, b) => a[0] - b[0])
+  const axisIdx = indexed.slice(0, k).map(([, i]) => i)
+  const norm = Math.max(...top.map(([v]) => Math.abs(v)), 1e-12)
+  const tag = 'XYZ'
   return {
     values: top.map(([v]) => v / norm),
     labels: top.map(([, i]) => {
-      const j = axisIdx.indexOf(i);
-      return j >= 0 ? tag[j] : null;
+      const j = axisIdx.indexOf(i)
+      // j is a position in axisIdx, whose length is at most k <= 3.
+      return j >= 0 ? tag[j]! : null
     }),
-  };
-};
+  }
+}

@@ -10,15 +10,17 @@
     active = false,
     positive = true,
   }: {
-    token: string;
-    active?: boolean;
-    positive?: boolean;
-  } = $props();
+    token: string
+    active?: boolean
+    positive?: boolean
+  } = $props()
 </script>
 
 {#if active}
-  <span class="font-semibold rounded-sm px-0.5
-               {positive ? 'bg-primary/15 text-primary' : 'bg-secondary/15 text-secondary'}">{token}</span>
+  <span
+    class="text-base-content rounded-sm px-0.5 font-semibold
+               {positive ? 'bg-primary/15' : 'bg-secondary/15'}">{token}</span
+  >
 {:else}
   <span class="text-base-content/65">{token}</span>
 {/if}

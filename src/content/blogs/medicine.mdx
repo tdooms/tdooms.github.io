@@ -12,17 +12,17 @@ The quest to understand the body mostly originated from the need to heal people.
 
 While our predecessors can be excused for their misbelief, I strongly feel that similar mistakes are being made in the quest to understand deep neural networks (aka interpretability). Let us zoom in on some (subjective) mistakes made throughout history in medicine and propose analogues within interpretability. Afterwards, an outline of a promising solution is given.
 
-###### A strong focus on the surface, disregarding the internals.
+## A strong focus on the surface, disregarding the internals.
 
 The internals of the human body are confusing, without our current knowledge of organs and their function, it is easy to understand how the insides of beings were often disregarded in favour of more intuitive theories. The same holds for neural networks, it seems we do not understand how its internals work, except for the input and output layers. Consequently, a considerable amount of research focuses on this surface, such as adversarial examples which confuse current models by perturbing the input with (humanly) imperceptible noise. However, similar to our previous story, any experiments in this domain remain quite high-level and do not intrinsically provide any insight. Drawing conclusions from the surface of such a complex (and sometimes illogical) system will inevitably lead to false conclusions.
 
 > The study of adversarial examples has been immensely useful in protecting models from malicious input in practice. However, one must admit our lack of understanding towards their origin. Famously, adversarial defence mechanisms can be easily obviated by using slightly different techniques.
 
-###### Inadequate rigour and validation.
+## Inadequate rigour and validation.
 
 When reading further about humourism, I was astounded as to why no one actually properly tested this hypothesis. While there is probably lots more to this that I don't know about, the simple fact that "it seems reasonable" and provided a believable explanation was enough to justify its prevalence. In fact, the same often happens in modern academia, where results are often not verified, even when reproduction is not necessarily difficult (such as the superconductivity of LK-99). This is even the case within machine learning, where exact code can be shared and executed to validate claims. Yet, I've found myself using the "yeap, that looks about right" metric quite a lot when looking at most graphs and numbers in papers.
 
-###### Absence of quantitative and causal experimentation.
+## Absence of quantitative and causal experimentation.
 
 Beyond the justification for negligence of rigour within science (ancient and modern), the root cause of false theories is probably a lack of tooling. The ancient Greeks didn't have a microscope so how could they ever predict that microbes were the primary cause of illness? Furthermore, the scientific virtues, to guide their experiments, were not as developed back then. Within machine learning, we have full control and inspection capabilities of the full digital environment. There are no limitations other than our intelligence. Therefore, even though the field of machine learning is young, there is no excuse for sloppy science.
 
@@ -32,7 +32,7 @@ Still, a large majority of the field of interpretability is qualitative. A promi
 
 > Heatmaps are not the only offender in this area, many highly acclaimed papers (which I won't explicitly name) have the same issue. While their academic significance is unquestionable, they should only be used for intuitive purposes rather than actual interpretability.
 
-###### The struggle to find the right scale for observation.
+## The struggle to find the right scale for observation.
 
 Given a complex system like a human, how does one even start to analyse this? Should we look at the composition of limbs, cells or even atoms to understand its function? Medicine has the advantage that most biological systems are surprisingly modular. Organs seem to be neatly separated by membranes and even within organs, there is lots of structure. For instance, lungs are conceptually just a tree structure that guides air towards small alveoli. This naturally defines a conceptual space for understanding the function of items.
 
@@ -40,7 +40,7 @@ Within machine learning, it seems more difficult to find such a granularity. Con
 
 Another approach is to dive deeper: onto the neuron level. The large body of research in this domain tells a semi-optimistic story. Some neurons are highly interpretable, activating on concrete concepts such as cars or dogs. However, beyond these cherry-picked few, there are many "poly-semantic" neurons which activate on completely unrelated stuff such as leaves and dice. Further, there are also some noise neurons which do not follow any coherent structure. In a sense this is logical, neurons need not represent human concepts. However, this renders the interpretability quite difficult.
 
-### Solution
+## Solution
 
 Even though this explanation portrays the field of interpretability in a bad light, there is reason for hope. Given the current flaws, there is a strong trend towards a new form of interpretability: mechanistic interpretability. This field aims to "reverse engineer" a network, decomposing it into parts. This decomposition may be unfathomably complex, but it will provide a way to causally reason about models. It is achieved through a collection of low-level methods that are able to comprehensively describe certain parts of the model (which I plan to write another blog about later).
 

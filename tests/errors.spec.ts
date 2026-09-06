@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test'
 
 const PAGES = [
   '/',
-  '/blog',
   '/blog/tensors',
   '/resume',
   '/research/bilinear',
@@ -16,27 +15,35 @@ const PAGES = [
   '/research/simplestories',
 ]
 
-// Console errors we accept. `latent_*.cluster.json` is an optional resource:
-// the loader fetches it with `.catch(() => null)`, but the browser still logs
-// the 404 as a console error. Everything else fails the test — including
-// island hydration failures ("[astro-island] Error hydrating ..."), which are
-// console errors rather than pageerrors and would otherwise slip through.
-const isAllowed = (text: string, url: string | undefined): boolean =>
-  /Failed to load resource/.test(text) && /\.cluster\.json/.test(url ?? '')
-
 for (const url of PAGES) {
   test(`no console or page errors on ${url}`, async ({ page }) => {
-    const errors: string[] = []
-    page.on('pageerror', (err) => errors.push(`pageerror: ${err.message}`))
+    const pageErrors: string[] = []
+    const consoleErrors: { text: string; url: string }[] = []
+    const missingAnnotations = new Set<string>()
+    page.on('response', (response) => {
+      if (response.status() === 404 && new URL(response.url()).pathname.endsWith('.cluster.json')) {
+        missingAnnotations.add(response.url())
+      }
+    })
+    page.on('pageerror', (err) => pageErrors.push(`pageerror: ${err.message}`))
     page.on('console', (msg) => {
       if (msg.type() !== 'error') return
-      if (isAllowed(msg.text(), msg.location().url)) return
-      errors.push(`console: ${msg.text()}`)
+      consoleErrors.push({ text: msg.text(), url: msg.location().url })
     })
 
     await page.goto(url)
     await page.waitForLoadState('networkidle')
 
+    // Only a confirmed 404 for an optional annotation is expected. A 500,
+    // network failure, or hydration error must remain visible to this gate.
+    const errors = [
+      ...pageErrors,
+      ...consoleErrors
+        .filter(
+          ({ text, url }) => !(/Failed to load resource/.test(text) && missingAnnotations.has(url)),
+        )
+        .map(({ text }) => `console: ${text}`),
+    ]
     expect(errors, `Errors on ${url}: ${errors.join(', ')}`).toHaveLength(0)
   })
 }
@@ -47,7 +54,7 @@ test('no broken internal links across the site', async ({ page, browserName }) =
   const visited = new Set<string>()
   const broken: string[] = []
 
-  const pages = ['/', '/blog', '/resume']
+  const pages = ['/', '/resume']
 
   for (const url of pages) {
     await page.goto(url)

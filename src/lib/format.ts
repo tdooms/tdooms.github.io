@@ -9,10 +9,20 @@
 const LOCALE = 'en-GB'
 
 export const formatDate = (date: string): string =>
-  new Date(date).toLocaleDateString(LOCALE, { day: 'numeric', month: 'short', year: 'numeric' })
+  new Date(date).toLocaleDateString(LOCALE, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
 
 export const formatFullDate = (date: string): string =>
-  new Date(date).toLocaleDateString(LOCALE, { day: 'numeric', month: 'long', year: 'numeric' })
+  new Date(date).toLocaleDateString(LOCALE, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
 
 export const formatMonthYear = (date: string): string =>
-  new Date(date).toLocaleDateString(LOCALE, { month: 'short', year: 'numeric' })
+  new Date(date).toLocaleDateString(LOCALE, { month: 'short', year: 'numeric', timeZone: 'UTC' })

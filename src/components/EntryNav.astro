@@ -10,9 +10,10 @@ interface NavItem {
 interface Props {
   prev: NavItem | null
   next: NavItem | null
+  homeHref?: string
 }
 
-const { prev, next } = Astro.props
+const { prev, next, homeHref = '/' } = Astro.props
 ---
 
 <nav
@@ -38,7 +39,7 @@ const { prev, next } = Astro.props
     )
   }
 
-  <a href="/" aria-label="Back to home" class="btn btn-ghost btn-square btn-sm">
+  <a href={homeHref} aria-label="Back to home" class="btn btn-ghost btn-square btn-sm">
     <HomeIcon name="house" class="h-4 w-4" />
   </a>
 

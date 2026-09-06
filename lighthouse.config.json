@@ -1,0 +1,17 @@
+{
+  "numberOfRuns": 3,
+  "minimumScores": {
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 1,
+    "seo": 1
+  },
+  "maximumValues": {
+    "largest-contentful-paint": 1000,
+    "first-contentful-paint": 700,
+    "total-blocking-time": 50,
+    "cumulative-layout-shift": 0.01,
+    "speed-index": 700,
+    "interactive": 1000
+  }
+}

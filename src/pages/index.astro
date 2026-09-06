@@ -50,14 +50,16 @@ const contactLinks = [
   <section class="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-[260px_1fr]">
     <!-- Profile -->
     <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
-      <Image
-        src={profileImg}
-        alt="Thomas Dooms"
-        class="ring-base-300 h-40 w-40 rounded-2xl object-cover shadow-md ring-1"
-        width={320}
-        height={320}
-        loading="eager"
-      />
+      <div class="profile-photo border-primary/25 bg-base-100 rounded-2xl border p-1 shadow-sm">
+        <Image
+          src={profileImg}
+          alt="Thomas Dooms"
+          class="h-40 w-40 rounded-xl object-cover"
+          width={320}
+          height={320}
+          loading="eager"
+        />
+      </div>
       <h1 class="text-base-content mt-5 text-4xl font-bold tracking-tight">Thomas Dooms</h1>
       <p class="text-base-content/70 mt-2 text-sm font-semibold tracking-widest uppercase">
         Member of Technical Staff <a
@@ -82,7 +84,7 @@ const contactLinks = [
           contactLinks.map(({ icon, label, href, external }) => (
             <a
               href={href}
-              class="hover:text-primary inline-flex items-center gap-1.5 transition-colors"
+              class="contact-link hover:text-primary focus-visible:text-primary inline-flex items-center gap-1.5"
               target={external ? '_blank' : undefined}
               rel={external ? 'noopener noreferrer' : undefined}
             >
@@ -95,32 +97,33 @@ const contactLinks = [
     </div>
 
     <!-- Bio -->
-    <div class="prose flex max-w-none flex-col justify-between [&>p]:my-0">
+    <div class="biography prose flex max-w-none flex-col justify-between gap-4 [&>p]:my-0">
       <p>
-        Hey, I'm Thomas. I work on the life sciences team at <a
+        Hey, I'm Thomas. I work on interpretability at <a
           href="https://www.goodfire.ai/"
           target="_blank"
           rel="noopener noreferrer"
           class="hl">Goodfire</a
-        >, doing interpretability: the <span
+        >, as part of the life sciences team. Interpretability is the <span
           class="tooltip tooltip-bottom cursor-help align-baseline [--tt-bg:var(--color-base-100)]"
           ><span
             tabindex="0"
             class="hl focus-visible:outline-primary rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             >science</span
           ><span class="tooltip-content not-prose text-base-content p-2">read dark art</span></span
-        > of understanding what AI models have learned. These models outperform human experts in tasks
-        ranging from prose to games without ever being told what or how. In short, I aim to answer:
+        > of understanding what AI models have learned. These models can solve problems without us fully
+        understanding how they do it. My work starts with a question:
       </p>
 
-      <p class="italic">What do AI models know that we don't, and how do we pry it out?</p>
+      <p class="border-secondary/50 border-l-2 pl-4 italic">
+        What do AI models know that we don't, and how can we learn from them?
+      </p>
 
       <p>
         Models think in numbers and geometries; we think in concepts and compositions. My research
-        interfaces the two by treating networks as compositional systems whose parts interact and
-        recombine, reading their geometric structure directly instead of shoehorning it into
-        simplistic features. My PhD built the mathematical foundations. Now I'm pointing them at
-        open problems in the life sciences.
+        connects the two by studying the geometric structure of networks and how their parts
+        interact and recombine. My PhD developed the mathematical foundations for this work. Now I'm
+        applying them to open problems in the life sciences.
       </p>
 
       <p>
@@ -131,12 +134,12 @@ const contactLinks = [
             class="hl focus-visible:outline-primary rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             >gaming</span
           ><span class="tooltip-content not-prose text-base-content p-2">
-            <span class="flex gap-2">
+            <span class="grid grid-cols-2 gap-2">
               {/* Chronological: childhood photo first, recent photo second. */}
               <Image
                 src={youngImg}
                 alt=""
-                class="aspect-square w-48 rounded-md object-cover"
+                class="aspect-square w-full min-w-0 rounded-md object-cover"
                 width={320}
                 height={320}
                 loading="lazy"
@@ -144,7 +147,7 @@ const contactLinks = [
               <Image
                 src={oldImg}
                 alt=""
-                class="aspect-square w-48 rounded-md object-cover"
+                class="aspect-square w-full min-w-0 rounded-md object-cover"
                 width={320}
                 height={320}
                 loading="lazy"
@@ -208,7 +211,7 @@ const contactLinks = [
   <!-- Blog -->
   {
     blogs.length > 0 && (
-      <section class="mt-14">
+      <section id="blog" class="mt-14 scroll-mt-6">
         <h2 class="text-base-content mb-6 text-2xl font-bold">
           Blog<span class="text-primary">.</span>
         </h2>

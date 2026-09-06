@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config'
-import path from 'path'
 
 import svelte from '@astrojs/svelte'
 import mdx from '@astrojs/mdx'
@@ -15,6 +14,7 @@ import { unified } from '@astrojs/markdown-remark'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tdooms.github.io',
+  compressHTML: true,
   // Dev-only chrome, disabled: its lazy-loaded chunks 504 ("Outdated Optimize
   // Dep") after every Vite re-optimization, polluting the console on each
   // config/lockfile change. Its audit features duplicate the real gates
@@ -48,14 +48,7 @@ export default defineConfig({
       styles: ['normal'],
     },
   ],
-  // No CSP via Astro auto-config. Astro v6 always emits sha256 hashes for known
-  // inline styles, and per CSP spec hashes nullify 'unsafe-inline'. KaTeX needs
-  // 'unsafe-inline' for its per-equation `style="..."` attributes, so the two
-  // conflict. For a static site with no user input the strict CSP earns nothing
-  // worth the score hit. Add a real CSP via deploy-time HTTP headers if needed.
   markdown: {
-    // Astro 6: pass plugins to `unified()` instead of the top-level
-    // markdown.remarkPlugins / rehypePlugins (deprecated in 6.x).
     processor: unified({
       remarkPlugins: [remarkMath],
       rehypePlugins: [
@@ -64,22 +57,9 @@ export default defineConfig({
       ],
     }),
   },
-  integrations: [svelte(), mdx(), sitemap(), icon()],
+  integrations: [svelte(), mdx(), sitemap(), icon({ iconDir: 'src/assets/icons' })],
   vite: {
     plugins: [tailwindcss()],
-    resolve: {
-      alias: {
-        '@/': path.resolve('./src') + '/',
-        // SvelteKit-shaped imports from the verbatim bae frontend copy resolve
-        // via these aliases. $lib points into the bae tree; $app/* point at
-        // tiny shim modules that re-expose our query-params router under
-        // SvelteKit's API names.
-        $lib: path.resolve('./src/components/bae/lib'),
-        '$app/state': path.resolve('./src/components/_bae-shim/app-state.ts'),
-        '$app/paths': path.resolve('./src/components/_bae-shim/app-paths.ts'),
-        '$app/navigation': path.resolve('./src/components/_bae-shim/app-navigation.ts'),
-      },
-    },
     build: {
       // Ship sourcemaps so Lighthouse's valid-source-maps audit passes.
       sourcemap: true,
@@ -96,7 +76,7 @@ export default defineConfig({
       // or dev. Override on the command line (`VITE_DATA_URL=... bun run dev`)
       // to point at a local data server during data-format work.
       'import.meta.env.VITE_DATA_URL': JSON.stringify(
-        'https://pub-d5f674c4bd644b7d93b17b2b68f31a22.r2.dev',
+        process.env.VITE_DATA_URL ?? 'https://pub-d5f674c4bd644b7d93b17b2b68f31a22.r2.dev',
       ),
     },
   },

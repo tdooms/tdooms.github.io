@@ -1,64 +1,125 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import { onDestroy, type Snippet } from 'svelte'
 
-  // Rich on-hover popover. The visible trigger is ``children``; the popup body
-  // is the ``tip`` snippet. Replaces daisyUI ``tooltip`` (text-only) wherever
-  // we want room for a title row, math, code, blurbs, or any formatted content.
-  //
-  // IMPORTANT: ``children`` MUST be non-interactive (icon, span, label).
-  // Wrapping a ``<button>`` or ``<a>`` inside nests two interactive elements
-  // (this component's role=button wrapper + the inner clickable). Browser
-  // hit-testing under daisyUI's dropdown-hover resolves clicks to the outer
-  // wrapper and the inner click is silently absorbed. If a popover is needed
-  // on a clickable element, attach it to a sibling info icon.
-  //
-  //     <HoverCard side="bottom" align="center">
-  //       <span>density</span>
-  //       {#snippet tip()}
-  //         <HoverHeader label="density" code="0.073" />
-  //         <Tex tex="..." displayMode />
-  //         <p class="text-xs">Hoyer density of the firing values ...</p>
-  //       {/snippet}
-  //     </HoverCard>
-  //
-  // Positioning uses Tailwind utilities directly. daisyUI's
-  // ``dropdown-top``/``dropdown-bottom`` are technically emitted but their
-  // nested-layer + CSS-nesting semantics don't override daisyUI's base rules,
-  // so the popup defaults to bottom placement regardless. Plain ``top-full`` /
-  // ``bottom-full`` on the absolutely-positioned content wins reliably.
-  //
-  // The popup wrapper is split from the visible card so the wrapper's
-  // ``p-2`` padding bridges the gap between trigger and card — ``:hover``
-  // stays continuous as the cursor moves from trigger into the popover.
+  // Native popovers provide keyboard activation, Escape and outside-click
+  // dismissal, and escape the scrolling panels that contain their triggers.
+  // Children must be non-interactive phrasing content inside the real button.
   let {
     children,
     tip,
-    side = "bottom",
-    align = "center",
-    width = "w-72",
+    label,
+    side = 'bottom',
+    align = 'center',
+    width = 'w-72',
   }: {
-    children: Snippet;
-    tip: Snippet;
-    side?: "top" | "bottom";
-    align?: "start" | "center" | "end";
-    width?: string;
-  } = $props();
+    children: Snippet
+    tip: Snippet
+    label?: string
+    side?: 'top' | 'bottom'
+    align?: 'start' | 'center' | 'end'
+    width?: string
+  } = $props()
 
-  const placement = $derived(side === "top"  ? "bottom-full pb-2" : "top-full pt-2");
-  const alignment = $derived(
-    align === "start" ? "left-0"
-    : align === "end" ? "right-0"
-    :                   "left-1/2 -translate-x-1/2",
-  );
+  const id = $props.id()
+  let trigger: HTMLButtonElement
+  let popup: HTMLDivElement
+  let open = $state(false)
+  let openedByHover = false
+  let closeTimer: ReturnType<typeof setTimeout> | undefined
+
+  const cancelClose = () => clearTimeout(closeTimer)
+  onDestroy(cancelClose)
+
+  function enter(event: PointerEvent) {
+    cancelClose()
+    if (event.pointerType === 'touch' || popup.matches(':popover-open')) return
+    openedByHover = true
+    popup.showPopover()
+  }
+
+  function leave() {
+    cancelClose()
+    // Allow the pointer to cross the gap between the trigger and the card.
+    if (openedByHover) closeTimer = setTimeout(() => popup.hidePopover(), 150)
+  }
+
+  function activate(event: MouseEvent) {
+    if (openedByHover && popup.matches(':popover-open')) {
+      // Clicking a preview keeps it open; subsequent clicks toggle normally.
+      event.preventDefault()
+      openedByHover = false
+      cancelClose()
+    }
+  }
+
+  function position() {
+    if (!popup.matches(':popover-open')) return
+    const anchor = trigger.getBoundingClientRect()
+    const box = popup.getBoundingClientRect()
+    const left =
+      align === 'start'
+        ? anchor.left
+        : align === 'end'
+          ? anchor.right - box.width
+          : anchor.left + (anchor.width - box.width) / 2
+    const top = side === 'top' ? anchor.top - box.height - 8 : anchor.bottom + 8
+    popup.style.left = `${Math.max(8, Math.min(left, innerWidth - box.width - 8))}px`
+    popup.style.top = `${Math.max(8, Math.min(top, innerHeight - box.height - 8))}px`
+    popup.style.visibility = 'visible'
+  }
+
+  function beforeToggle(event: ToggleEvent) {
+    open = event.newState === 'open'
+    if (open) {
+      // The native toggle event can arrive after the first paint. Measure the
+      // opened card before painting it, including on keyboard/touch activation.
+      popup.style.visibility = 'hidden'
+      requestAnimationFrame(position)
+    } else {
+      openedByHover = false
+      cancelClose()
+    }
+  }
+
+  $effect(() => {
+    if (!open) return
+    // A deferred equation or font can change an already open card's size.
+    const observer = new ResizeObserver(position)
+    observer.observe(popup)
+    window.addEventListener('resize', position)
+    document.addEventListener('scroll', position, true)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', position)
+      document.removeEventListener('scroll', position, true)
+    }
+  })
 </script>
 
-<div class="dropdown dropdown-hover cursor-help">
-  <div tabindex="0" role="button">{@render children()}</div>
-  <div class="dropdown-content {placement} {alignment} z-50 {width}">
-    <div class="card card-compact bg-base-100 shadow-xl border border-base-200">
-      <div class="card-body !p-4 gap-2">
-        {@render tip()}
-      </div>
-    </div>
+<button
+  bind:this={trigger}
+  type="button"
+  popovertarget={id}
+  aria-label={label}
+  aria-describedby={id}
+  onpointerenter={enter}
+  onpointerleave={leave}
+  onclick={activate}
+  class="hover:text-primary focus-visible:outline-primary inline-flex min-h-8 cursor-help items-center rounded-sm text-inherit focus-visible:outline-2 focus-visible:outline-offset-2"
+>
+  {@render children()}
+</button>
+<div
+  bind:this={popup}
+  {id}
+  popover="auto"
+  role="tooltip"
+  onbeforetoggle={beforeToggle}
+  onpointerenter={cancelClose}
+  onpointerleave={leave}
+  class="bg-base-100 text-base-content border-base-300 fixed inset-auto m-0 max-h-[calc(100dvh-1rem)] max-w-[calc(100vw-1rem)] overflow-auto rounded-xl border p-4 text-left shadow-lg {width}"
+>
+  <div class="flex flex-col gap-3 text-sm font-normal tracking-normal normal-case">
+    {@render tip()}
   </div>
 </div>

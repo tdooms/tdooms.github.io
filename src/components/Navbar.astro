@@ -1,14 +1,12 @@
 ---
-// Shared site chrome — a thin top bar present on every regular page. Carries
-// the canonical home link (always to the site root) and the dark/light
-// toggle. Same `Icon.svelte` source as the bae explorer's InfoBar so the
-// glyphs are byte-identical across surfaces.
-//
-// Home link is suppressed on the home page itself (it would just bounce the
-// user to the URL they're already on). `justify-between` keeps the theme
-// toggle pinned to the right whether the home slot is filled or empty.
+// Regular pages share the home link and theme toggle; Atlas owns its navbar.
 import Icon from './Icon.svelte'
 
+interface Props {
+  homeHref?: string
+}
+
+const { homeHref = '/' } = Astro.props
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === ''
 ---
 
@@ -20,12 +18,12 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === ''
     isHome ? (
       <span />
     ) : (
-      <a href="/" aria-label="Home" class="btn btn-ghost btn-square btn-sm">
+      <a href={homeHref} aria-label="Home" class="site-home btn btn-ghost btn-square btn-sm">
         <Icon name="house" class="h-4 w-4" />
       </a>
     )
   }
-  <label class="btn btn-ghost btn-square btn-sm swap" aria-label="Toggle dark mode">
+  <label class="btn btn-ghost btn-square btn-sm swap swap-rotate" aria-label="Toggle dark mode">
     <input type="checkbox" class="theme-controller" value="dark" />
     <Icon name="sun" class="swap-off h-4 w-4" />
     <Icon name="moon" class="swap-on h-4 w-4" />

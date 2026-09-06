@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import Explorer from '../components/Explorer.svelte'
+import { dataUrl } from '../components/bae/lib/data'
 ---
 
 <Layout
@@ -8,5 +9,19 @@ import Explorer from '../components/Explorer.svelte'
   description="An interactive atlas of the latents and 3D manifolds of a trained bilinear autoencoder."
   bleed
 >
-  <Explorer client:only="svelte" />
+  <Fragment slot="head">
+    {
+      ['index.feather', 'curated.json', 'clusters.json'].map((path) => (
+        <link rel="preload" as="fetch" href={dataUrl(path)} crossorigin="anonymous" />
+      ))
+    }
+  </Fragment>
+  <Explorer client:only="svelte">
+    <main slot="fallback" class="flex h-full flex-col items-center justify-center gap-3 px-6">
+      <h1 class="text-2xl font-medium">Atlas</h1>
+      <p role="status" class="text-base-content/70">Loading the atlas…</p>
+      <noscript><p>This interactive atlas needs JavaScript enabled.</p></noscript>
+      <a href="/" class="text-primary underline underline-offset-4">Home</a>
+    </main>
+  </Explorer>
 </Layout>

@@ -27,7 +27,9 @@
     const url = new URL(window.location.href)
     url.searchParams.set('model', model)
     url.searchParams.set('index', index.toString())
-    window.history.pushState({}, '', url)
+    // A selection updates this page's shareable URL. Keep Astro's history
+    // index and scroll position so leaving the page and returning still works.
+    window.history.replaceState(window.history.state, '', url)
   }
 
   const setIndex = (i: number) => {
@@ -62,12 +64,11 @@
     const params = new URLSearchParams(window.location.search)
     const urlIndex = params.get('index')
     const urlModel = params.get('model')
-    if (urlIndex) {
-      const parsed = parseInt(urlIndex, 10)
-      // Valid indices are ±1..±5 (sign picks positive vs negative spectrum).
-      if (Number.isInteger(parsed) && parsed !== 0 && Math.abs(parsed) <= 5) index = parsed
-    }
-    if (urlModel && validModels.includes(urlModel)) model = urlModel as ModelType
+    const parsed = Number(urlIndex)
+    // Valid indices are ±1..±5 (sign picks positive vs negative spectrum).
+    // Missing or invalid values reset the view rather than retaining old state.
+    index = Number.isInteger(parsed) && parsed !== 0 && Math.abs(parsed) <= 5 ? parsed : 1
+    model = urlModel && validModels.includes(urlModel) ? (urlModel as ModelType) : 'noise-strong'
   }
 
   $effect(() => {
@@ -77,10 +78,12 @@
   })
 </script>
 
-<div class="flex gap-6">
-  <ul class="menu bg-base-100 shadow-md rounded-box w-56 shrink-0 gap-1 p-4">
+<section aria-label="Eigenvector browser" class="not-prose flex flex-col gap-6 md:flex-row">
+  <ul
+    class="menu bg-base-100 rounded-box grid w-full shrink-0 grid-cols-3 gap-1 p-4 shadow-md md:flex md:w-56"
+  >
     {#each categories as category (category.prefix)}
-      <li class="menu-title">
+      <li class="menu-title col-span-3">
         <span>{category.label}</span>
       </li>
       {#each intensities as intensity (intensity.value)}
@@ -88,6 +91,8 @@
           <button
             type="button"
             class:menu-active={isModelActive(category, intensity)}
+            aria-pressed={isModelActive(category, intensity)}
+            aria-label={`${category.label}: ${intensity.label}`}
             onclick={() => setModel(category, intensity)}
           >
             {intensity.label}
@@ -97,7 +102,7 @@
     {/each}
   </ul>
 
-  <div class="flex-1">
+  <div class="min-w-0 flex-1">
     <div class="mb-6 flex flex-wrap items-center justify-center gap-6">
       <h3 class="text-xl font-bold">Positive</h3>
       <div class="tabs tabs-box">
@@ -107,6 +112,7 @@
             class="tab"
             class:tab-active={isIndexActive(i)}
             aria-pressed={isIndexActive(i)}
+            aria-label={`Positive eigenvector ${i}`}
             onclick={() => setIndex(i)}
           >
             {i}
@@ -120,6 +126,7 @@
             class="tab"
             class:tab-active={isIndexActive(-i)}
             aria-pressed={isIndexActive(-i)}
+            aria-label={`Negative eigenvector ${i}`}
             onclick={() => setIndex(-i)}
           >
             {i}
@@ -134,7 +141,10 @@
         src={`/eigenvectors/${model}/${index > 0 ? 'pos' : 'neg'}${Math.abs(index)}.svg`}
         alt={`Eigenvector ${model} index ${index}`}
         class="w-full"
+        width="1000"
+        height="450"
+        loading="lazy"
       />
     </div>
   </div>
-</div>
+</section>

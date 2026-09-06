@@ -20,16 +20,17 @@ const awardEntries = (await getCollection('awards')).sort((a, b) => a.data.order
   title="Resume"
   description="Education, work experience, languages, and awards for Thomas Dooms."
 >
+  <h1 class="mb-6 text-4xl font-bold">Resume</h1>
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
     <!-- Education Column -->
     <div class="lg:col-span-5">
-      <h5 class="mb-4 ml-2 text-xl font-bold">Education</h5>
+      <h2 class="mb-4 ml-2 text-xl font-bold">Education</h2>
       {educationEntries.map((study) => <Media {...study.data} />)}
     </div>
 
     <!-- Work Experience Column -->
     <div class="lg:col-span-7">
-      <h5 class="mb-4 ml-2 text-xl font-bold">Work Experience</h5>
+      <h2 class="mb-4 ml-2 text-xl font-bold">Work experience</h2>
       {workEntries.map((job) => <Media {...job.data} />)}
     </div>
   </div>
@@ -37,20 +38,22 @@ const awardEntries = (await getCollection('awards')).sort((a, b) => a.data.order
   <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
     <!-- Languages Column -->
     <div class="lg:col-span-4">
-      <h5 class="mb-4 ml-2 text-xl font-bold">Languages</h5>
+      <h2 class="mb-4 ml-2 text-xl font-bold">Languages</h2>
 
-      <div class="card bg-base-100 h-[294px] p-6 shadow-md">
+      <div class="card bg-base-100 p-6 shadow-md">
         {
           languageEntries.map((language) => (
             <div>
               <div class="flex items-center justify-between py-0">
-                <strong>{language.data.name}</strong>
+                <strong id={`language-${language.id}`}>{language.data.name}</strong>
                 <span class="text-base-content/75">{language.data.level}</span>
               </div>
               <progress
                 class="progress progress-primary mb-4 h-2"
                 max="100"
                 value={language.data.percent}
+                aria-labelledby={`language-${language.id}`}
+                aria-valuetext={language.data.level}
               >
                 {language.data.percent}%
               </progress>
@@ -62,7 +65,7 @@ const awardEntries = (await getCollection('awards')).sort((a, b) => a.data.order
 
     <!-- Awards Column -->
     <div class="lg:col-span-8">
-      <h5 class="mb-4 ml-2 text-xl font-bold">Awards</h5>
+      <h2 class="mb-4 ml-2 text-xl font-bold">Awards</h2>
 
       <div class="card bg-base-100 p-6 shadow-md">
         {

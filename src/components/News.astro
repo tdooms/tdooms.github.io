@@ -32,16 +32,18 @@ const tagProps = link
 
 <Tag
   class:list={[
-    'bg-base-100 ring-base-300/60 flex items-center gap-3 rounded-lg px-4 py-3 shadow-sm ring-1 transition-all duration-200',
-    link && 'group hover:-translate-y-0.5 hover:shadow-md',
+    'bg-base-100 border-base-300/60 flex items-center gap-3 rounded-lg border px-4 py-3',
+    link && 'news-link',
   ]}
   {...tagProps}
 >
   <div class="bg-primary/10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
     <Icon name={icon} class="text-primary text-sm" />
   </div>
-  <div class="flex min-w-0 flex-1 items-baseline justify-between gap-3">
-    <h3 class="text-base-content/85 truncate text-base" set:html={renderedTitle} />
+  <div
+    class="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3"
+  >
+    <h3 class="text-base-content/85 text-base" set:html={renderedTitle} />
     <time class="text-base-content/65 shrink-0 text-sm">{formattedDate}</time>
   </div>
 </Tag>

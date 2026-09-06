@@ -20,15 +20,12 @@ const formattedDate = formatDate(date)
   href={link}
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
-  class="card card-border group bg-base-100 border-base-300/60 h-full overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+  class="publication-card card card-border bg-base-100 border-base-300/60 h-full overflow-hidden shadow-sm"
 >
   {
     image && (
       <figure class="bg-base-200 relative aspect-[5/3] overflow-hidden">
-        {/* Sized to the card (≈350px wide, 2× for retina) — `layout="none"`
-            here once shipped the full 1254px originals (90–240 KB each) and
-            blew the home page's Lighthouse LCP budget. q60 because card art
-            renders desaturated at ~350px; the savings buy LCP headroom. */}
+        {/* Serve card-sized images at 2× resolution for sharpness on retina screens. */}
         <Image
           src={image}
           alt={title}
@@ -36,7 +33,7 @@ const formattedDate = formatDate(date)
           width={700}
           height={420}
           quality={60}
-          class="absolute inset-0 h-full w-full transform-gpu object-cover saturate-50 transition-[filter] duration-300 ease-out [backface-visibility:hidden] group-hover:saturate-100"
+          class="absolute inset-0 h-full w-full object-cover"
         />
       </figure>
     )

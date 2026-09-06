@@ -28,7 +28,7 @@ const {
   href={link}
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
-  class="card card-border group bg-base-100 border-base-300/60 h-full overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+  class="publication-card card card-border bg-base-100 border-base-300/60 h-full overflow-hidden shadow-sm"
 >
   <div class="bg-primary/40 h-1"></div>
   {
@@ -43,7 +43,7 @@ const {
           width={700}
           height={420}
           quality={60}
-          class="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-500 [backface-visibility:hidden] group-hover:scale-105"
+          class="absolute inset-0 h-full w-full object-cover"
         />
       </figure>
     )

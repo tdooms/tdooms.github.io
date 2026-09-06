@@ -12,7 +12,9 @@ export default defineConfig({
   // (Under exactOptionalPropertyTypes an explicit `undefined` is rejected.)
   ...(process.env.CI ? { workers: 1 } : {}),
   webServer: {
-    command: `bun run build && bun run preview -- --host 127.0.0.1 --port ${previewPort}`,
+    // check:ci already verified the build. Use Astro's preview API so the
+    // server stays owned by Playwright: the v7 CLI backgrounds it in agents.
+    command: `${process.env.PLAYWRIGHT_SKIP_BUILD === '1' ? '' : 'bun run build && '}node --input-type=module --eval "import { preview } from 'astro'; await preview({ server: { host: '127.0.0.1', port: ${previewPort} } });"`,
     url: baseURL,
     timeout: 120_000,
     reuseExistingServer: false,

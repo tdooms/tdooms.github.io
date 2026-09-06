@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test'
 // The threshold is intentionally generous — a couple of pixels of overlap
 // is common between adjacent items and is not what we're hunting.
 
-const PAGES = ['/', '/blog', '/resume', '/research/bilinear', '/research/bae', '/bae']
+const PAGES = ['/', '/resume', '/research/bilinear', '/research/bae', '/bae']
 
 for (const url of PAGES) {
   test(`no overlapping interactive elements on ${url}`, async ({ page }) => {

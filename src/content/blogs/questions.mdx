@@ -16,7 +16,7 @@ Since then, I've gained a lot of insight within the field; I graduated my master
 
 That aside, let's start.
 
-###### Why are neural networks structured in layers and not some other way?
+## Why are neural networks structured in layers and not some other way?
 
 This is one of the earliest questions that I figured out. The answer mostly boils down to three facts.
 
@@ -24,11 +24,11 @@ This is one of the earliest questions that I figured out. The answer mostly boil
 - Given this layerification of the brain, we can simply use an amount of layers equivalent to the diameter of the graph we wish to simulate (starting from the input). This guarantees that our network will be able to represent the full forward computation of the graph (e.g. the brain).
 - The reason for this "overcomputation", is that its simply very efficient to implement these dense neural layers in hardware through matrix multiplication. Computers generally don't like sparse structures.
 
-###### Why are biases used?
+## Why are biases used?
 
 This has a very simple, satisfying explanation that I actually rarely see. Consider a black vs white image classification problem (very contrived I know, but bear with me). Within this classification problem, we have a fully black image (pixel values 0), as each layer is simply a matrix multiply, the whole subsequent network is fully 0. Which means the right prediction can never be made. That's why there is need for biases.
 
-###### Why do we use activation functions? Why is ReLU better than sigmoid?
+## Why do we use activation functions? Why is ReLU better than sigmoid?
 
 Before that I want to quickly address a common misconception: activation functions are not used to somehow constrain the neuron. I saw this frequently as some kind motivation of sigmoid, clamping the value between -1 and 1. However, this explanation quickly breaks down when needing to explain why ReLU generally performs better than old-fashioned activation functions.
 
@@ -38,7 +38,7 @@ Instead, activation functions are necessary to prevent matrix collapse. Consider
 
 As for why ReLU is better, I haven't looked much into this but the main reason is that it doesn't suffer from vanishing gradients. Slightly related, it also allows the network to create sharper bounds by either scaling the activation quite high or near to zero.
 
-###### How does one determine the architecture of a network, is there an arcane formula beyond intuition or luck?
+## How does one determine the architecture of a network, is there an arcane formula beyond intuition or luck?
 
 The short version: no, but it doesn't really matter.
 
@@ -62,7 +62,7 @@ However, while there is a lot of discussion about what neural networks are learn
 
 Anyway, long story short, even highly regarded academics don't know the answer to this question, barring trivially simple, synthetic problems.
 
-###### Why does the network seem to learn structures that make sense?
+## Why does the network seem to learn structures that make sense?
 
 The first time I saw a result of this kind was in a lecture that showed a t-SNE plot of features throughout layers with the samples coloured by the ground truth class. In essence, the network separates the features of samples a bit further at each stage of the model. At the time, this was completely counter-intuitive to me, I expected complete chaos up until the last layer (a regime more akin to counting sort). Now, I realise that this behaviour is quite logical. Concretely, working backwards, the last hidden layer should be linearly separable for good classification. Then, inductively, the more separable the previous layer is, the more separable the next one is. In this framework, we can mostly ignore the ReLU as it is only affects half the features.
 

@@ -33,6 +33,8 @@ Overview dot tooltips use a consistent width and stay above their point, constra
 
 Personal styling belongs in the existing photos, writing and Clay + Teal details. Keep figures still and hover movements small. Do not add an animation library for decorative effects.
 
+The Zalgo in `/blog/bazinga` deliberately spills into the navigation. Keep article overflow visible; the apparent corruption is part of the joke.
+
 Keep the introduction conversational and curious; avoid forceful metaphors such as "pry it out."
 
 Keep Google Analytics and its deferred loading; Thomas uses it.

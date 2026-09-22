@@ -70,7 +70,7 @@ test('news titles remain fully readable on a phone', async ({ page }) => {
   expect(clipped).toEqual([])
 })
 
-test('photo tooltips and oversized article text do not widen a phone page', async ({ page }) => {
+test('photo tooltips do not widen a phone page', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 })
   await page.goto('/')
   await page.evaluate(() => document.fonts.ready)
@@ -87,26 +87,17 @@ test('photo tooltips and oversized article text do not widen a phone page', asyn
     expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(375)
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(375)
+})
 
+test('Zalgo can spill out of the article while navigation remains usable', async ({ page }) => {
   await page.goto('/blog/bazinga')
-  await page.evaluate(() => document.fonts.ready)
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(375)
-  const article = page.getByRole('region', { name: 'Bazinga emdash article' })
+  const article = page.locator('main .prose')
   await expect(article).toContainText('While many worry about AI stealing our jobs')
   await expect(article).toContainText(/[\u0300-\u036f]/)
-  // Firefox wraps the Unicode text; other engines include its overflowing ink
-  // in scrollWidth. A wide figure exercises keyboard scrolling in every engine.
-  await article.evaluate((element) => {
-    const figure = document.createElement('figure')
-    figure.style.width = '1000px'
-    figure.textContent = 'Wide research figure'
-    element.append(figure)
-  })
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(375)
-  await article.focus()
-  await expect(article).toHaveCSS('overflow-x', 'auto')
-  await page.keyboard.press('ArrowRight')
-  await expect.poll(() => article.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0)
+  await expect(article).toHaveCSS('overflow-x', 'visible')
+  await expect(article).toHaveCSS('overflow-y', 'visible')
+  await page.getByRole('link', { name: 'Back to home', exact: true }).click()
+  await expect(page).toHaveURL(/\/#blog$/)
 })
 
 test('pages expose their heading hierarchy and language names', async ({ page }) => {

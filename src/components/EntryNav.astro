@@ -28,7 +28,7 @@ const { prev, next, homeHref = '/' } = Astro.props
         <span class="text-base-content/65 flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase">
           <Icon
             name="fa6-solid:arrow-left"
-            class="text-xs transition-transform group-hover:-translate-x-0.5"
+            class="text-xs motion-safe:transition-transform motion-safe:group-hover:-translate-x-0.5"
           />
           Previous
         </span>
@@ -53,7 +53,7 @@ const { prev, next, homeHref = '/' } = Astro.props
           Next
           <Icon
             name="fa6-solid:arrow-right"
-            class="text-xs transition-transform group-hover:translate-x-0.5"
+            class="text-xs motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
           />
         </span>
         <span class="font-semibold">{next.title}</span>

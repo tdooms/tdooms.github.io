@@ -131,6 +131,10 @@
         if (signal.aborted) return
         if (meta.latent_id !== id)
           throw new Error(`Expected composite ${id}, received ${meta.latent_id}`)
+        if (meta.histogram.edges.length !== meta.histogram.counts.length + 1)
+          throw new Error(
+            `Histogram has ${meta.histogram.counts.length} counts but ${meta.histogram.edges.length} edges`,
+          )
         const points = dequantize(feather, meta, tokens, clusterMap)
         vocab = tokens
         CompositeView = view.default

@@ -30,6 +30,14 @@
 
   $effect(() => {
     const c = (chart = bindChart(node))
+    c.on('click', (params) => {
+      const p = params as CallbackDataParams
+      if (p.componentType !== 'series' || !Array.isArray(p.value) || p.value.length !== 8) return
+      const value = p.value as OverviewValue
+      const url = route.url
+      url.searchParams.set('composite', padId(value[3]))
+      goto(url)
+    })
     return () => {
       c.dispose()
       chart = null
@@ -150,15 +158,6 @@
           progressive: 1000,
         },
       ],
-    })
-    c.off('click')
-    c.on('click', (params) => {
-      const p = params as CallbackDataParams
-      if (p.componentType !== 'series' || !Array.isArray(p.value) || p.value.length !== 8) return
-      const value = p.value as OverviewValue
-      const url = route.url
-      url.searchParams.set('composite', padId(value[3]))
-      goto(url)
     })
   })
 </script>

@@ -5,8 +5,7 @@
 
   type Bin = [center: number, count: number]
 
-  // ``counts`` is N bins, ``edges`` is N+1 bin boundaries — the off-by-one is
-  // typed so callers don't slip.
+  // The loader checks that N counts have N+1 bin boundaries.
   let { counts, edges }: { counts: number[]; edges: number[] } = $props()
   let node: HTMLDivElement
   let chart = $state<ReturnType<typeof bindChart> | null>(null)
@@ -23,10 +22,6 @@
     const c = chart
     if (!c) return
     const t = $theme
-    if (edges.length !== counts.length + 1) {
-      throw new Error(`Histogram has ${counts.length} counts but ${edges.length} edges`)
-    }
-    // Adjacent edges exist for every count after the boundary check above.
     const bins: Bin[] = counts.map((count, i) => [(edges[i]! + edges[i + 1]!) / 2, count])
     // Largest |h| across the bins — normalises each bar onto the 3D scatter's
     // colour ramp (both signs share one scale, like the dot shader).

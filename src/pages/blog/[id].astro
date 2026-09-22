@@ -5,19 +5,14 @@ import EntryNav from '../../components/EntryNav.astro'
 import { formatFullDate } from '../../lib/format'
 
 export async function getStaticPaths() {
-  const blogs = await getCollection('blogs')
-  const local = blogs.filter((blog) => !blog.data.external)
-  const sorted = local.slice().sort((a, b) => b.data.date.localeCompare(a.data.date))
-  return local.map((blog) => {
-    const idx = sorted.findIndex((b) => b.id === blog.id)
-    const prev =
-      idx > 0 ? { href: `/blog/${sorted[idx - 1]!.id}`, title: sorted[idx - 1]!.data.title } : null
-    const next =
-      idx < sorted.length - 1
-        ? { href: `/blog/${sorted[idx + 1]!.id}`, title: sorted[idx + 1]!.data.title }
-        : null
-    return { params: { id: blog.id }, props: { blog, prev, next } }
-  })
+  const blogs = (await getCollection('blogs'))
+    .filter((blog) => !blog.data.external)
+    .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  const links = blogs.map(({ id, data }) => ({ href: `/blog/${id}`, title: data.title }))
+  return blogs.map((blog, i) => ({
+    params: { id: blog.id },
+    props: { blog, prev: links[i - 1] ?? null, next: links[i + 1] ?? null },
+  }))
 }
 
 const { blog, prev, next } = Astro.props

@@ -18,7 +18,6 @@ use([
 interface ChartHandle {
   set: (option: EChartsOption) => void
   on: (event: string, fn: (params: unknown) => void) => void
-  off: (event: string) => void
   dispose: () => void
 }
 
@@ -30,10 +29,9 @@ export function bindChart(node: HTMLElement): ChartHandle {
   const chart = init(node)
   const ro = new ResizeObserver(() => chart.resize())
   const motion = matchMedia('(prefers-reduced-motion: reduce)')
-  let animation = true
   const updateMotion = () =>
     chart.setOption({
-      animation: animation && !motion.matches,
+      animation: !motion.matches,
       tooltip: {
         // A tooltip should identify the current mark without drifting from the last one.
         transitionDuration: 0,
@@ -46,12 +44,8 @@ export function bindChart(node: HTMLElement): ChartHandle {
   return {
     // Each view keeps one series of the same type. Merge palette/data updates
     // so the overview's user-selected rank range survives a theme change.
-    set: (option) => {
-      if (option.animation !== undefined) animation = option.animation
-      chart.setOption({ ...option, animation: animation && !motion.matches })
-    },
+    set: (option) => chart.setOption(option),
     on: (event, fn) => chart.on(event, fn),
-    off: (event) => chart.off(event),
     dispose: () => {
       ro.disconnect()
       motion.removeEventListener('change', updateMotion)

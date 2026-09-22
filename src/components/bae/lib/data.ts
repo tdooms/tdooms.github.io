@@ -4,12 +4,11 @@
 // silently re-parsed as JSON.
 //
 // The caller supplies fetch so loading has an explicit network boundary.
-import { base } from './navigation.svelte'
 import { BASE, NAME } from './manifest'
 
 type Fetch = typeof globalThis.fetch
 
-const root = `${import.meta.env.VITE_DATA_URL ?? `${base}/data`}/${BASE}/${NAME}`
+const root = `${import.meta.env.VITE_DATA_URL}/${BASE}/${NAME}`
 
 export const dataUrl = (path: string): string => `${root}/${path}`
 

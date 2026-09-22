@@ -17,7 +17,7 @@
   // Top 32 eigenvalues by |λ|, sorted in signed-ascending order for a
   // symmetric bar chart. Labels mark the three bars matching the manifold's
   // X/Y/Z axes — but only when those axes are actually shown in the scene.
-  let spectrum = $derived(topSpectrum(meta.eigvals, 32, 3))
+  let spectrum = $derived(topSpectrum(meta.eigvals))
   let axisLabels = $derived(manifoldState.axesVisible ? spectrum.labels : [])
   let histogramOpen = $state(false)
   let spectrumOpen = $state(false)

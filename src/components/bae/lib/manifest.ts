@@ -31,9 +31,8 @@ export const BASE: string = manifest.base
 export const NAME: string = manifest.name
 
 // Human-readable labels for the navbar breadcrumb + page titles.
-export const BASE_DISPLAY: string = manifest.base_display ?? manifest.base
-export const NAME_DISPLAY: string =
-  manifest.name_display ?? manifest.name.replace(/^production\//, '')
+export const BASE_DISPLAY: string = manifest.base_display
+export const NAME_DISPLAY: string = manifest.name_display
 
 // Model facts for the model hover; AE knobs for the AE hover. See interfaces above.
 export const MODEL: ModelFacts = manifest.model

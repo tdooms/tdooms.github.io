@@ -1,11 +1,11 @@
 export const base = '/bae'
 
 // Query changes stay inside the Atlas island; other pages use native navigation.
-let search = $state(typeof window === 'undefined' ? '' : window.location.search)
+let search = $state(window.location.search)
 
 export const route = {
   get url(): URL {
-    const url = new URL(typeof window === 'undefined' ? 'http://localhost/' : window.location.href)
+    const url = new URL(window.location.href)
     url.search = search
     return url
   },
@@ -14,13 +14,11 @@ export const route = {
   },
 }
 
-if (typeof window !== 'undefined') {
-  const syncLocation = () => {
-    search = window.location.search
-  }
-  window.addEventListener('popstate', syncLocation)
-  window.addEventListener('pageshow', syncLocation)
+const syncLocation = () => {
+  search = window.location.search
 }
+window.addEventListener('popstate', syncLocation)
+window.addEventListener('pageshow', syncLocation)
 
 export function goto(
   target: string | URL,

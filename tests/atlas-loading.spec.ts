@@ -124,6 +124,32 @@ test('an incomplete vocabulary fails at loading and leaves the overview reachabl
   expect(errors).toEqual([])
 })
 
+test('a malformed histogram fails at loading and leaves the overview reachable', async ({
+  page,
+}) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await page.setViewportSize({ width: 375, height: 812 })
+  await page.route('**/latent_01627.json', (route) =>
+    route.fulfill({
+      headers: { 'access-control-allow-origin': '*' },
+      json: {
+        latent_id: 1627,
+        eigvals: [-1, 0.5, 2],
+        origin: [0, 0, 0],
+        histogram: { counts: [1, 2], edges: [-1, 1] },
+        neighbours: [],
+      },
+    }),
+  )
+  await page.goto('/bae/?composite=1627')
+  await expect(page.getByRole('alert')).toContainText('Histogram has 2 counts but 2 edges')
+  await expect(page.locator('canvas[aria-label*="3D scatter"]')).toHaveCount(0)
+  await page.getByRole('link', { name: 'Atlas overview', exact: true }).click()
+  await expect(page.getByRole('img', { name: /^UMAP overview/ })).toBeVisible()
+  expect(errors).toEqual([])
+})
+
 test('changing the selected view cancels its unfinished data request', async ({ page }) => {
   let release!: () => void
   const held = new Promise<void>((resolve) => {

@@ -22,9 +22,7 @@
   $effect(() => {
     if (reducedMotion.current) manifoldState.autoRotate = false
   })
-  // ``labels`` covers every composite (alive + dead) — see ``dashboard.describe``.
-  // Looking up via ``picks`` (top-20 only) was the bug that surfaced ``[placeholder]``
-  // for everything outside the curated picks.
+  // Neighbours use the complete label index, not only the overview's curated picks.
   let labels = $derived(data.curated.labels)
   let neighbours = $derived(
     meta.neighbours.map(([id, cos]) => ({ id, label: labels[id] ?? String(id), value: cos })),
@@ -37,7 +35,7 @@
   const simTex = String.raw`\frac{\|U_i^\top U_j\|_F^2}{\sqrt{r_i \, r_j}}`
 
   // ``manifoldState`` is shared (module singleton in ``$lib/manifoldState``).
-  // Cluster mode also requires a ``cluster.json`` to exist for this composite;
+  // Cluster mode also requires annotations for this composite;
   // we mask the toggle when it doesn't.
   let clusterToggleEffective = $derived(manifoldState.clusterMode && !!points.clusters)
 
@@ -55,7 +53,7 @@
 </script>
 
 <svelte:head>
-  <title>bae · {NAME_DISPLAY} · {labels[meta.latent_id] ?? meta.latent_id}</title>
+  <title>Atlas · {NAME_DISPLAY} · {labels[meta.latent_id] ?? meta.latent_id}</title>
 </svelte:head>
 
 {#snippet simTip()}
@@ -210,7 +208,7 @@
             <polyline points="21 4 21 10 15 10" />
           </svg>
         </button>
-        <!-- Cluster mode: show only when ``cluster.json`` exists for this composite
+        <!-- Cluster mode: show only when annotations exist for this composite
            (produced by ``uv run cluster <id>``). Toggles cluster-coloured
            rendering with floating centroid labels in place. -->
         {#if points.clusters}

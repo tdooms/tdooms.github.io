@@ -142,7 +142,14 @@
   </nav>
 
   {#if data?.meta}
-    <div class="hidden xl:block"><CompositeStats {data} compact /></div>
+    <div class="hidden xl:block">
+      <CompositeStats
+        composite={data.composite}
+        eigvals={data.meta.eigvals}
+        totalComposites={data.index.composites.length}
+        compact
+      />
+    </div>
   {/if}
 
   <!-- At md and above, this group aligns with the 20rem results sidebar. -->

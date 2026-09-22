@@ -5,7 +5,7 @@ test.describe('site behavior regressions', () => {
     await page.goto('/')
     await page.locator('a[href^="/research/"]').first().click()
     await page.waitForURL('**/research/**')
-    // Layout back-link is the fixed house icon at top-left, not text.
+    // The home link is the house icon in the site navigation.
     await page.locator('a[aria-label="Home"]').click()
     await page.waitForURL((u) => u.pathname === '/')
     await expect(page.locator('h1', { hasText: 'Thomas Dooms' })).toBeVisible()
@@ -57,8 +57,8 @@ test.describe('site behavior regressions', () => {
   })
 
   test('images on the site actually load (src resolves)', async ({ page }) => {
-    // Hit a page known to ship raster images (the home profile card + paper
-    // thumbnails). Walk every <img>, scroll into view, await load.
+    // Hit a page known to ship raster images (the home profile card and
+    // blog thumbnails). Walk every <img>, scroll into view, await load.
     await page.goto('/')
     await page.waitForLoadState('networkidle')
 

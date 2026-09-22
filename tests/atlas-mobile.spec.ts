@@ -80,8 +80,14 @@ test('phone composite details and neighbours remain accessible by keyboard and t
   await expect(detailsButton).toHaveAttribute('aria-pressed', 'true')
   const details = page.getByRole('complementary', { name: 'Composite details' })
   await expect(details.getByRole('heading', { name: 'Alpha contexts' })).toBeVisible()
-  for (const label of ['density', 'rank', 'support', 'importance', 'captured']) {
-    await expect(details.getByRole('button', { name: new RegExp(`^${label}\\b`) })).toBeVisible()
+  for (const name of [
+    'density 0.10',
+    'rank 2.00',
+    'support 3',
+    'importance 1.40×',
+    'captured 100%',
+  ]) {
+    await expect(details.getByRole('button', { name, exact: true })).toBeVisible()
   }
   for (const name of [/firing distribution/i, /eigenvalue spectrum/i, /top activations/i]) {
     const heading = details.getByRole('heading', { name })
@@ -97,7 +103,7 @@ test('phone composite details and neighbours remain accessible by keyboard and t
   await expect(beta).toBeInViewport()
   await beta.tap()
   await expect(page).toHaveURL(/composite=01628$/)
-  await expect(page).toHaveTitle(/Beta contexts/)
+  await expect(page).toHaveTitle(/^Atlas · .* · Beta contexts$/)
 
   await page.setViewportSize({ width: 1440, height: 900 })
   await expect(details.getByRole('heading', { name: 'Beta contexts' })).toBeVisible()

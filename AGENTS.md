@@ -8,7 +8,7 @@ Keep project guidance in this file. Do not commit review logs, local agent setti
 
 - Use normal links between static pages. Hover prefetch remains enabled; no client-side page router is needed.
 - Atlas owns `/bae/`. Its small navigation module stores `?composite=` and `?q=` in browser history. Composite links must work when copied or opened in another tab. Back/Forward must preserve the current search and selected view.
-- `Explorer.svelte` owns fetching and error states. It cancels requests for an abandoned view and passes typed data to components. Composite code and vocabulary load on first selection. Only HTTP 404 means an optional cluster annotation is absent.
+- `Explorer.svelte` owns fetching and error states. It resolves the selected index row once and passes it with the loaded composite data; display components do not repeat that lookup or validate decoded buffers. It cancels requests for an abandoned view. Composite code and vocabulary load on first selection. Only HTTP 404 means an optional cluster annotation is absent.
 - The Atlas HTML preloads the three shared index files through the same URL builder as Explorer, and supplies a loading fallback before hydration. KaTeX loads with the first equation; share its in-flight promise across instances so WebKit does not duplicate the download.
 - Arrow decoding and coordinate conversion live in `bae/lib/arrow.ts` and `manifold.ts`. Validate the transport boundary; never fill missing scientific data with zeros.
 - Validate every context token against the vocabulary before exposing a composite. Renderers consume the verified data; they must not discover missing tokens after the loading error boundary.
@@ -40,7 +40,7 @@ Keep the introduction conversational and curious; avoid forceful metaphors such 
 Keep Google Analytics and its deferred loading; Thomas uses it.
 
 - Blogs: `src/content/blogs/*.mdx`; an initial underscore excludes drafts. Slugs are single words.
-- Papers: `src/content/papers/<id>/metadata.toml` plus `content.mdx`. Paper bodies start at h2; the page supplies h1.
+- Papers: `src/content/papers/<id>/metadata.toml` plus `content.mdx`. Derive local page URLs from the ID; paper cards show text only. Paper bodies start at h2; the page supplies h1.
 - Titles and headings use sentence case. Paper `shortTitle` uses title case for cards and page headings. Descriptions are one sentence ending in a period, 80–91 characters.
 - Preserve published BibTeX and author forms. Use one display name per author; BibTeX may differ.
 - News lives in TOML. `**bold**` emphasizes the named thing announced, not the verb. Titles have no trailing period.

@@ -100,7 +100,8 @@
     compositeData = null
     compositeError = null
     const id = Number(cid)
-    if (!/^\d+$/.test(cid) || !Number.isSafeInteger(id) || !ld.index.byId.has(id)) {
+    const composite = ld.index.byId.get(id)
+    if (!/^\d+$/.test(cid) || !Number.isSafeInteger(id) || !composite) {
       compositeError = 'Unknown composite ID'
       return
     }
@@ -134,7 +135,7 @@
         vocab = tokens
         CompositeView = view.default
         compositeData = {
-          id: padded,
+          composite,
           meta,
           points,
         }

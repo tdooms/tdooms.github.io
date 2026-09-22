@@ -15,9 +15,7 @@ interface Props {
 
 const { icon, title, start, end, text, grade, subject, advisor } = Astro.props
 
-const dateRange = end
-  ? `${formatMonthYear(start)} — ${formatMonthYear(end)}`
-  : `${formatMonthYear(start)} — TBD`
+const dateRange = `${formatMonthYear(start)} — ${end ? formatMonthYear(end) : 'Present'}`
 ---
 
 <div class="bg-base-100 ring-base-300/60 mb-3 rounded-xl p-5 shadow-sm ring-1">

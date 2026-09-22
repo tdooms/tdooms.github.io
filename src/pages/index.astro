@@ -194,7 +194,7 @@ const contactLinks = [
       Papers<span class="text-primary">.</span>
     </h2>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {papers.map((paper) => <PaperCompact {...paper.data} />)}
+      {papers.map((paper) => <PaperCompact {...paper.data} link={`/research/${paper.id}`} />)}
     </div>
   </section>
 

@@ -149,20 +149,6 @@ export class ManifoldScene {
   private readonly cb: ManifoldCallbacks
 
   constructor(canvas: HTMLCanvasElement, points: PointsData, cb: ManifoldCallbacks) {
-    if (
-      !Number.isInteger(points.n) ||
-      points.n <= 0 ||
-      points.xyz.length !== 3 * points.n ||
-      points.activation.length !== points.n ||
-      !Number.isInteger(points.contextLength) ||
-      points.contextLength <= 0 ||
-      points.context.length !== points.n * points.contextLength ||
-      (points.clusters && points.clusters.assignment.length !== points.n)
-    ) {
-      throw new Error(
-        'Manifold point, activation, context, and cluster buffers must cover the same rows',
-      )
-    }
     this.canvas = canvas
     this.points = points
     this.cb = cb

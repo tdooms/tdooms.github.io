@@ -1,10 +1,20 @@
 <script lang="ts">
   import { compositeStats, captured } from '$lib/stats'
-  import type { AtlasData } from '$lib/types'
+  import type { Composite } from '$lib/types'
   import HoverCard from './HoverCard.svelte'
   import StatTip from './StatTip.svelte'
 
-  let { data, compact = false }: { data: AtlasData; compact?: boolean } = $props()
+  let {
+    composite,
+    eigvals,
+    totalComposites,
+    compact = false,
+  }: {
+    composite: Composite
+    eigvals: number[]
+    totalComposites: number
+    compact?: boolean
+  } = $props()
 
   interface StatRow {
     label: string
@@ -15,11 +25,7 @@
 
   // One presentation of the same five measurements in the header and Details.
   let rows = $derived.by<StatRow[]>(() => {
-    if (!data.meta) return []
-    const { meta, index } = data
-    const composite = index.byId.get(meta.latent_id)
-    if (!composite) throw new Error(`Missing composite ${meta.latent_id} in index`)
-    const s = compositeStats(composite, index.composites.length)
+    const s = compositeStats(composite, totalComposites)
     return [
       {
         label: 'density',
@@ -51,7 +57,7 @@
       },
       {
         label: 'captured',
-        value: captured(meta.eigvals),
+        value: captured(eigvals),
         tex: '\\frac{|\\lambda_1| + |\\lambda_2| + |\\lambda_3|}{\\sum_i |\\lambda_i|}',
         blurb:
           'How much of the composite is captured by the three eigenvectors shown in the 3D scatter. A high value means those three directions explain most of the composite; a low value means the rest of the spectrum still carries real weight.',

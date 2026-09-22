@@ -1,53 +1,21 @@
 ---
-import { Image } from 'astro:assets'
-
 interface Props {
   title: string
   shortTitle?: string | undefined
   description: string
   conference: string
   link: string
-  external?: boolean | undefined
-  image?: ImageMetadata | undefined
   labels?: string[] | undefined
 }
 
-const {
-  title,
-  shortTitle,
-  description,
-  conference,
-  link,
-  external = false,
-  image,
-  labels = [],
-} = Astro.props
+const { title, shortTitle, description, conference, link, labels = [] } = Astro.props
 ---
 
 <a
   href={link}
-  target={external ? '_blank' : undefined}
-  rel={external ? 'noopener noreferrer' : undefined}
   class="publication-card card card-border bg-base-100 border-base-300/60 h-full overflow-hidden shadow-sm"
 >
   <div class="bg-primary/40 h-1"></div>
-  {
-    image && (
-      <figure class="bg-base-200 relative aspect-[5/3] overflow-hidden">
-        {/* Sized to the card (≈350px wide, 2× for retina) — see Blog.astro;
-            unsized `layout="none"` ships the original asset at full weight. */}
-        <Image
-          src={image}
-          alt={title}
-          layout="none"
-          width={700}
-          height={420}
-          quality={60}
-          class="absolute inset-0 h-full w-full object-cover"
-        />
-      </figure>
-    )
-  }
   <div class="card-body flex-1 gap-2 p-4">
     <div
       class="text-base-content/70 flex items-center gap-2 text-xs font-semibold tracking-wider uppercase"

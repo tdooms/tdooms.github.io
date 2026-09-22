@@ -7,19 +7,17 @@ import Cite from '../../components/Cite.astro'
 import EntryNav from '../../components/EntryNav.astro'
 
 export async function getStaticPaths() {
-  const papers = await getCollection('papers')
-  const sorted = papers.slice().sort((a, b) => b.data.date.localeCompare(a.data.date))
-  const titleOf = (p: (typeof sorted)[number]) => p.data.shortTitle ?? p.data.title
-  return papers.map((paper) => {
-    const idx = sorted.findIndex((p) => p.id === paper.id)
-    const prev =
-      idx > 0 ? { href: sorted[idx - 1]!.data.link, title: titleOf(sorted[idx - 1]!) } : null
-    const next =
-      idx < sorted.length - 1
-        ? { href: sorted[idx + 1]!.data.link, title: titleOf(sorted[idx + 1]!) }
-        : null
-    return { params: { id: paper.id }, props: { paper, prev, next } }
-  })
+  const papers = (await getCollection('papers')).sort((a, b) =>
+    b.data.date.localeCompare(a.data.date),
+  )
+  const links = papers.map(({ id, data }) => ({
+    href: `/research/${id}`,
+    title: data.shortTitle ?? data.title,
+  }))
+  return papers.map((paper, i) => ({
+    params: { id: paper.id },
+    props: { paper, prev: links[i - 1] ?? null, next: links[i + 1] ?? null },
+  }))
 }
 
 const { paper, prev, next } = Astro.props

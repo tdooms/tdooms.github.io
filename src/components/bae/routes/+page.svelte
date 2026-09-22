@@ -23,9 +23,8 @@
   })
 
   // Search query lives in the URL (?q=…), set by the navbar input. Empty → the
-  // top-20 clustered latents by importance (those with a ``cluster.json`` —
-  // deep autointerp work). Any text → live substring filter, capped at 200 so
-  // the DOM stays small.
+  // top-20 latents with cluster annotations by importance. Any text → live
+  // substring filter, capped at 200 so the DOM stays small.
   let query = $derived(route.url.searchParams.get('q') ?? '')
   const wide = new MediaQuery('(min-width: 768px)')
   let panel = $state('overview-plot')
@@ -60,13 +59,13 @@
   )
 </script>
 
-<svelte:head><title>bae · {NAME_DISPLAY} · overview</title></svelte:head>
+<svelte:head><title>Atlas · {NAME_DISPLAY} · overview</title></svelte:head>
 
 {#snippet densityTip()}
   <StatTip label="density" value="Hoyer">
     Hoyer density of the firing values. 0 means a highly selective latent that fires on a sparse
-    subset of tokens; 1 means it fires fairly uniformly. Picks are filtered to those with a
-    ``cluster.json`` (deep autointerp work).
+    subset of tokens; 1 means it fires fairly uniformly. Curated picks have cluster annotations
+    describing groups of token contexts.
   </StatTip>
 {/snippet}
 

@@ -20,10 +20,6 @@
     autoRotate?: boolean
   } = $props()
 
-  // Cluster mode in the scene only when the data carries clusters; the parent
-  // pre-checks the toggle, so this is a defence-in-depth re-check.
-  let inClusterMode = $derived(clusterMode && !!points.clusters)
-
   let canvas = $state<HTMLCanvasElement>()
   let scene = $state<ManifoldScene>()
   let hover = $state<Hover | null>(null)
@@ -57,7 +53,7 @@
   // Each effect runs only when its specific prop flips. ``scene?.`` no-ops
   // until the lifecycle effect installs it.
   $effect(() => scene?.setAxesVisible(axesVisible))
-  $effect(() => scene?.setClusterMode(inClusterMode))
+  $effect(() => scene?.setClusterMode(clusterMode))
   $effect(() => scene?.setAutoRotate(autoRotate))
   $effect(() => scene?.setActive(active))
 </script>
@@ -79,7 +75,7 @@
     E move down and up. Press Tab to leave the plot. Details contains statistics and a selection of
     token contexts.
   </p>
-  {#if inClusterMode && points.clusters}
+  {#if clusterMode && points.clusters}
     {#each points.clusters.centroids as c, i (c.id)}
       {#if labels[i]?.visible}
         <div

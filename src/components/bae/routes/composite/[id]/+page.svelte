@@ -10,8 +10,8 @@
   let { data }: { data: AtlasIndex & AtlasComposite } = $props()
   let meta = $derived(data.meta)
   let points = $derived(data.points)
-  // Curated description for the active latent, looked up by URL param. Missing
-  // entries fall back to ``null`` so the heading shows "no description".
+  // Curated description for the loaded composite. Missing entries show
+  // "no description" in the heading.
   let label = $derived<string | null>(data.curated.labels[meta.latent_id] ?? null)
 
   // Top 32 eigenvalues by |λ|, sorted in signed-ascending order for a
@@ -37,7 +37,13 @@
   </h2>
 </header>
 
-<div class="xl:hidden"><CompositeStats {data} /></div>
+<div class="xl:hidden">
+  <CompositeStats
+    composite={data.composite}
+    eigvals={meta.eigvals}
+    totalComposites={data.index.composites.length}
+  />
+</div>
 
 <section class="flex flex-col gap-2">
   <h3 class="text-base-content/65 text-[11px] tracking-wider uppercase">firing distribution</h3>

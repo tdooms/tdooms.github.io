@@ -1,18 +1,24 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('research pages', () => {
-  test('paper cards on home link to reachable paper pages', async ({ page, browserName }) => {
-    // Pure HTTP checks via page.request — engine-independent, one pass suffices.
-    test.skip(browserName !== 'chromium', 'HTTP-only test, engine-independent')
+  test('paper cards and navigation follow publication order', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'Static link destinations are engine-independent')
     await page.goto('/')
 
-    const links = await page.locator('a[href^="/research/"]').all()
-    expect(links.length).toBeGreaterThan(0)
+    const links = await page
+      .locator('a.publication-card[href^="/research/"]')
+      .evaluateAll((cards) => cards.map((card) => card.getAttribute('href')!))
+    expect(links.length).toBeGreaterThan(1)
 
-    for (const link of links) {
-      const href = await link.getAttribute('href')
-      const response = await page.request.get(href!)
-      expect(response.ok(), `${href} returned ${response.status()}`).toBeTruthy()
+    for (const [i, href] of links.entries()) {
+      const response = await page.goto(href)
+      expect(response!.ok(), href).toBeTruthy()
+      const previous = page.getByRole('link', { name: /^Previous/ })
+      const next = page.getByRole('link', { name: /^Next/ })
+      if (i > 0) await expect(previous).toHaveAttribute('href', links[i - 1]!)
+      else await expect(previous).toHaveCount(0)
+      if (i < links.length - 1) await expect(next).toHaveAttribute('href', links[i + 1]!)
+      else await expect(next).toHaveCount(0)
     }
   })
 

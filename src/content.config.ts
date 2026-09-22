@@ -10,30 +10,23 @@ const papers = defineCollection({
     base: './src/content/papers',
     generateId: paperIdFromEntry,
   }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      shortTitle: z.string().optional(),
-      date: z.string(),
-      conference: z.string(),
-      labels: z.array(z.string()).optional(),
-      description: z.string(),
-      link: z.string(),
-      // Opens the card's `link` in a new tab — for a paper hosted elsewhere
-      // with no local page. Mirrors `blogs.external`; no paper uses it yet.
-      external: z.boolean().optional(),
-      authors: z.array(z.string()),
-      code: z.string().optional(),
-      demo: z.string().optional(),
-      video: z.string().optional(),
-      slides: z.string().optional(),
-      paper: z.string().optional(),
-      models: z.string().optional(),
-      news: z.string().optional(),
-      bibtex: z.string().optional(),
-      // Optional thumbnail shown on the compact card on the home page.
-      image: image().optional(),
-    }),
+  schema: z.object({
+    title: z.string(),
+    shortTitle: z.string().optional(),
+    date: z.string(),
+    conference: z.string(),
+    labels: z.array(z.string()).optional(),
+    description: z.string(),
+    authors: z.array(z.string()),
+    code: z.string().optional(),
+    demo: z.string().optional(),
+    video: z.string().optional(),
+    slides: z.string().optional(),
+    paper: z.string().optional(),
+    models: z.string().optional(),
+    news: z.string().optional(),
+    bibtex: z.string().optional(),
+  }),
 })
 
 const papersContent = defineCollection({
@@ -52,7 +45,6 @@ const blogs = defineCollection({
       title: z.string(),
       date: z.string(),
       description: z.string().optional(),
-      // Optional now that Blog cards are text-only; kept for forward compatibility.
       image: image().optional(),
       // When set, the blog card links out to this URL and no local page is generated.
       external: z.url().optional(),

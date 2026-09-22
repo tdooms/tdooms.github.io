@@ -1,15 +1,15 @@
 // Cross-module data shapes. Single home for "what flows through the app".
 //
 // PointsData ─ rendered by Manifold.svelte; produced by manifold.ts:dequantize
-// Composite  ─ one row of the global index; the per-composite metadata
-// Meta       ─ per-composite JSON loaded for the /composite/<id> route
+// Composite  ─ one row of the global index
+// Meta       ─ JSON metadata for the selected composite
 // Theme      ─ resolved daisyUI/Tailwind colour tokens
 
 export interface Composite {
   id: number
   density: number // Hoyer density of firing values, [0, 1]
   rank: number // effective rank of B = (Σ|λ|)² / Σλ²
-  importance: number // Σλ², normalised so the population mean is 1
+  importance: number // Σλ², normalised so the population sum is 1
   support: number // count of encoder latents the composite reads from
   umap: [number, number] // 2D UMAP of the top-20 |λ| fingerprint
 }
@@ -69,9 +69,10 @@ export interface AtlasIndex {
 }
 
 export interface AtlasComposite {
-  id: string
+  composite: Composite
   meta: Meta
   points: PointsData
 }
 
-export type AtlasData = AtlasIndex & Partial<AtlasComposite>
+export type AtlasData = AtlasIndex &
+  (AtlasComposite | { composite?: never; meta?: never; points?: never })

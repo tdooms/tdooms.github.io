@@ -4,7 +4,6 @@ date = "2026-05-28"
 conference = "NeurIPS'25"
 labels = ["workshop", "spotlight"]
 description = "An autoencoder architecture that decomposes activations into polynomial manifolds."
-link = "/research/bae"
 authors = ["Thomas Dooms*", "Ward Gauderis*", "Geraint A. Wiggins", "Jose Oramas"]
 
 paper = "https://arxiv.org/abs/2605.08891"

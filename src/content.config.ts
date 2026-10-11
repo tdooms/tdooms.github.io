@@ -45,7 +45,7 @@ const blogs = defineCollection({
       title: z.string(),
       date: z.string(),
       description: z.string().optional(),
-      image: image().optional(),
+      image: image(),
       // When set, the blog card links out to this URL and no local page is generated.
       external: z.url().optional(),
     }),

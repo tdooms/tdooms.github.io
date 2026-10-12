@@ -129,6 +129,14 @@
   }
 }
 
+/* Set briefly by the theme toggle so every colour changes at once. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
 /* Nothing moves on arrival. Fine-pointer hovers add a small response;
    keyboard focus and reduced motion keep the same static, visible cues. */
 @media (prefers-reduced-motion: no-preference) {

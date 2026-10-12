@@ -88,7 +88,17 @@ const ogImage = new URL(profileImg.src, Astro.site).toString()
           }
         }
         const set = (dark) => {
-          document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+          const root = document.documentElement
+          const theme = dark ? 'dark' : 'light'
+          // Colour transitions would make some text fade while the rest
+          // flips; switch everything in the same frame instead.
+          if (root.dataset.theme !== theme) {
+            root.classList.add('theme-switching')
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => root.classList.remove('theme-switching')),
+            )
+          }
+          root.dataset.theme = theme
           // Browser-chrome tint follows the page surface (base-100 per theme).
           const meta = document.querySelector('meta[name="theme-color"]')
           if (meta) meta.content = dark ? '#1d232a' : '#ffffff'

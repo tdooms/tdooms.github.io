@@ -88,7 +88,8 @@ const contactLinks = [
               target={external ? '_blank' : undefined}
               rel={external ? 'noopener noreferrer' : undefined}
             >
-              <Icon name={icon} />
+              {/* Same box for every glyph, so icons and labels line up per column. */}
+              <Icon name={icon} class="w-[1em] shrink-0" />
               <span>{label}</span>
             </a>
           ))

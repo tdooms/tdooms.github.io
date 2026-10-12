@@ -18,7 +18,7 @@ const { icon, title, start, end, text, grade, subject, advisor } = Astro.props
 const dateRange = `${formatMonthYear(start)} — ${end ? formatMonthYear(end) : 'Present'}`
 ---
 
-<div class="bg-base-100 ring-base-300/60 mb-3 rounded-xl p-5 shadow-sm ring-1">
+<div class="bg-base-100 ring-base-300/60 flex-1 rounded-xl p-5 shadow-sm ring-1">
   <div class="flex items-start gap-4">
     <figure class="h-10 w-10 shrink-0">
       <Image
